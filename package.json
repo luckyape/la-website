@@ -4,7 +4,8 @@
   "description": "LA Website",
   "version": "1.0.0",
   "engines": {
-    "node": "6.9.2"
+    "node": "6.9.2",
+    "npm":  "5.5.1"
   },
   "devDependencies": {
     "apache-server-configs": "^2.14.0",
