@@ -1,0 +1,177 @@
+* {
+  box-sizing: border-box;
+}
+
+.toggle-filter {
+  display: none;
+  font-size: 12px;
+  i {
+    font-size: 15px;
+  }
+}
+
+.question-mark {
+  line-height: 27px;
+  font-size: 12px;
+  width: 24px;
+  height: 24px;
+}
+
+.store-tap-target {
+  position: fixed;
+  right: 5px;
+  bottom: 5px;
+  z-index: 1000;
+}
+
+.tap-target .tap-target-content {
+  text-align: right;
+  p {
+    margin: 4px;
+  }
+}
+
+.tap-target-row {
+  height: 0;
+  margin: 0;
+}
+
+
+/* inherit height from window */
+
+.products.chips {
+  min-height: 82px;
+}
+
+
+.product-cards {
+  .card-title {
+    i.material-icons.right {
+      margin-left: 0px
+    }
+  }
+
+  .card-action i.material-icons {
+    font-size: 1.1em;
+    vertical-align: text-top;
+    font-weight: 600;
+  }
+
+  .card-chips {
+    display: none;
+  }
+}
+
+.grid-item {
+  float: left;
+  margin: 1%;
+}
+
+.gutter-sizer {
+  width: 2%;
+}
+
+.grid-sizer,
+.grid-item {
+  min-width: none;
+  max-width: none;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  width: 48%;
+  .card {
+    margin-bottom: 0px;
+  }
+}
+.card .card-content {
+  i {
+    margin-right: -10px;
+  }
+  .card-title {
+    font-family: "Roboto",sans-serif;
+  }
+}
+
+.carousel { height: 100%; }
+
+.carousel-cell { height: 100% }
+
+/* move page dots into carousel */
+.flickity-page-dots { bottom: 10px; }
+
+
+
+@media #{$small-and-down} {
+.grid-sizer,
+.grid-item {
+   width: 100%;
+}  
+  .card {
+    width: 66%;
+    margin-right: 0px;
+    border-radius: 5px;
+    counter-increment: inherit;
+    .card-action {
+      padding: 9px 12px;
+      p {
+        margin-bottom: 0;
+      }
+    }
+    .card-content {
+      padding: 9px 12px;
+      .card-title {
+        font-size: 14px;
+        line-height: 18px;
+      }
+      i.material-icons {
+        font-size: 18px;
+        margin-top: 7px;
+      }
+    }
+  }
+  .products-filter {
+    height: 0;
+    min-height: 0px;
+    transform: scale(0, 0);
+    transform-origin: 60% -30px;
+    transition: all 300ms ease-in;
+    margin-bottom: 15px;
+
+    &.filter-on {
+      min-height: 250px;
+      transform-origin: 0px 0px;
+      transform: scale(1, 1);
+    }    
+  }
+  .toggle-filter {
+    .hide-filter {
+      display:none;
+    }
+    &.filter-on {
+      .hide-filter {
+        display:inline;
+      }
+      .show-filter {
+        display:none;
+      }
+    }
+  }
+}
+
+
+
+
+/* ---- grid ---- */
+
+@media #{$large-and-up} {
+  .gutter-sizer {
+    width: 2%;
+  }
+
+  .grid-sizer,
+  .grid-item {
+    width: 31%;
+    .card {
+      margin-bottom: 0px;
+    }
+  }
+}

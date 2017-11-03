@@ -1,0 +1,166 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+
+.h1-banner {
+  background-color: #fff;
+  h1 {
+      font-family: Roboto;
+      font-size: 2.0em;
+      margin: 1.1rem 0 1rem;
+      font-weight: 100;
+  }
+  
+  h5 {
+      font-family: Roboto;
+      text-transform: lowercase;
+      font-size: 1.4rem;
+      margin: 0 0 6vw;
+  }
+  
+  .cta-button {
+    margin: 17vw 0;
+  }
+
+  &::before {
+    opacity: 0;
+    filter: blur(24px);
+    content: '';
+    max-height: 430px;   
+    height: 98%;  
+    width: 100%;
+    position: absolute;
+    top: 0;
+    background-image: url('/images/skeletons.jpg');
+    background-attachment: scroll;
+    background-repeat: repeat-x;
+    background-position: bottom;      
+  }
+  &.bgFadeIn::before {
+    transition: all 1000ms ease-in-out;
+    opacity: 1;
+    filter:blur(0px);
+    background-size: 360px auto;
+  }
+
+}
+/* https://www.html5andbeyond.com/css3-animated-backgrounds-infinite-scrolling-background/ */
+.bgFadeIn.horizontal-scroll::before {
+	-webkit-animation: backgroundScroll 10s cubic-bezier(.52,.13,.48,.98)  1;
+	animation: backgroundScroll 10s cubic-bezier(.52,.13,.48,.98)  1 ;
+}
+
+@-webkit-keyframes backgroundScroll {
+	0% {background-position: -100% bottom;}
+	50% {background-position: 100% bottom;}
+	100% {background-position: 0% bottom;}
+}
+        
+@keyframes backgroundScroll {
+	0% {background-position: -100% bottom;}
+	50% {background-position: 100% bottom;}
+	100% {background-position: 50% bottom;}	
+}
+
+
+@media only screen and (min-device-width: 320px) and (orientation : portrait){
+/* Styles */
+	.h1-banner {
+		background-size: 100% auto;	
+		h1 {
+	    font-size: 2.4em;
+		} 
+
+ 		.cta-button {
+    	margin: 17vw 0 8vw;		
+		}
+	}
+}
+
+@media only screen and (min-device-width: 320px) and (orientation : landscape) {
+/* Styles */
+	.h1-banner {
+    &::before {
+		  background-size: 5% auto;
+    }
+    &.bgFadeIn::before {
+
+      background-size: 50% auto;
+    }    
+		.cta-button {
+			margin: 1vw 0 5vw;
+  	 }
+	}
+
+}
+
+@media only screen and (min-device-width: 569px) and (orientation : landscape) {
+/* Styles */
+	.h1-banner {
+		h1 {
+	    	font-size: 2.6em;
+		}
+		h5 {
+			margin: 0 0 2vw;
+		}
+		.cta-button {
+			    margin: 5vw 0 7vw;
+  		}
+	}
+
+}
+
+@media only screen and (min-device-width: 414px) and (orientation : portrait){
+/* Styles */
+	.h1-banner {
+		h1 {
+	    	font-size: 2.8em;
+		}
+		h5 {
+			font-size: 1.6em;
+		}
+		background-size: 75% auto;				 
+ 		.cta-button {
+    		margin: 17vw 0 8vw;		
+		}
+	}
+}
+@media only screen and (min-device-width: 768px)  {
+  .h1-banner {
+    &::before { 
+      height: 425px;
+      background-size: 55px auto;
+      max-height: none;
+    }
+    &.bgFadeIn::before {
+      transition: all 1000ms ease-in-out;
+      opacity: 1;
+      filter:blur(0px);
+      background-size: 405px auto;
+    }
+  }
+
+	.horizontal-scroll {
+	   -webkit-animation: backgroundScroll 20s cubic-bezier(.52,.13,.48,.98)  infinite;
+		animation: backgroundScroll 20s cubic-bezier(.52,.13,.48,.98)  infinite;
+	}
+	.h1-banner {
+
+  	background-size: auto 280px;
+  	h1 {
+		  font-size: 3em;
+  	}
+  	h5 {
+  		font-size: 1.7rem;
+  	}
+  	.cta-button {
+		   margin: 30px 0 70px;	
+		}
+	}
+}
+

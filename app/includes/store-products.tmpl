@@ -1,0 +1,42 @@
+<% 
+	_.forEach(rss['channel'][0].item, function(item){   
+		%>
+    <div class="grid-item <%- item['media:keywords'][0].split(',').join(' ') %>">
+      <div class="card sticky-action">
+        <div class="card-content"><i class="material-icons right">more_vert</i>
+          <h6 class="card-title activator grey-text text-darken-4"><%- item.title %></h6>
+        </div>
+        <div class="card-image">
+          <img class="activator" src="<%- item['media:content'][0].$.url %>">
+        </div>
+        <div class="card-reveal">
+          <span class="card-title grey-text text-darken-4"><%- item.title %><i class="material-icons right">close</i></span>
+          <p><%- item['media:description'] %></p>
+        
+        </div>
+        <div class="card-action">
+          <ul id="card-chips" class="card-chips">
+
+          <% 
+            _.forEach(item['media:keywords'][0].split(', '), function(tag){   
+          %><li>
+              <div class="chip">
+               <%- tag %>
+              </div>
+            </li>
+          <%  
+            }) ;
+          %>
+        </ul>
+          <p>
+            <a href="<%- item['link'] %>">Show It To Me! Zazzle.com<i class="material-icons">launch</i></a>
+          </p>
+        </div>
+      </div>
+      
+    </div>
+    <%  
+  }) ;
+
+
+%>

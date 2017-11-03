@@ -1,0 +1,28 @@
+.social-link {
+  visibility:collapse;
+  width: 50px;
+  display: block;
+}
+.socicon-la {
+  visibility: visible; 
+  font-family: 'Socicon';
+  font-size: 24px;
+  opacity: .5;
+  speak: none;
+  -webkit-font-smoothing: antialiased; 
+  &:hover {
+    opacity: 1;
+  }
+  &.linkedin:before {
+    content: '\e04c';
+  }
+  &.github:before {
+    content: '\e032'  ;
+  } 
+  &.instagram:before {
+    content: '\e044'  ;
+  }
+  &.youtube:before {
+    content: '\e0a5'  ;
+  }     
+}
