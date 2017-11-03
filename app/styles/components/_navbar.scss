@@ -9,6 +9,13 @@
   top: 0px; 
   //z-index: 5;
 }
+body.la-about-page .about-lnk,
+body.la-tool-page  .tools-lnk,
+body.la-store-page .store-lnk,
+body.la-work-page  .work-lnk {
+  border-bottom: 3px solid green;
+  background-color: rgba(0, 0, 0, 0);
+}
 
 nav {
   &.nav-extended {
@@ -138,10 +145,6 @@ nav {
       float: left;
       padding: 0;
 
-      &.active {
-        border-bottom: 3px solid green;
-        background-color: rgba(0,0,0,0);
-      }
     }
     a {
       transition: background-color .3s;
@@ -171,6 +174,8 @@ nav {
       float: left;
     }
   }
+
+
 
   // Navbar Search Form
   form {

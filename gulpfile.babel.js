@@ -169,7 +169,8 @@ gulp.task('html', () => {
 gulp.task('clean', () => del(['.tmp', 'dist/*', '!dist/.git'], {dot: true}));
 
 
-gulp.task('buildStoreItems', ['convertStoreXML'], () => {
+gulp.task('buildStoreItems', ['convertStoreXML','getStoreXML'], () => {
+  console.info('buildStoreItems');
   return gulp
     .src('app/includes/store-products.tmpl', {base: "./"})
     .pipe(data(() => (JSON.parse(
@@ -177,7 +178,8 @@ gulp.task('buildStoreItems', ['convertStoreXML'], () => {
     ))))
     .pipe(template())
     .pipe(rename({extname:'.html'}))
-    .pipe(gulp.dest('./'));
+    .pipe(gulp.dest('./'))
+    .on('error', function(e){handleError(e)});
 });
 
 
@@ -188,11 +190,15 @@ gulp.task('htmlIncludes', function() {
       var items = function () {
         x
       };
+      console.info(file.relative.slice(0, -5));
       return stream
-        .pipe(preprocess({ context: { NODE_ENV: process.env.NODE_ENV, ITEMS:  [{name:'a1'},{name:'b2'}].toString(), PAGE: file.relative.slice(0, -5), DEBUG: true}}));
+        .pipe(preprocess({ context: { NODE_ENV: process.env.NODE_ENV, ITEMS:  [{name:'a1'},{name:'b2'}].toString(), PAGE: file.relative.slice(0, -5), DEBUG: true}}))
+          .on('error', function(e){handleError(e)});
     }))
     .pipe(gulp.dest('./.tmp/'))
     .pipe(gulp.dest('./dist/')) 
+    .on('error', function(e){handleError(e)});
+
 }); 
  
 // Watch files for changes & reload
@@ -234,18 +240,22 @@ gulp.task('serve:dist', ['default'], () =>
   })
 );
 gulp.task('getStoreXML', () => {
+  console.info('getStoreXML');
   return download({
     file: "zazzle.xml",
     url: 'https://feed.zazzle.com/luckyape/rss'
   })
-  .pipe(gulp.dest('docs'));
+  .pipe(gulp.dest('docs'))
+  .on('error', function(e){handleError(e)});
 });
 
 gulp.task('convertStoreXML',['getStoreXML'], () => {
+      console.info('convertStoreXML');
       gulp.src('docs/zazzle.xml')
         .pipe(xml2json())
         .pipe(rename({extname: '.json'}))
-        .pipe(gulp.dest('docs'));
+        .pipe(gulp.dest('docs'))
+        .on('error', function(e){handleError(e)});
 });
 
 // Build production files, the default tas
