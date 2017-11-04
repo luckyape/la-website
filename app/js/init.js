@@ -42,7 +42,7 @@
 
 	}); // end of document ready
 })(jQuery); // end of jQuery name space
-
+ 
 var probPhone = probPhone = ((/iphone|android|ie|blackberry|fennec/).test(navigator.userAgent.toLowerCase()) &&
     'ontouchstart' in document.documentElement);
 
