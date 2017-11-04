@@ -51,10 +51,8 @@
   <!-- Modal Structure -->
   <div id="modal1" class="modal modal-fixed-footer">
     <div class="modal-content">
-      <h4>Holler at me</h4>
-      <p><a href="sms:1-604-340-7925"><span class="icon icon-chat icon-chat-dims"></span> SMS</a></p>
-      <p><a href="mailto:graham@luckyape.com"><span class="icon icon-envelope icon-envelope-dims"></span> Email</a></p>
-      <p><a href="tel:1-604-340-7925"><span class="icon icon-phone-call icon-phone-call-dims"></span> Tel</a></p>
+      <div id="contact-methods" class="contact-methods">
+      </div>
     </div>
     <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Nevermind</a>
@@ -71,7 +69,10 @@
     $('#index-banner').addClass('bgFadeIn'); // need a little delay to let the div render it's bg image before the fade starts
 
   });
-  $('.modal').modal();
+  $('.modal').modal({ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+    loadContactInfo();
+  }});
+
   </script>
   <!-- endbuild -->
   <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
