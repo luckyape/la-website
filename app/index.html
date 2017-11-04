@@ -62,6 +62,9 @@
   <!--  Scripts-->
   <!-- @include includes/global-js.html -->
   <script>
+  	(function($) {
+
+	$(function() {
   var background = 'images/skeletons.jpg';
   $('<img/>').attr('src', background).load(function() { // create an image element with inner background and load it
     $(this).remove(); // remove it
@@ -73,8 +76,10 @@
   $('.modal').modal({ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
     loadContactInfo();
   }});
+	}); // end of document ready
+})(jQuery); // end of jQuery name space
+</script>
 
-  </script>
   <!-- endbuild -->
   <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
   <script>
