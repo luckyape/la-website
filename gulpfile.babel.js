@@ -195,7 +195,8 @@ gulp.task('html', () => {
       removeEmptyAttributes: true,
       removeScriptTypeAttributes: true,
       removeStyleLinkTypeAttributes: true,
-      removeOptionalTags: true
+      removeOptionalTags: true,
+      jsmin: true
     })))
     // Output files
     .pipe($.if('*.html', $.size({ title: 'html', showFiles: true })))

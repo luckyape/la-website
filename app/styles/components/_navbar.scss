@@ -2,7 +2,7 @@
 #la-navbar-flex {
   top:-63px; 
   position: relative;
-  //z-index: 5;  
+  z-index: 5;  
 }
 .wf-bebasneue-n4-active #la-navbar-flex, #la-navbar-flex.reveal {
   transition: top 300ms ease-in-out;
