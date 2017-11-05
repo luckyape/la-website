@@ -187,6 +187,7 @@ gulp.task('html', () => {
 
     // Minify any HTML
     .pipe($.if('*.html', $.htmlmin({
+      minifyJS: true,
       removeComments: true,
       collapseWhitespace: true,
       collapseBooleanAttributes: true,
@@ -195,8 +196,7 @@ gulp.task('html', () => {
       removeEmptyAttributes: true,
       removeScriptTypeAttributes: true,
       removeStyleLinkTypeAttributes: true,
-      removeOptionalTags: true,
-      jsmin: true
+      removeOptionalTags: true
     })))
     // Output files
     .pipe($.if('*.html', $.size({ title: 'html', showFiles: true })))
