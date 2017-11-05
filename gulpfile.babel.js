@@ -33,10 +33,10 @@ import runSequence from 'run-sequence';
 import browserSync from 'browser-sync';
 import swPrecache from 'sw-precache';
 import gulpLoadPlugins from 'gulp-load-plugins';
-import {output as pagespeed} from 'psi';
+import { output as pagespeed } from 'psi';
 import pkg from './package.json';
 import foreach from 'gulp-foreach';
-import xml2json from 'gulp-xml2json';  
+import xml2json from 'gulp-xml2json';
 import rename from 'gulp-rename';
 import fs from 'fs';
 import data from 'gulp-data';
@@ -52,27 +52,27 @@ dotenv.config();
 
 // Lint JavaScript
 gulp.task('lint', () =>
-  gulp.src(['app/scripts/**/*.js','!node_modules/**'])
-    .pipe($.eslint())
-    .pipe($.eslint.format())
-    .pipe($.if(!browserSync.active, $.eslint.failAfterError()))
+  gulp.src(['app/scripts/**/*.js', '!node_modules/**'])
+  .pipe($.eslint())
+  .pipe($.eslint.format())
+  .pipe($.if(!browserSync.active, $.eslint.failAfterError()))
 );
 
 // move fonts
 gulp.task('copyfonts', () =>
-	gulp.src('./app/fonts/*/*')
-    .pipe(gulp.dest('./dist/public/fonts'))
+  gulp.src('./app/fonts/*/*')
+  .pipe(gulp.dest('./dist/public/fonts'))
 );
 
 // Optimize images
 gulp.task('images', () =>
   gulp.src('app/images/**/*')
-    .pipe($.cache($.imagemin({
-      progressive: true,
-      interlaced: true
-    })))
-    .pipe(gulp.dest('dist/public/images'))
-    .pipe($.size({title: 'images'}))
+  .pipe($.cache($.imagemin({
+    progressive: true,
+    interlaced: true
+  })))
+  .pipe(gulp.dest('dist/public/images'))
+  .pipe($.size({ title: 'images' }))
 );
 
 // Copy all files at the root level (app)
@@ -84,7 +84,7 @@ gulp.task('copy', () =>
   ], {
     dot: true
   }).pipe(gulp.dest('dist/public'))
-    .pipe($.size({title: 'copy'}))
+  .pipe($.size({ title: 'copy' }))
 );
 
 // Compile and automatically prefix stylesheets
@@ -103,9 +103,9 @@ gulp.task('styles', () => {
 
   // For best performance, don't add Sass partials to `gulp.src`
   return gulp.src([
-    'app/styles/**/*.scss',
-    'app/styles/**/*.css'
-  ])
+      'app/styles/**/*.scss',
+      'app/styles/**/*.css'
+    ])
     .pipe($.newer('.tmp/styles'))
     .pipe($.sourcemaps.init())
     .pipe($.sass({
@@ -115,7 +115,7 @@ gulp.task('styles', () => {
     .pipe(gulp.dest('.tmp/styles'))
     // Concatenate and minify styles
     .pipe($.if('*.css', $.cssnano({ minifyFontValues: false, discardUnused: false })))
-    .pipe($.size({title: 'styles'}))
+    .pipe($.size({ title: 'styles' }))
     .pipe($.sourcemaps.write('./'))
     .pipe(gulp.dest('dist/public/styles'))
     .pipe(gulp.dest('.tmp/styles'));
@@ -126,58 +126,58 @@ gulp.task('styles', () => {
 // to enable ES2015 support remove the line `"only": "gulpfile.babel.js",` in the
 // `.babelrc` file.
 gulp.task('scripts', () =>
-    gulp.src([
-      // Note: Since we are not using useref in the scripts build pipeline,
-      //       you need to explicitly list your scripts here in the right order
-      //       to be correctly concatenated
-      './app/scripts/main.js',
-      './app/scripts/init.js'
+  gulp.src([
+    // Note: Since we are not using useref in the scripts build pipeline,
+    //       you need to explicitly list your scripts here in the right order
+    //       to be correctly concatenated
+    './app/scripts/main.js',
+    './app/scripts/init.js'
 
-      // Other scripts
-    ])
-      .pipe($.newer('.tmp/scripts'))
-      .pipe($.sourcemaps.init())
-      .pipe($.babel())
-      .pipe($.sourcemaps.write())
-      .pipe(gulp.dest('.tmp/scripts'))
-      .pipe($.concat('main.min.js'))
-      .pipe($.uglify({preserveComments: 'some'}))
-      // Output files
-      .pipe($.size({title: 'scripts'}))
-      .pipe($.sourcemaps.write('.'))
-      .pipe(gulp.dest('dist/public/scripts'))
-      .pipe(gulp.dest('.tmp/scripts'))
+    // Other scripts
+  ])
+  .pipe($.newer('.tmp/scripts'))
+  .pipe($.sourcemaps.init())
+  .pipe($.babel())
+  .pipe($.sourcemaps.write())
+  .pipe(gulp.dest('.tmp/scripts'))
+  .pipe($.concat('main.min.js'))
+  .pipe($.uglify({ preserveComments: 'some' }))
+  // Output files
+  .pipe($.size({ title: 'scripts' }))
+  .pipe($.sourcemaps.write('.'))
+  .pipe(gulp.dest('dist/public/scripts'))
+  .pipe(gulp.dest('.tmp/scripts'))
 );
 
 // html includes
 gulp.task('htmlIncludes', function() {
-  return gulp.src(['app/*.html','app/includes/*.html'])    
-    .pipe(foreach(function(stream, file) {      
-      var items = function () {
+  return gulp.src(['app/*.html', 'app/includes/*.html'])
+    .pipe(foreach(function(stream, file) {
+      var items = function() {
         x
       };
       console.info(file.relative.slice(0, -5));
       return stream
         .pipe(preprocess())
-          .on('error', function(e){handleError(e)});
+        .on('error', function(e) { handleError(e) });
     }))
     .pipe(gulp.dest('./.tmp/'))
-    .pipe(gulp.dest('dist/public')) 
-    .on('error', function(e){handleError(e)});
+    .pipe(gulp.dest('dist/public'))
+    .on('error', function(e) { handleError(e) });
 
-}); 
- 
+});
+
 // Scan your HTML for assets & optimize them
 gulp.task('html', () => {
   return gulp.src('app/**/*.html')
-    .pipe(foreach(function(stream, file) {      
-      var items = function () {
+    .pipe(foreach(function(stream, file) {
+      var items = function() {
         x
       };
       console.info(file.relative.slice(0, -5));
       return stream
         .pipe(preprocess())
-          .on('error', function(e){handleError(e)});
+        .on('error', function(e) { handleError(e) });
     }))
 
     .pipe($.useref({
@@ -198,25 +198,25 @@ gulp.task('html', () => {
       removeOptionalTags: true
     })))
     // Output files
-    .pipe($.if('*.html', $.size({title: 'html', showFiles: true})))
+    .pipe($.if('*.html', $.size({ title: 'html', showFiles: true })))
     .pipe(gulp.dest('dist/public'));
 });
 
 // Clean output directory
-gulp.task('clean', () => del(['.tmp', 'dist/public/*', '!dist/public/.git'], {dot: true}));
+gulp.task('clean', () => del(['.tmp', 'dist/public/*', '!dist/public/.git'], { dot: true }));
 
 
-gulp.task('buildStoreItems', ['convertStoreXML','getStoreXML'], () => {
+gulp.task('buildStoreItems', ['convertStoreXML', 'getStoreXML'], () => {
   return gulp
-    .src('app/includes/store-products.tmpl', {base: "./"})
+    .src('app/includes/store-products.tmpl', { base: "./" })
     .pipe(data(() => (JSON.parse(
       fs.readFileSync('docs/zazzle.json')
     ))))
     .pipe(template())
-    .pipe(rename({extname:'.html'}))
+    .pipe(rename({ extname: '.html' }))
     .pipe(gulp.dest('./'))
-    .pipe(gulp.dest('dist/public')) 
-    .on('error', function(e){handleError(e)});
+    .pipe(gulp.dest('dist/public'))
+    .on('error', function(e) { handleError(e) });
 });
 
 
@@ -237,7 +237,7 @@ gulp.task('serve', ['scripts', 'styles', 'buildStoreItems', 'htmlIncludes'], () 
   });
 
   gulp.watch(['.tmp/**/*.html', 'app/**/*.html'], ['htmlIncludes', reload]);
-  gulp.watch(['app/includes/store-products.tmpl'], ['buildStoreItems', reload]);  
+  gulp.watch(['app/includes/store-products.tmpl'], ['buildStoreItems', reload]);
   gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
   gulp.watch(['app/scripts/**/*.js', 'app/js/**/*.js'], ['lint', 'scripts', reload]);
   gulp.watch(['app/images/**/*'], reload);
@@ -261,31 +261,29 @@ gulp.task('serve:dist', ['default'], () =>
 gulp.task('getStoreXML', () => {
   console.info('getStoreXML');
   return download({
-    file: "zazzle.xml",
-    url: 'https://feed.zazzle.com/luckyape/rss'
-  })
-  .pipe(gulp.dest('docs'))
-  .on('error', function(e){handleError(e)});
+      file: "zazzle.xml",
+      url: 'https://feed.zazzle.com/luckyape/rss'
+    })
+    .pipe(gulp.dest('docs'))
+    .on('error', function(e) { handleError(e) });
 });
 
-gulp.task('convertStoreXML',['getStoreXML'], () => {
-      console.info('convertStoreXML');
-      gulp.src('docs/zazzle.xml')
-        .pipe(xml2json())
-        .pipe(rename({extname: '.json'}))
-        .pipe(gulp.dest('docs'))
-        .on('error', function(e){handleError(e)});
+gulp.task('convertStoreXML', ['getStoreXML'], () => {
+  console.info('convertStoreXML');
+  gulp.src('docs/zazzle.xml')
+    .pipe(xml2json())
+    .pipe(rename({ extname: '.json' }))
+    .pipe(gulp.dest('docs'))
+    .on('error', function(e) { handleError(e) });
 });
 
 // Build production files, the default tas
-gulp.task('default', ['clean'], cb =>
+gulp.task('default', ['clean'], cb => {    
   runSequence(
-    'styles',
-    ['lint', 'html', 'scripts', 'images', 'copy', 'copyfonts'],
-    'generate-service-worker',
+   'styles', ['lint', 'html', 'scripts', 'images', 'copy'],
     cb
   )
-);
+});
 
 // Run PageSpeed Insights
 gulp.task('pagespeed', cb =>
@@ -300,8 +298,9 @@ gulp.task('pagespeed', cb =>
 
 // Copy over the scripts that are used in importScripts as part of the generate-service-worker task.
 gulp.task('copy-sw-scripts', () => {
+ 
   return gulp.src(['node_modules/sw-toolbox/sw-toolbox.js', 'app/scripts/sw/runtime-caching.js'])
-    .pipe(gulp.dest('dist/public/scripts/sw'));
+    .pipe(gulp.dest('app/scripts/sw'));
 });
 
 
@@ -313,7 +312,7 @@ gulp.task('copy-sw-scripts', () => {
 gulp.task('generate-service-worker', ['copy-sw-scripts'], () => {
   const rootDir = 'dist/public';
   const filepath = path.join(rootDir, 'service-worker.js');
-
+  console.info('generate-service-worker');
   return swPrecache.write(filepath, {
     // Used to avoid cache conflicts when serving on localhost.
     cacheId: pkg.name || 'web-starter-kit',
@@ -327,6 +326,7 @@ gulp.task('generate-service-worker', ['copy-sw-scripts'], () => {
       `${rootDir}/images/**/*`,
       `${rootDir}/scripts/**/*.js`,
       `${rootDir}/styles/**/*.css`,
+      `${rootDir}/fonts/**/*`,
       `${rootDir}/*.{html,json}`
     ],
     // Translates a static file path to the relative URL that it's served from.
