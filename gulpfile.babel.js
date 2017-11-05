@@ -58,6 +58,12 @@ gulp.task('lint', () =>
     .pipe($.if(!browserSync.active, $.eslint.failAfterError()))
 );
 
+// move fonts
+gulp.task('copyfonts', () =>
+	gulp.src('./app/fonts/*/*')
+    .pipe(gulp.dest('./dist/fonts'))
+);
+
 // Optimize images
 gulp.task('images', () =>
   gulp.src('app/images/**/*')
@@ -275,7 +281,7 @@ gulp.task('convertStoreXML',['getStoreXML'], () => {
 gulp.task('default', ['clean'], cb =>
   runSequence(
     'styles',
-    ['lint', 'html', 'scripts', 'images', 'copy'],
+    ['lint', 'html', 'scripts', 'images', 'copy', 'copyfonts'],
     'generate-service-worker',
     cb
   )
