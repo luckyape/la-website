@@ -61,7 +61,7 @@ gulp.task('lint', () =>
 // move fonts
 gulp.task('copyfonts', () =>
 	gulp.src('./app/fonts/*/*')
-    .pipe(gulp.dest('./dist/fonts'))
+    .pipe(gulp.dest('./dist/public/fonts'))
 );
 
 // Optimize images
