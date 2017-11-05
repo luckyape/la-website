@@ -1,6 +1,6 @@
 (function($) {
   $(function() {
-    'use strict';
+    
     var $contWrap = $('#la-content-wrapper');
     $('.button-collapse').sideNav({
       onOpen: function(el) {
