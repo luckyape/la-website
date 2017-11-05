@@ -26,8 +26,8 @@
           <div class="col s12 m4">
             <div class="icon-block">
               <div class="center black-text icon"><i class="material-icons">all_inclusive</i></div>
-              <h5 class="center">20 Years experience</h5> 
-            	<p class="light">Excitement permeated the dot com boom, having no idea what you are doing has that effect. Watching web standards, best practices &amp; technologies evolve is a rare perspective.</p>
+              <h5 class="center">20 Years experience</h5>
+              <p class="light">Excitement permeated the dot com boom, having no idea what you are doing has that effect. Watching web standards, best practices &amp; technologies evolve is a rare perspective.</p>
             </div>
           </div>
           <div class="col s12 m4">
@@ -54,33 +54,37 @@
     <div class="modal-content">
       <div id="contact-methods" class="contact-methods valign-wrapper">
       </div>
-    </div>
+    </div>ß
     <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Nevermind</a>
     </div>
   </div>
-  <!--  Scripts-->
-  <!-- @include includes/global-js.html -->
-  <script>
-  	(function($) {
-
-	$(function() {
-  var background = 'images/skeletons.jpg';
-  $('<img/>').attr('src', background).load(function() { // create an image element with inner background and load it
-    $(this).remove(); // remove it
-
-    // set the inner background image and fade in:
-    $('#index-banner').addClass('bgFadeIn'); // need a little delay to let the div render it's bg image before the fade starts
-
-  });
-  $('.modal').modal({ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-    loadContactInfo();
-  }});
-	}); // end of document ready
-})(jQuery); // end of jQuery name space
-</script>
-
+  <!-- build:js scripts/main.min.js -->
+  <script type="text/javascript" src="scripts/main.js"></script>
+  <script type="text/javascript" src="scripts/init.js"></script>
   <!-- endbuild -->
+  <script>
+  (function($) {
+
+    $(function() {
+      var background = 'images/skeletons.jpg';
+      $('<img/>').attr('src', background).load(function() { // create an image element with inner background and load it
+        $(this).remove(); // remove it
+
+        // set the inner background image and fade in:
+        $('#index-banner').addClass('bgFadeIn'); // need a little delay to let the div render it's bg image before the fade starts
+
+      });
+      $('.modal').modal({
+        ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+          loadContactInfo();
+        }
+      });
+    }); // end of document ready
+  })(jQuery); // end of jQuery name space
+
+  </script>
+
   <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
   <script>
   (function(i, s, o, g, r, a, m) {

@@ -124,7 +124,8 @@ gulp.task('scripts', () =>
 			// Note: Since we are not using useref in the scripts build pipeline,
 			//       you need to explicitly list your scripts here in the right order
 			//       to be correctly concatenated
-			'./app/scripts/main.js'
+			'./app/scripts/main.js',
+			'./app/scripts/init.js'
 			// Other scripts
 		])
 			.pipe($.newer('.tmp/scripts'))
@@ -144,7 +145,10 @@ gulp.task('scripts', () =>
 // Scan your HTML for assets & optimize them
 gulp.task('html', () => {
 	return gulp.src('app/**/*.html')
-		.pipe($.useref({
+		.pipe(
+
+
+			$.useref({
 			searchPath: '{.tmp,app}',
 			noAssets: true
 		}))
@@ -163,7 +167,7 @@ gulp.task('html', () => {
 		})))
 		// Output files
 		.pipe($.if('*.html', $.size({title: 'html', showFiles: true})))
-		.pipe(gulp.dest('dist/public'));
+		.pipe(gulp.dest('dist/public')).on('error', function(e){handleError(e)});
 });
 
 // Clean output directory
@@ -260,10 +264,10 @@ gulp.task('convertStoreXML',['getStoreXML'], () => {
 });
 
 // Build production files, the default tas
-gulp.task('default', ['clean'], cb =>
+gulp.task('default', ['clean', 'htmlIncludes'], cb =>
 	runSequence(
 		'styles',
-		['lint', 'html', 'scripts', 'images', 'copy', 'htmlIncludes'],
+		['lint', 'html', 'scripts', 'images', 'copy'],
 		'generate-service-worker',
 		cb
 	)
