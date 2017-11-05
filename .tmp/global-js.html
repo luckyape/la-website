@@ -1,0 +1,39 @@
+<script>
+function async(u, c) {
+	var d = document,
+		t = 'script',
+		n = 0,
+		loadEvent = function(e) {
+			n--;
+			if (!n) {
+				console.info(e);
+				c(null, e);
+			}
+		};
+	if (Array.isArray(u)) {
+		n = u.length;
+		for (var i = 0; i < n; i++) {
+			var j = {
+				o: d.createElement(t),
+				s: d.getElementsByTagName(t)[0],
+			};
+			j.o.src = u[i];
+
+			if (c) {
+				j.o.addEventListener('load', loadEvent, false);
+			}
+			setTimeout(function() {
+				j.s.parentNode.insertBefore(j.o, j.s);
+			}, 1);
+		}
+	}
+}
+
+</script>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
+
+<!-- build:js scripts/main.min.js -->
+<script src="scripts/main.js"></script>
+<script src="scripts/init.js"></script>
+<!-- endbuild -->
