@@ -5,170 +5,333 @@
   <!-- @include includes/header.html -->
 </head>
 
-<body class="la-work-page">
+<body class="la-store-page">
   <!-- @include includes/navbar.html -->
-<div id="la-content-wrapper" class="la-content-wrapper">
-
-  <div class="container">
-    <div class="row ">
-      <div class="col center s10 offset-s1 flow-text">
-        <p class="extra-padding-height">A curator of deeply satistfying results.</p>
+  <div id="la-content-wrapper" class="la-content-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col center s10 offset-s1 flow-text">
+          <h1 class="extra-padding-height flow-text">A curator of deeply satistfying results.           
+        </h1>
+          <div class="show-on-small center toggle-filter">
+            <a>
+            <span class="show-filter">Show</span><span class="hide-filter">Hide</span> Filters<i class="material-icons">filter_list</i></a>
+          </div>
+        </div>
+      </div>
+      <div class="row tap-target-row">
+        <div class="tap-target" data-activates="store-tap-target">
+          <div class="tap-target-content">
+            <h5>What Is Going On Here?</h5>
+            <p>Use the <span class="chip sample" style="display: inline-block; ">chipies<i class="material-icons close">close</i></span>to filter store items.</p>
+            <p>Chipies can be added, removed or highlighted.</p>
+          </div>
+        </div>
+        <a id="store-tap-target" class="info-spot store-tap-target green waves-effect waves-light btn btn-floating">
+                <i class="material-icons">menu</i>
+            </a>
+      </div>
+      <div class="row ">
+        <div id="disciplinesChips" class="disciplines chips"></div>
       </div>
     </div>
-    <div class="row ">
-      <div id="disciplinesChips" class="disciplines chips"></div>
+    <div class="container">
+      <div id="workCards" class="work-cards row">
+        <div class="grid-sizer"></div>
+        <div class="gutter-sizer"></div>
+
+        <div class="grid-item google-apis app-design angularjs">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">Google Partners Academy<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-image">
+              <img class="activator" src="images/gp-screengrab2.png">
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+              <p>Here is some more information about this product that is only revealed once clicked on.</p>
+            </div>
+            <div class="card-action">
+              <div class="chip">
+                app design
+              </div>
+              <div class="chip">
+                angularjs
+              </div>
+              <div class="chip">
+                google apis
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid-item drupal ubercart">
+          <div class=" card">
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">BCTA<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-image">
+              <img class="activator" src="images/bcta-screengrab.png">
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">BC Trucking Association<i class="material-icons right">close</i></span>
+              <p>Created new Drupal site including online store built in Ubercart. Ported large member database into Drupal. Built a number of custom modules. </p>
+            </div>
+            <div class="card-action">
+              <div class="chip">
+                drupal
+              </div>
+              <div class="chip">
+                ubercart
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid-item add-design node-js bash edi">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">Canadian Logistics<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-image">
+              <img class="activator" src="images/ca-screengrab.png">
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Canadian Logistics EDI <i class="material-icons right">close</i></span>
+              <p>Automated intergration with Fiat Chrysler production line EDI. Data interface and exporting tool. Algortyhmic fee estimation.</p>
+            </div>
+            <div class="card-action">
+              <div class="chip">
+                app design
+              </div>
+              <div class="chip">
+                node js
+              </div>
+              <div class="chip">
+                edi
+              </div>
+              <div class="chip">
+                bash
+              </div>              
+            </div>
+          </div>
+        </div>
+        <div class="grid-item woocommerce wordpress ui-design">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">Feed Life<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-image">
+              <img class="activator" src="images/fl-screengrab.png">
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+              <p>Here is some more information about this product that is only revealed once clicked on.</p>
+            </div>
+            <div class="card-action">
+              <div class="chip">
+                wordpress
+              </div>
+              <div class="chip">
+                ui design
+              </div>
+              <div class="chip">
+                woocommerce
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid-item drupal google-apis jquery">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">Think Tank Initiative<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-image ">
+              <img class="activator" src="images/tt-screengrab.png">
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Think Tank Initiative<i class="material-icons right">close</i></span>
+              <p>Here is some more information about this product that is only revealed once clicked on.</p>
+            </div>
+            <div class="card-action">
+              <div class="chip">
+                drupal
+              </div>
+              <div class="chip">
+                google apis
+              </div>
+              <div class="chip">
+                jquery
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    <!-- @include includes/footer.html -->
   </div>
-
-  <div class="container">
-
-    <div id="workCards" class="work-cards row">
-      <div class="grid-sizer"></div>
-      <div class="gutter-sizer"></div>      
-      <div class="grid-item">
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">Google Partners Academy<i class="material-icons right">more_vert</i></span>
-          </div>
-          <div class="card-image">
-            <img class="activator" src="images/gp-screengrab2.png">
-          </div>
-          <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-          </div>
-          <div class="card-action">
-            <div class="chip">
-              App Design
-            </div>
-            <div class="chip">
-              AngularJS
-            </div>
-            <div class="chip">
-              Google APIs
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <div class=" card">
-          <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">BCTA<i class="material-icons right">more_vert</i></span>
-          </div>
-          <div class="card-image">
-            <img class="activator" src="images/bcta-screengrab.png">
-          </div>
-          <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-          </div>
-          <div class="card-action">
-            <div class="chip">
-              Drupal
-            </div>
-            <div class="chip">
-              Ubercart
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">Canadian Logistics<i class="material-icons right">more_vert</i></span>
-          </div>
-          <div class="card-image">
-            <img class="activator" src="images/ca-screengrab.png">
-          </div>
-          <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-          </div>
-          <div class="card-action">
-            <div class="chip">
-              App Design
-            </div>
-            <div class="chip">
-              MEAN Stack
-            </div>
-            <div class="chip">
-              EDI Integration
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">Feed Life<i class="material-icons right">more_vert</i></span>        
-          </div>
-          <div class="card-image">
-            <img class="activator" src="images/fl-screengrab.png">
-          </div>
-          <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-          </div>
-          <div class="card-action">
-            <div class="chip">
-              Wordpress
-            </div>
-            <div class="chip">
-              UI Design
-            </div>
-            <div class="chip">
-              WooCommerce
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="grid-item">
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">Think Tank Initiative<i class="material-icons right">more_vert</i></span>
-          </div>
-          <div class="card-image ">
-            <img class="activator" src="images/tt-screengrab.png">
-          </div>
-          <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Think Tank Initiative<i class="material-icons right">close</i></span>
-            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-          </div>
-          <div class="card-action">
-            <div class="chip">
-              Drupal
-            </div>
-            <div class="chip">
-              Google APIs
-            </div>
-            <div class="chip">
-              JQuery
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-
-  <!-- @include includes/footer.html -->  
-
-</div>
-   <!-- @include includes/global-js.html -->   
-  <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>  
+  <!-- @include includes/global-js.html -->
   <!-- build:js scripts/main.min.js -->
   <script type="text/javascript" src="scripts/main.js"></script>
   <script type="text/javascript" src="scripts/init.js"></script>
   <!-- endbuild -->
-
   <script>
-
-
   (function($) {
     $(function() {
-   var workInit = function () {
-      var $grid = $('#workCards').isotope({
-         layoutMode: 'packery',
+      var filters = { chips: [] },
+        $grid = $('#workCards'),
+        $chips = {},
+        chipsArr = [],
+        chipsObj = {},
+        testTouch = function() {
+          var el = document.createElement('div');
+          el.setAttribute('ontouchstart', 'return;'); // or try "ontouchstart"
+          return typeof el.ongesturestart === "function";
+        },
+        matchMedia = function() {
+          if (probPhone) {
+            if ($grid.hasClass('isotope')) {
+              $grid.isotope('destroy');
+            }
+            if (!$grid.flickity) {
+              async(['/scripts/lib/flickity/dist/flickity.pkgd.min.js'], flickityInit);
+            } else {
+              setTimeout(flickityInit, 100);
+            }
+          } else {
+            if ($grid.hasClass('flickity-enabled')) {
+              $grid.flickity('destroy');
+            }
+
+            if (!$grid.isotope) {
+              async(['https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js'], function() {
+                async(['/scripts/lib/isotope-packery/packery-mode.pkgd.min.js'], isotopeInit);
+              })
+            } else {
+              setTimeout(isotopeInit, 100);
+            }
+
+          }
+        },
+        isotopeInit = function() {
+          $grid.isotope({
+            layoutMode: 'packery',
+            packery: {
+              columnWidth: '.grid-sizer',
+              gutter: '.gutter-sizer'
+            },
+            itemSelector: '.grid-item',
+            percentPosition: true,
+            resize: true,
+            filter: function() {
+
+              var isMatched = true,
+                $this = $(this);
+
+              if (filters.selected) {
+                isMatched = $($this[0]).hasClass(filters.selected);
+              } else {
+                filters.chips = $chips.material_chip('data').map(function(c) {
+                  return c.id;
+                });
+                for (var i = 0; i < filters.chips.length; i++) {
+                  if ($this[0].className.indexOf(filters.chips[i]) > -1) {
+                    return true;
+                  }
+                }
+                return false;
+              }
+              return isMatched;
+            }
+          });
+
+        },
+        flickityInit = function() {
+          $($grid).flickity({
+            cellSelector: '.grid-item',
+            wrapAround: true,
+            selectedAttraction: 0.2,
+            friction: 0.8,
+            resize: true,
+            pageDots: false
+          });
+        },
+        getChips = function(i, chip) {
+          var chipText = $(chip).text().trim();
+          if (chipsObj[chipText] !== null) {
+
+
+            chipsArr.push({
+              tag: chipText,
+              id: chipText.trim().replace(/\s+/g, '-').toLowerCase()
+            });
+
+            chipsObj[chipText] = null;
+          }
+
+        },
+        intiChips = function() {
+          $chips = $('#disciplinesChips');
+          $chips.material_chip({
+            data: chipsArr,
+            placeholder: '...',
+            autocompleteOptions: {
+              data: chipsObj,
+              limit: Infinity,
+              minLength: 1
+            }
+          });
+          $('input', $chips).focus();
+
+          $chips.on('click', function(e) {
+
+            if (filters.selected) {
+              filters.selected = null;
+              $grid.isotope();
+            }
+
+            //  chipsObj[chip.tag] = (chipsObj[chip.tag])? true : null;
+          });
+          $chips.on('chip.select', function(e, chip) {
+            // you have the added chip here
+            filters.selected = chip.tag;
+            $grid.isotope();
+          });
+
+          $chips.on('chip.add', function(e, chip) {
+            // you have the added chip here
+            //console.info(e, chip);
+            $grid.isotope();
+          });
+          $chips.on('chip.delete', function(e, chip) {
+            // you have the deleted chip here
+            //console.info(e, chip);
+            $grid.isotope();
+          });
+        };
+
+      $(window).resize(matchMedia);
+      matchMedia();
+
+      $('.card-chips .chip, .card-action  .chip').each(getChips).promise().done(intiChips);
+
+      $('.info-spot').click(function() {
+        $('.tap-target').tapTarget('open');
+      });
+
+      $('.toggle-filter').click(function() {
+        $('.products-filter,.toggle-filter').toggleClass('filter-on');
+      });
+
+    }); // end of document ready
+  })(jQuery); // end of jQuery name space
+
+  </script>
+  <!-- script>
+  (function($) {
+    $(function() {
+      var workInit = function() {
+        var $grid = $('#workCards').isotope({
+          layoutMode: 'packery',
           packery: {
             columnWidth: '.grid-sizer',
             gutter: '.gutter-sizer'
@@ -176,20 +339,20 @@
           },
           itemSelector: '.grid-item',
           percentPosition: true
-      })        
-    }
+        })
+      }
 
-    async('/js/lib/isotope-packery/packery-mode.pkgd.min.js', function() {
-      workInit();
-    });
-   
+      async('/js/lib/isotope-packery/packery-mode.pkgd.min.js', function() {
+        workInit();
+      });
+
       function loadChips() {
         var chipsArr = [];
         var chipsObj = {};
         var $chips = $('#disciplinesChips');
         $('.chip').each(function(i, chip) {
           var chipText = $(chip).text();
-          if(chipsObj[chipText] !== null) {
+          if (chipsObj[chipText] !== null) {
             chipsArr.push({
               tag: chipText
             });
@@ -214,17 +377,15 @@
         });
         $chips.on('chip.select', function(e, chip) {
           // you have the selected chip here
-        });       
+        });
       }
       loadChips();
-    
+
     }); // end of document ready
   })(jQuery); // end of jQuery name space
 
-
-  </script>
+  </script-- >
   <!-- endbuild -->
-
 </body>
 
 </html>

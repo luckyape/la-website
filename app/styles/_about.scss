@@ -3,6 +3,7 @@
   .parallax-container {
     width: 100%;
     height: 370px;
+
     .section {
       h1,
       h5 {
@@ -11,11 +12,17 @@
       }
       z-index: 1;
       position: relative;
+      @media #{$medium-and-down} {
+        margin-top: -10px;
+      }
     }
     .parallax {
       z-index: 0;
       img {
         display: block;
+              @media #{$medium-and-down} {
+        margin-top: -10px;
+      }
       }
     }
   }

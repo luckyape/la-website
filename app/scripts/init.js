@@ -33,6 +33,8 @@
 				$navbar.addClass('reveal');
 			}
 		});
+
+		
 		$('.parallax').parallax();
 
 
