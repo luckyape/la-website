@@ -32,12 +32,15 @@
 				$navbar.removeClass('navbar-fixed');
 				$navbar.addClass('reveal');
 			}
-		})
+		});
+		$('.parallax').parallax();
+
+
 
 	}); // end of document ready
 })(jQuery); // end of jQuery name space
  
-var  probPhone = (1||(/iphone|android|ie|blackberry|fennec/).test(navigator.userAgent.toLowerCase()) &&
+var  probPhone = ((/iphone|android|ie|blackberry|fennec/).test(navigator.userAgent.toLowerCase()) &&
 	'ontouchstart' in document.documentElement);
 
 function loadContactInfo() {
