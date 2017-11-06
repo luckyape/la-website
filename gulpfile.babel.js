@@ -80,7 +80,7 @@ gulp.task('copy', () =>
 	gulp.src([
 		'app/*',
 		'!app/*.html',
-		'node_modules/apache-server-configs/dist/public/.htaccess'
+		'node_modules/apache-server-configs/dist/public/.htaccess',
 	], {
 		dot: true
 	}).pipe(gulp.dest('dist/public'))
@@ -147,7 +147,16 @@ gulp.task('scripts', () =>
 	.pipe($.sourcemaps.write('.'))
 	.pipe(gulp.dest('dist/public/scripts'))
 	.pipe(gulp.dest('.tmp/scripts'))
+
+	// move fonts
+
 );
+
+gulp.task('copylibs', () =>
+	gulp.src('./app/scripts/lib/**')
+	.pipe(gulp.dest('./dist/public/scripts/lib'))
+);
+
 
 // html includes
 gulp.task('htmlIncludes', function() {
@@ -281,7 +290,7 @@ gulp.task('convertStoreXML', ['getStoreXML'], () => {
 // Build production files, the default tas
 gulp.task('default', ['clean'], cb => {    
 	runSequence(
-	 'styles', ['lint', 'html', 'scripts', 'images', 'copy', 'copyfonts'],
+	 'styles', ['lint', 'html', 'scripts', 'images', 'copy', 'copyfonts', 'copylibs'],
 		cb
 	)
 });
