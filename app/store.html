@@ -70,7 +70,7 @@
 					return typeof el.ongesturestart === "function";
 				},
 				matchMedia = function() { 
-					if(window.matchMedia('(max-width: 600px)').matches ){
+					if(probPhone){
 						if ($grid.hasClass('isotope')) {
 							$grid.isotope('destroy');
 						}
