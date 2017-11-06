@@ -75,7 +75,7 @@
 							$grid.isotope('destroy');
 						}
 						if (!$grid.flickity) {
-							async(['/script/lib/flickity/dist/flickity.pkgd.min.js'], flickityInit);
+							async(['/scripts/lib/flickity/dist/flickity.pkgd.min.js'], flickityInit);
 						} else {              
 							setTimeout(flickityInit, 100);
 						}
@@ -86,7 +86,7 @@
 
 						if (!$grid.isotope) {
 							async(['https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js'], function() {
-								async(['/script/lib/isotope-packery/packery-mode.pkgd.min.js'], isotopeInit);
+								async(['/scripts/lib/isotope-packery/packery-mode.pkgd.min.js'], isotopeInit);
 							})
 						} else {
 							setTimeout(isotopeInit, 100);
