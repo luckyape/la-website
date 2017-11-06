@@ -249,7 +249,7 @@ gulp.task('serve', ['scripts', 'styles', 'buildStoreItems', 'htmlIncludes'], () 
 	gulp.watch(['.tmp/**/*.html', 'app/**/*.html'], ['htmlIncludes', reload]);
 	gulp.watch(['app/includes/store-products.tmpl'], ['buildStoreItems', reload]);
 	gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
-	gulp.watch(['app/scripts/**/*.js', 'app/js/**/*.js'], ['lint', 'scripts', reload]);
+	gulp.watch(['app/scripts/*.js'], ['lint', 'scripts', reload]);
 	gulp.watch(['app/images/**/*'], reload);
 });
 
