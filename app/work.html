@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="">
+<html lang="en">
 
 <head>
   <!-- @include includes/header.html -->
@@ -8,8 +8,8 @@
 <body class="la-store-page">
   <!-- @include includes/navbar.html -->
   <div id="la-content-wrapper" class="la-content-wrapper">
-    <div class="container">
-      <div class="row">
+    <div class="container la-filter">
+      <div class="row ">
         <div class="col center s10 offset-s1 flow-text">
           <h1 class="extra-padding-height flow-text">A curator of deeply satistfying results.           
         </h1>
@@ -23,7 +23,7 @@
         <div class="tap-target" data-activates="store-tap-target">
           <div class="tap-target-content">
             <h5>What Is Going On Here?</h5>
-            <p>Use the <span class="chip sample" style="display: inline-block; ">chipies<i class="material-icons close">close</i></span>to filter store items.</p>
+            <p>Use the <span class="chip sample" style="display: inline-block; ">chipies<i class="material-icons close">close</i></span>to filter work by technology.</p>
             <p>Chipies can be added, removed or highlighted.</p>
           </div>
         </div>
@@ -48,8 +48,8 @@
               <img class="activator" src="images/gp-screengrab2.png">
             </div>
             <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Google Partners Academy Portal<i class="material-icons right">close</i></span>
-              <p>Multi-session event booking portal for Google Partners Academy. Comprehensive multi-language/localization asset management with Google Drive integration.</p>
+              <span class="card-title grey-text text-darken-4">Event Management<i class="material-icons right">close</i></span>
+              <p>Multi-session event booking portal for Google Partners Academy. Comprehensive language/localization asset management functionality with Google Drive integration.</p>
               <div class="card-action">
                 <div class="chip">
                   app-design
@@ -65,6 +65,9 @@
                 </div>
                 <div class="chip">
                   php
+                </div>
+                <div class="chip">
+                  mysql
                 </div>
               </div>
             </div>
@@ -95,7 +98,7 @@
             </div>
           </div>
         </div>
-        <div class="grid-item add-design node-js bash edi">
+        <div class="grid-item add-design nodejs bash edi">
           <div class="card">
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4">Fiat Chrysler EDI<i class="material-icons right">more_vert</i></span>
@@ -111,7 +114,7 @@
                   app-design
                 </div>
                 <div class="chip">
-                  node-js
+                  nodejs
                 </div>
                 <div class="chip">
                   edi
@@ -254,6 +257,7 @@
 
         },
         flickityInit = function() {
+          $('.la-filter').hide();
           $($grid).flickity({
             cellSelector: '.grid-item',
             wrapAround: true,
