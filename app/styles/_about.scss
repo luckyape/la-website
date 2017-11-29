@@ -1,45 +1,72 @@
 .la-about-page {
-    height: 100%;
-    .body {
-        height: 100%;
-        background-image: url(/images/starfield.jpg);
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: bottom
+	height: 100%;
+  .body {
+  	height: 100%;
+    background-image: url('/images/starfield.jpg');
+    background-size: auto 130%;
+    background-repeat: repeat-x;
+    background-position: bottom;
+    background-attachment: fixed;
 
+    @media #{$medium-and-up} {
+      background-size: auto 100%;
     }
-    .la-content-wrapper {
-        height: 100%;
+    @media #{$large-and-up} {
+    	background-size: auto 110%;
     }
-    h1 {
-        color: #fff ;
-        font-family: "Oswald", sans-serif;
-        text-transform: uppercase;
-        font-style: italic;
-        letter-spacing: 2px;
-        margin:0;
-        padding: 3.5vw 0;
+  }
+  .la-content-wrapper {
+
+  }
+  h1 {
+    color: #fff;
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+    font-style: italic;
+    letter-spacing: 2px;
+    margin: 0;
+    padding: 3.5vw 0;
+  }
+  h5 {
+    color: #fff;
+    font-family: "Oswald", sans-serif;
+    line-height: 35px;
+    margin-top: 28vh;
+  }
+  .panels {
+    width: 300px;
+    margin: 0 auto;
+    height: 100%;
+    &>p {
+      background-color: rgba(0, 0, 0, .2);
+      padding: 12px;
+      color: #fff;
+      opacity: 0 !important;
     }
-    h5 {
-        color: #fff ;
-        font-family: "Oswald", sans-serif;
-        
-        line-height: 35px;
+  }
+  .page-footer {
+    background-color: transparent;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    .row {
+      margin-bottom: 0px;
+      @media #{$medium-and-up} {
+        margin-bottom: inherit;
+      }
     }
-    .panels {
-        width:300px;
-        margin: 0 auto;
-        height: 100%;
-        & > p {
-            background-color: rgba(0,0,0,.2);
-            padding: 12px;
-            color: #fff ;
-        }
+    .footer-copyright {
+      font-size: 10px;
+      min-height: 25px ;
+      @media #{$medium-and-up} {
+        font-size: inherit;
+        min-height: inherit
+      }
     }
-    .page-footer {
-        background-color: #000;
-      /*  position: absolute;*/
-        width: 100%;
-       /* bottom:0; */
-    }
+  }
+  .shootingstar {
+    position: fixed;
+    top: 20vh;
+    left: 100px;
+  }
 }

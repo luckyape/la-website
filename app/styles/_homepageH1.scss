@@ -8,122 +8,122 @@
 
 
 .h1-banner {
-    background-color: #fff;
-    padding-top: 18px;
-    padding-bottom: 50px;
-    h1 {
-            font-family: Roboto;
-            font-size: 8vw;
-            height: 70px;
-            margin: 10px 0 20px;
-            font-weight: 100;
-    }
-    
-    h5 {
-            font-family: Roboto;
-            text-transform: lowercase;
-            font-size: 1.4rem;
-            margin: 0 0 ;
-            height: 100px;
-    }
-    
-    .cta-button {
-        //margin: 17vw 0;
-    }
+	background-color: #fff;
+	padding-top: 18px;
+	padding-bottom: 50px;
+	h1 {
+			font-family: Roboto;
+			font-size: 8vw;
+			height: 70px;
+			margin: 10px 0 20px;
+			font-weight: 100;
+	}
+	
+	h5 {
+			font-family: Roboto;
+			text-transform: lowercase;
+			font-size: 1.4rem;
+			margin: 0 0 ;
+			height: 100px;
+	}
+	
+	.cta-button {
+		//margin: 17vw 0;
+	}
 
-    &::before {
-        will-change: filter, opacity;
-        opacity: 0;
-        filter: blur(24px);
-        content: '';
-        height: 390px;
-        width: 100%;  
-        position: absolute;
-        top: 0;
-        background-image: url('/images/skeletons.jpg');
-        background-attachment: scroll;
-        background-repeat: repeat-x;
-        background-position: bottom;      
-    }
-    &.bgFadeIn::before {
-        transition: all 1000ms ease-in-out;
-        opacity: 1;
-        filter:blur(0px);
-        background-size: 360px auto;
-    }
+	&::before {
+		will-change: filter, opacity;
+		opacity: 0;
+		filter: blur(24px);
+		content: '';
+		height: 390px;
+		width: 100%;  
+		position: absolute;
+		top: 0;
+		background-image: url('/images/skeletons.jpg');
+		background-attachment: scroll;
+		background-repeat: repeat-x;
+		background-position: bottom;      
+	}
+	&.bgFadeIn::before {
+		transition: all 1000ms ease-in-out;
+		opacity: 1;
+		filter:blur(0px);
+		background-size: 360px auto;
+	}
 
 }
 /* https://www.html5andbeyond.com/css3-animated-backgrounds-infinite-scrolling-background/ */
 .bgFadeIn.horizontal-scroll::before {
-    -webkit-animation: backgroundScroll 10s cubic-bezier(.52,.13,.48,.98)  1;
-    animation: backgroundScroll 10s cubic-bezier(.52,.13,.48,.98)  1 ;
+	-webkit-animation: backgroundScroll 10s cubic-bezier(.52,.13,.48,.98)  1;
+	animation: backgroundScroll 10s cubic-bezier(.52,.13,.48,.98)  1 ;
 }
 
 @-webkit-keyframes backgroundScroll {
-    0% {background-position: -100% bottom;}
-    50% {background-position: 100% bottom;}
-    100% {background-position: 0% bottom;}
+	0% {background-position: -100% bottom;}
+	50% {background-position: 100% bottom;}
+	100% {background-position: 0% bottom;}
 }
-                
+				
 @keyframes backgroundScroll {
-    0% {background-position: -100% bottom;} 
-    50% {background-position: 100% bottom;}
-    100% {background-position: 50% bottom;} 
+	0% {background-position: -100% bottom;} 
+	50% {background-position: 100% bottom;}
+	100% {background-position: 50% bottom;} 
 }
 
 
 @media only screen and (min-device-width: 450px) and (orientation : portrait){
 /* Styles */
-    .h1-banner {
-        //background-size: 100% auto;   
-        h1 {
-            font-size: 36px;
-        } 
-        h5 {
-            font-size: 24px;
-        }
+	.h1-banner {
+		//background-size: 100% auto;   
+		h1 {
+			font-size: 36px;
+		} 
+		h5 {
+			font-size: 24px;
+		}
 
-        &::before { 
-            height: 395px;
+		&::before { 
+			height: 395px;
 
-        }
-    }
+		}
+	}
 }
 
 
 @media only screen and (min-device-width: 320px) and (orientation : landscape) {
-    .h1-banner {
-        h1 {
-            font-size: 36px;
-        } 
-        h5 {
-            font-size: 24px;
-        }
+	.h1-banner {
+		h1 {
+			font-size: 36px;
+		} 
+		h5 {
+			font-size: 24px;
+		}
 
-        &::before { 
-            height: 395px;
-        }
+		&::before { 
+			height: 395px;
+		}
 
-    }
+	}
 
 }
 
 @media only screen and (min-device-width: 569px) and (orientation : landscape) {
 /* Styles */
-    .h1-banner {
-        h1 {
-            font-size: 46px;
-            height: 105px;
-        }
-        h5 {
-    
-        }
-        
-        &::before { 
-            height: 425px;
+	.h1-banner {
+		h1 {
+			font-size: 46px;
+			height: 105px;
+		}
+		h5 {
+	
+		}
+		
+		&::before { 
+			height: 425px;
 
-        }
-    }
+		}
+	}
 
 }
 
@@ -131,12 +131,12 @@
 @media only screen and (min-device-width: 768px)  {
 
 
-    .horizontal-scroll {
-         -webkit-animation: backgroundScroll 20s cubic-bezier(.52,.13,.48,.98)  infinite;
-        animation: backgroundScroll 20s cubic-bezier(.52,.13,.48,.98)  infinite;
-    }
+	.horizontal-scroll {
+		 -webkit-animation: backgroundScroll 20s cubic-bezier(.52,.13,.48,.98)  infinite;
+		animation: backgroundScroll 20s cubic-bezier(.52,.13,.48,.98)  infinite;
+	}
 
 }
 .icon-block { 
-    margin: 0 auto;
+	margin: 0 auto;
 }
