@@ -1,22 +1,35 @@
 .la-about-page {
 	height: 100%;
   .body {
+    > div > nav {
+        background-color: #000 !important;
+        box-shadow: none;
+
+
+        & > a , ul > li > a, a {
+            color: #496a73;
+        }
+    .brand-logo {
+            color: #496a73;
+            
+        }        
+    }
   	height: 100%;
     background-image: url('/images/starfield.jpg');
-    background-size: auto 130%;
+    background-size: auto 100%;
     background-repeat: repeat-x;
     background-position: bottom;
     background-attachment: fixed;
 
     @media #{$medium-and-up} {
-      background-size: auto 100%;
+      
     }
     @media #{$large-and-up} {
-    	background-size: auto 110%;
+    	 
     }
+  .la-bg-wrapper {
   }
-  .la-content-wrapper {
-
+   
   }
   h1 {
     color: #fff;
@@ -31,7 +44,7 @@
     color: #fff;
     font-family: "Oswald", sans-serif;
     line-height: 35px;
-    margin-top: 28vh;
+    padding-top: 28vh;
   }
   .panels {
     width: 300px;
@@ -65,8 +78,11 @@
     }
   }
   .shootingstar {
+   
     position: fixed;
     top: 20vh;
-    left: 100px;
+    left: 50%;
+  
+
   }
 }
