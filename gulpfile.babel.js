@@ -52,7 +52,7 @@ dotenv.config();
 
 // Lint JavaScript
 gulp.task('lint', () =>
-	gulp.src(['app/scripts/**/*.js', '!node_modules/**'])
+	gulp.src(['app/scripts/*.js', '!node_modules/**'])
 	.pipe($.eslint())
 	.pipe($.eslint.format())
 	.pipe($.if(!browserSync.active, $.eslint.failAfterError()))
