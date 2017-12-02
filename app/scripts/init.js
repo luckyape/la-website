@@ -30,10 +30,12 @@
           $navbar.addClass('reveal');
         }
       });
-      var canvass = document.querySelectorAll('.shootingstar');
+      var canvass = document.querySelectorAll('.shootingstar'),
+        cL = canvass.length;
       
-      for (i = 0; i < canvass.length; ++i) {
-        shower(canvass[i]);
+      for (i = 0; i < cL; ++i) {
+       
+         setTimeout('function() { var  shower('+canvass[i]+', '+ cL+'); }', 8000 * Math.random() );
       }
       
       // end of document ready
@@ -50,17 +52,18 @@
     };
   }
 
-  function shower(canvas) {
+  function shower(canvas, cL) {
     var rN = Math.random(),
       rotate = Math.random() * Math.PI * 2 * 57.295,
-      delay = Math.random() * 2000;
-      x = 30 - (60 * Math.random());
+      s =  Math.random() * Math.floor(Math.random() * cL) + 1,
+      delay = Math.random() * 4000 * s,
+      x = 30 - (60 * Math.random()),
       y = 40* Math.random(),
       transform = ' translate('+ x +'vw, ' + y + 'vh) scale(' + rN + ') rotate(' + rotate + 'deg)';
     console.info(canvas.offsetTop);
     canvas.style.transform = transform;
     draw(canvas);
-    setTimeout(function() { shower(canvas); }, delay);
+    setTimeout(function() { shower(canvas, cL); }, delay);
   }
 
   function draw(canvas) {
