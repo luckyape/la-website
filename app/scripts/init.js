@@ -34,13 +34,16 @@
         cL = canvass.length;
       
       for (i = 0; i < cL; ++i) {
-       
-         setTimeout('function() { var  shower('+canvass[i]+', '+ cL+'); }', 8000 * Math.random() );
+          
+         shower(canvass[i], cL);
+         break;
       }
       
       // end of document ready
     })
   })(jQuery); // end of jQuery name space
+
+
   var probPhone = ((/iphone|android|ie|blackberry|fennec/).test(navigator.userAgent.toLowerCase()) && 'ontouchstart' in document.documentElement);
 
   function loadContactInfo() {
@@ -53,25 +56,30 @@
   }
 
   function shower(canvas, cL) {
-    var rN = Math.random(),
-      rotate = Math.random() * Math.PI * 2 * 57.295,
+    var small = (probPhone)? .6 : 1,
+      rN = ((Math.random()/2) * small ) + .5,
+      rotate = Math.random() * Math.PI * 2 * 25,
       s =  Math.random() * Math.floor(Math.random() * cL) + 1,
       delay = Math.random() * 4000 * s,
-      x = 30 - (60 * Math.random()),
-      y = 40* Math.random(),
-      transform = ' translate('+ x +'vw, ' + y + 'vh) scale(' + rN + ') rotate(' + rotate + 'deg)';
-    console.info(canvas.offsetTop);
+      x = (screen.width - 100) * Math.random(),
+      y = (screen.height - 100) * Math.random(),
+      transform = ' translate('+ x +'px, ' + y + 'px) scale(' + rN + ') rotate(' + rotate + 'deg)';
+  
+
+
+    console.info(screen.height);
     canvas.style.transform = transform;
     draw(canvas);
-    setTimeout(function() { shower(canvas, cL); }, delay);
+   // setTimeout(function() { shower(canvas, cL); }, delay);
   }
 
   function draw(canvas) {
     if (canvas.getContext) {
       var ctx = canvas.getContext('2d');
       ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
-      ctx.lineWidth = .3;
+      ctx.lineWidth = .8;
       ctx.lineCap = 'round';
+
       var tailW = canvas.width,
         tailH = canvas.height,
         i = 0,
@@ -89,18 +97,26 @@
             setTimeout(tail, 0);
           }
           i++;
+        },
+        meteor = function () {
+          clear();
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.lineTo(i * s, i);
+          ctx.stroke();
+          if (i < tailH) {
+            setTimeout(meteor, 0);
+          } else {
+            ctx.lineWidth = .75;
+            ctx.strokeStyle = 'rgba(255, 255, 255, .8)';
+            i = 0;
+           // setTimeout(tail, 100);
+          }
+          i++;
+
         };
-      while (i < tailH) {
-        clear();
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(i * s, i);
-        ctx.stroke();
-        i++;
-      }
-      ctx.lineWidth = .75;
-      ctx.strokeStyle = 'rgba(255, 255, 255, .8)';
-      i = 0;
-      setTimeout(tail, 100);
+
+      meteor();
+    
     }
   }
