@@ -18,6 +18,7 @@
       }
     });
     var $navbar = $('#la-navbar-flex');
+
     $(window).on('scroll', function() {
       var y_scroll_pos = window.pageYOffset;
       if (y_scroll_pos > 350 && !$navbar.hasClass('navbar-fixed')) {
@@ -32,6 +33,7 @@
         $navbar.addClass('reveal');
       }
     })
+
   }); // end of document ready
 })(jQuery); // end of jQuery name space
 var probPhone = probPhone = ((/iphone|android|ie|blackberry|fennec/).test(navigator.userAgent.toLowerCase()) && 'ontouchstart' in document.documentElement);

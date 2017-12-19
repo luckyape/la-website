@@ -1,88 +1,182 @@
 .la-about-page {
-	//height: 100%;
-  .body {
-    > div > nav {
-        background-color: #000 !important;
-        box-shadow: none;
+	height: 100%;
+	background-color: transparent; // min-height: 800px;
+	.body {
+		>div>nav {
+			background-color: #000 !important;
+			box-shadow: none;
 
 
-        & > a , ul > li > a, a {
-            color: #496a73;
-        }
-    .brand-logo {
-            color: #496a73;
-            
-        }        
-    }
-  	height: 100%;
-    background-image: url('/images/starfield.jpg');
-    background-size: auto 100%;
-    background-repeat: repeat-x;
-    background-position: bottom;
-    background-attachment: fixed;
+			&>a,
+			ul>li>a,
+			a {
+				color: #496a73;
+			}
+			.brand-logo {
+				color: #496a73;
+			}
+		}
+		height: 100%;
+		min-height: 800px;
+		background-image: url('/images/starfield.jpg');
+		background-size: auto 100%;
+		background-repeat: repeat-x;
+		background-position: bottom;
+		background-attachment: fixed;
+		&:after {
 
-    @media #{$medium-and-up} {
-      
-    }
-    @media #{$large-and-up} {
-    	 
-    }
-  .la-bg-wrapper {
-  }
-   
-  }
-  h1 {
-    color: #fff;
-    font-family: "Oswald", sans-serif;
-    text-transform: uppercase;
-    font-style: italic;
-    letter-spacing: 2px;
-    margin: 0;
-    padding: 3.5vw 0;
-  }
-  h5 {
-    color: #fff;
-    font-family: "Oswald", sans-serif;
-    line-height: 35px;
-    padding-top: 28vh;
-  }
-  .panels {
-    width: 300px;
-    margin: 0 auto;
-    height: 100%;
-    &>p {
-      background-color: rgba(0, 0, 0, .2);
-      padding: 12px;
-      color: #fff;
-      opacity: 0 !important;
-    }
-  }
-  .page-footer {
-    background-color: transparent;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    .row {
-      margin-bottom: 0px;
-      @media #{$medium-and-up} {
-        margin-bottom: inherit;
-      }
-    }
-    .footer-copyright {
-      font-size: 10px;
-      min-height: 25px ;
-      @media #{$medium-and-up} {
-        font-size: inherit;
-        min-height: inherit
-      }
-    }
-  }
-  .shootingstar {
-   
-    position: fixed;
-    top: 0;
-    left: 0;
-  
+			content: '';
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-size: auto 100%;
+			background-repeat: repeat-x;
+			background-position: bottom;
+			background-attachment: fixed;
+			background-image: url('/images/trees-mask.png');
 
-  }
+		}
+		@media #{$medium-and-up} {}
+		@media #{$large-and-up} {}
+		.la-bg-wrapper {}
+	}
+	h1 {
+		color: #fff;
+		font-family: "Oswald", sans-serif;
+		text-transform: uppercase;
+		font-style: italic;
+		letter-spacing: 2px;
+		margin: 0;
+		padding: 3.5vw 0;
+	}
+	h5 {
+		color: #fff;
+		font-family: "Oswald", sans-serif;
+		line-height: 35px;
+		margin-bottom: 0;
+	}		
+	.panel-header{
+			width: 300px;
+			margin: 0 auto 0;
+			position: absolute;
+			left: 0px;
+			top: 22vh;
+	} 
+	.panels {
+		position: relative;
+		padding-top: 80vh;
+		width: 300px;
+		margin: 0 auto 20vh;
+		height: 100%;
+		& > p {
+			background-color: rgba(0, 0, 0, .2);
+			padding: 12px;
+			color: #fff;
+			//filter: blur(0) !important;
+			will-change: filter;
+			&.blurred {
+				transition: 2s all linear;
+				-webkit-transition: 2s -webkit-all linear;
+				-moz-transition: 2s -moz-all linear;
+				-ms-transition: 2s -ms-all linear;
+				-o-transition: 2s -o-all linear;		
+				will-change: filter;				
+				filter: blur(12vw) !important;	
+				transform: scale(.5)					
+			}
+			.headshot {
+				border:1px solid rgba(255, 255, 255, .5);
+				margin: 5px 10px 5px 0; 
+				display: inline-block;	
+				width: 74px;
+				&:before {
+					display: block;
+					content: "";
+					width: 74px;
+					background-image: url(images/headshot.jpg); 
+				}
+			}
+		}
+		.down {
+			border: 2px solid #fff;
+			border-radius: 40px;
+			margin-top: 10px;
+			//opacity: 0;
+		 
+		}
+		.indicator {
+		  opacity: 0.7;
+		}
+		.bounce	.indicator  {
+		  animation: blinker 2.5s ease-out infinite;
+		}
+	}
+	&.wf-active	.panel-header.zoom  .indicator{
+		//animation: zoomin 1s ease-out  1;
+	}
+	.page-footer {
+		background-color: transparent;
+		position: fixed;
+		width: 100%;
+		bottom: 0;
+		.row {
+			margin-bottom: 0px;
+			@media #{$medium-and-up} {
+				margin-bottom: inherit;
+			}
+		}
+		.footer-copyright {
+			font-size: 10px;
+			min-height: 25px;
+			@media #{$medium-and-up} {
+				font-size: inherit;
+				min-height: inherit;
+			}
+		}
+	}
+	.shootingstar {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+	}
+	@-moz-keyframes zoomin {
+    0% { opacity: 0.1;margin-top: 44px;transform: scale(.1) }
+	
+    100% { opacity: 0.7; } 
+	}
+	@-webkit-keyframes zoomin {
+    0% { opacity: 0.1;margin-top: 44px;transform: scale(.1) }
+	
+    100% { opacity: 0.7; } 
+	}	
+	@keyframes zoomin {
+    0% { opacity: 0.1;margin-top: 44px;transform: scale(.1) }
+	
+    100% { opacity: 0.7; } 
+	}	
+
+	@-moz-keyframes blinker {
+    0% { opacity: 0.7; }
+	  25% { opacity: 0.3;margin-top: 24px;transform: scale(.6) }
+	  50% {opacity: 0.3;margin-top: 48px;transform: scale(.7)}
+	  75% {opacity: 0.3;margin-top: 24px;transform: scale(.8)}
+    100% { opacity: 0.7; } 
+	}
+
+	@-webkit-keyframes blinker { 
+	    0% { opacity: 0.7; }
+	  	25% { opacity: 0.3;margin-top: 24px;transform: scale(.6) }
+	  	50% {opacity: 0.3;margin-top: 48px;transform: scale(.7)}
+	  	75% {opacity: 0.3;margin-top: 24px;transform: scale(.8)}
+	  	100% { opacity: 0.7; } 
+	} 
+
+	@keyframes blinker { 
+	  25% { opacity: 0.3;margin-top: 24px;transform: scale(.6) }
+	  50% {opacity: 0.3;margin-top: 48px;transform: scale(.7)}
+	  75% {opacity: 0.3;margin-top: 24px;transform: scale(.8)}
+	}
 }
