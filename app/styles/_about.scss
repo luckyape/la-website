@@ -91,12 +91,7 @@
 				margin: 5px 10px 5px 0; 
 				display: inline-block;	
 				width: 74px;
-				&:before {
-					display: block;
-					content: "";
-					width: 74px;
-					background-image: url(images/headshot.jpg); 
-				}
+				height: 74px;
 			}
 		}
 		.down {
