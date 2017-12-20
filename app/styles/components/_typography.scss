@@ -32,7 +32,7 @@ h5,
 h6 {
 	font-weight: 400;
 	line-height: 1.1;
-	font-family: Oswald, sans-serif;
+	font-family: "bebas-neue", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-text-stroke: 0.45px rgba(0, 0, 0, 0.1);
@@ -45,7 +45,7 @@ h4,
 h5,
 h6,
 p,
-/*.material-icons,*/
+.icon .material-icons,
 .cta-button,
 .chip,
 .title {
@@ -53,8 +53,10 @@ p,
 	filter: blur(4px);
 	will-change: filter, opacity;
 }
-
-.wf-roboto-n3-active.wf-roboto-n4-active.wf-materialicons-n4-active.wf-oswald-n5-active {
+h5 {
+	letter-spacing: .4px;
+}
+.wf-roboto-n3-active.wf-roboto-n4-active.wf-materialicons-n4-active {
 	h1,
 	h2,
 	h3,
@@ -62,7 +64,7 @@ p,
 	h5,
 	h6,
 	p,
-/*  .material-icons,*/
+	.icon .material-icons,
 	.cta-button,
 	.chip,
 	.title {
