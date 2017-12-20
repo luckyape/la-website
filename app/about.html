@@ -8,32 +8,31 @@
 <body class="body">
   <!-- @include includes/navbar.html -->
   <div id="la-content-wrapper" class="la-content-wrapper row">
-    <div class="la-bg-wrapper container">
-      <!-- h1 class="header center text-white">Meteoric Origins</h1 -->
-      <div class="panels " id="panels">
-        <div id="panel-header" class="panel-header zoom">
-          <h5 class="header light">One warm summer's night<br>under meteror peppered sky<br>I was down by Kits Beach...<br>
+	<div class="la-bg-wrapper container">
+	  <!-- h1 class="header center text-white">Meteoric Origins</h1 -->
+	  <div class="panels " id="panels">
+		<div id="panel-header" class="panel-header zoom">
+		  <h5 class="header light">One warm summer's night<br>under meteror peppered sky<br>I was down by Kits Beach...<br>
 			<i class="indicator  down material-icons white-text">&#xE5DB;</i></h5>
-        </div>
-               <p class="left-align light cloud">The name Lucky Ape is a reductionist take on the absurdity of good fortune that permits working from home, living in <a href="https://en.wikipedia.org/wiki/Kitsilano">Kitsilano</a> and life in general. </p>
-
-        <p class="left-align light cloud">Lucky Ape incorporated in September 2010 with the goal of providing web resource flexibility to a range of agency clients.</p>
-        <p class="left-align light cloud">Back then Wordpress and Drupal contracts punctuated work creating game web sites for Electronics Arts.</p>
-        <p class="left-align light cloud">More recently Lucky Ape has enjoyed successful long-term engagements providing turn-key LAMP &amp; MEAN fullstack + UI design service.</p>
-        <p class="left-align light cloud"><img src="images/headshot.jpg" width="51" align="left" class="headshot">I am Lucky Ape's principal resource, my name is Graham Charles. I have been gatethering experience and skills as a web professional since 1998.
-          <br>
-          <br> Originally a frontend developer and designer, by 2004 I was also working regularly on a PHP backend.
-          <br>
-          <br>My favorite things are complex problems and dogs.</p>
-        <p class="left-align light cloud">
-          <img src="images/guerilla-gorilla.svg" align="right" style="border:1px solid #fff; padding: 4px; display: inline-block;"> Gorilla Geurilla celebrates our &quot;dotcom-era self-taught hacker-raver turned software engineer&quot; origin story.
-          <br>
-          <br>
-          <small class="center">(the whole thing is on the verge of being gauchely eletist if you ask me)</small>
-        </p>
-      </div>
-    </div>
-    <!-- @include includes/footer.html -->
+		</div>
+		<p class="left-align light cloud">The name Lucky Ape is a reductionist take on the absurdity of good fortune that permits working from home, living in <a href="https://en.wikipedia.org/wiki/Kitsilano">Kitsilano</a> and life in general. </p>
+		<p class="left-align light cloud">Lucky Ape incorporated in September 2010 with the goal of providing web resource flexibility to a range of agency clients.</p>
+		<p class="left-align light cloud">Back then Wordpress and Drupal contracts punctuated work creating game web sites for Electronics Arts.</p>
+		<p class="left-align light cloud">More recently Lucky Ape has enjoyed successful long-term engagements providing turn-key LAMP &amp; MEAN fullstack + UI design service.</p>
+		<p class="left-align light cloud"><img src="images/headshot.jpg" width="51" align="left" class="headshot">I am Lucky Ape's principal resource, my name is Graham Charles. I have been gatethering experience and skills as a web professional since 1998.
+		  <br>
+		  <br> Originally a frontend developer and designer, by 2004 I was also working regularly on a PHP backend.
+		  <br>
+		  <br>My favorite things are complex problems and dogs.</p>
+		<p class="left-align light cloud">
+		  <img src="images/guerilla-gorilla.svg" align="right" style="border:1px solid #fff; padding: 4px; display: inline-block;"> Gorilla Geurilla celebrates our &quot;dotcom-era self-taught hacker-raver turned software engineer&quot; origin story.
+		  <br>
+		  <br>
+		  <small class="center">(the whole thing is on the verge of being gauchely eletist if you ask me)</small>
+		</p>
+	  </div>
+	</div>
+	<!-- @include includes/footer.html -->
   </div>
   <canvas class="shootingstar" width="200" height="30"></canvas>
   <canvas class="shootingstar" width="200" height="30"></canvas>
@@ -45,116 +44,14 @@
   <canvas class="shootingstar" width="200" height="30"></canvas>
   <!--  Scripts-->
   <!-- @include includes/global-js.html -->
+  <!-- build:js scripts/about.min.js -->
   <!-- build:js scripts/main.min.js -->
   <script type="text/javascript" src="scripts/main.js"></script>
+  <script type="text/javascript" src="scripts/about.js"></script>
   <script type="text/javascript" src="scripts/init.js"></script>
   <!-- endbuild -->
   <!-- endbuild -->
   <link rel="stylesheet" href="js/lib/aos/dist/aos.css" />
-  <script type="text/javascript">
-  window.onscroll = storyFade;
-  var panel = document.getElementById('panels'),
-    pHead = document.getElementById('panel-header'),
-    clouds = panel.querySelectorAll('p'),
-    blurred = [],
-    pos = null,
-    hPos = null,
-    pTPad = parseFloat(getComputedStyle(panel).getPropertyValue('padding-top')),
-    dH = document.documentElement.clientHeight,
-    paused = false,
-    scrollHeight = document.body.scrollHeight, //  window.innerHeight
-    SPPos = 60; // scroll pause position
-
-  setTimeout(function() {
-    pHead.classList.remove('zoom');
-    pHead.classList.add('bounce');
-  }, 1300)
-
-  function initScroller() {
-    var i = 0,
-      length = clouds.length;
-
-    for (; i < length; i++) {
-      if (clouds[i].getBoundingClientRect().bottom * (100 / dH) > 80) {
-        clouds[i].classList.add('blurred');
-      }
-
-    }
-    storyFade();
-
-  }
-
-
-
-  function storyFade() {
-    //console.info(scrollHeight , window.scrollY ,document.documentElement.scrollTop, dH);
-    var scrollY = window.scrollY; //document.documentElement.scrollTop
-
-    if (!paused && scrollY > SPPos) {
-
-      pPos = pHead.getBoundingClientRect();
-      pHead.style.position = 'fixed';
-      pHead.style.left = pPos.left + 'px';
-      pHead.style.top = pPos.top + 'px';
-
-      paused = true;
-      hPos = pHead.getBoundingClientRect();
-
-    } else if (paused) {
-
-      var tPos = panel.getBoundingClientRect(),
-        vh = (100 / dH),
-        pPosH = pPos.height;
-
-      if ((tPos.y * vh * -1) + (pPosH * vh) > (pTPad * vh) - 22) {
-        pHead.style.position = 'absolute';
-        pHead.style.top = pTPad - pPosH + 'px';
-        pHead.style.left = 0;
-        paused = false;
-        pHead.classList.remove('bounce');
-        
-      }
-
-      if (tPos.height > tPos.bottom) {
-        var unblur = panel.querySelector('p.blurred'),
-          blur = panel.querySelectorAll('p:not(.blurred)'),
-          uPos, uVh, bPos, bVh;
-        // this should just keep one array of objects and do it own iterating but no issue 
-        if (blur.length) {
-          blur = blur[blur.length - 1];
-          bPos = blur.getBoundingClientRect();
-          bVh = bPos.bottom * vh;
-          console.info(bVh)
-          if (bVh > 80) {
-          	
-            blur.classList.add('blurred');
-            blur = null;
-            return;
-          }
-        } else {
-          pHead.classList.add('bounce');
-        }
-
-        if (unblur) {
-          uPos = unblur.getBoundingClientRect();
-          uVh = uPos.bottom * vh;
-          if (uVh <= 80) {
-	          
-	          unblur.classList.remove('blurred');
-	          unblur = null;
-	        }
-        }
-        
-        if (blur) {
-
-        }
-      }
-    }
-  }
-
-  initScroller();
-
-  </script>
 </body>
 
 </html>

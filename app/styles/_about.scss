@@ -107,10 +107,10 @@
 		 
 		}
 		.indicator {
-		  opacity: 0.7;
+			opacity: 0.7;
 		}
 		.bounce	.indicator  {
-		  animation: blinker 2.5s ease-out infinite;
+			animation: blinker 2.5s ease-out infinite;
 		}
 	}
 	&.wf-active	.panel-header.zoom  .indicator{
@@ -143,40 +143,40 @@
 		left: 0;
 	}
 	@-moz-keyframes zoomin {
-    0% { opacity: 0.1;margin-top: 44px;transform: scale(.1) }
+		0% { opacity: 0.1;margin-top: 44px;transform: scale(.1) }
 	
-    100% { opacity: 0.7; } 
+		100% { opacity: 0.7; } 
 	}
 	@-webkit-keyframes zoomin {
-    0% { opacity: 0.1;margin-top: 44px;transform: scale(.1) }
+		0% { opacity: 0.1;margin-top: 44px;transform: scale(.1) }
 	
-    100% { opacity: 0.7; } 
+		100% { opacity: 0.7; } 
 	}	
 	@keyframes zoomin {
-    0% { opacity: 0.1;margin-top: 44px;transform: scale(.1) }
+		0% { opacity: 0.1;margin-top: 44px;transform: scale(.1) }
 	
-    100% { opacity: 0.7; } 
+		100% { opacity: 0.7; } 
 	}	
 
 	@-moz-keyframes blinker {
-    0% { opacity: 0.7; }
-	  25% { opacity: 0.3;margin-top: 24px;transform: scale(.6) }
-	  50% {opacity: 0.3;margin-top: 48px;transform: scale(.7)}
-	  75% {opacity: 0.3;margin-top: 24px;transform: scale(.8)}
-    100% { opacity: 0.7; } 
+		0% { opacity: 0.7; }
+		25% { opacity: 0.3;margin-top: 24px;transform: scale(.6) }
+		50% {opacity: 0.3;margin-top: 48px;transform: scale(.7)}
+		75% {opacity: 0.3;margin-top: 24px;transform: scale(.8)}
+		100% { opacity: 0.7; } 
 	}
 
 	@-webkit-keyframes blinker { 
-	    0% { opacity: 0.7; }
-	  	25% { opacity: 0.3;margin-top: 24px;transform: scale(.6) }
-	  	50% {opacity: 0.3;margin-top: 48px;transform: scale(.7)}
-	  	75% {opacity: 0.3;margin-top: 24px;transform: scale(.8)}
-	  	100% { opacity: 0.7; } 
+			0% { opacity: 0.7; }
+			25% { opacity: 0.3;margin-top: 24px;transform: scale(.6) }
+			50% {opacity: 0.3;margin-top: 48px;transform: scale(.7)}
+			75% {opacity: 0.3;margin-top: 24px;transform: scale(.8)}
+			100% { opacity: 0.7; } 
 	} 
 
 	@keyframes blinker { 
-	  25% { opacity: 0.3;margin-top: 24px;transform: scale(.6) }
-	  50% {opacity: 0.3;margin-top: 48px;transform: scale(.7)}
-	  75% {opacity: 0.3;margin-top: 24px;transform: scale(.8)}
+		25% { opacity: 0.3;margin-top: 24px;transform: scale(.6) }
+		50% {opacity: 0.3;margin-top: 48px;transform: scale(.7)}
+		75% {opacity: 0.3;margin-top: 24px;transform: scale(.8)}
 	}
 }

@@ -1,10 +1,10 @@
-
 /* exported initScroller */
 /* global  window, document, getComputedStyle, probPhone */
+(function aboutPage() {
 	'use strict';
 	var panel = document.getElementById('panels');
 	var pHead = document.getElementById('panel-header');
-	var clouds = panel.querySelectorAll('p');
+	var clouds = panel.querySelectorAll('.cloud');
 	var pPos = null;
 	var pTPad = parseFloat(getComputedStyle(panel).getPropertyValue('padding-top'));
 	var dH = document.documentElement.clientHeight;
@@ -12,6 +12,7 @@
 	// var scrollHeight = document.body.scrollHeight;//  window.innerHeight
 	var SPPos = 60;
 	// scroll pause position
+
 	/**
 	 * Animates shooting stars
 	 * @param {array} canvas - array of canvas dom objects
@@ -99,6 +100,17 @@
 			}
 		}
 		storyFade();
+		window.onscroll = storyFade;
+	}
+	/*
+	 * Initiates meteor shower effect
+	 */
+	function initMeteorShower() {
+		var canvass = document.querySelectorAll('.shootingstar');
+		var cL = canvass.length;
+		for (var i = 0; i < cL; ++i) {
+			shower(canvass[i], cL);
+		}
 	}
 
 	/*
@@ -160,3 +172,5 @@
 		}
 	}
 	initScroller();
+	initMeteorShower();
+})();
