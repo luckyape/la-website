@@ -163,7 +163,7 @@ gulp.task('viewerScripts', () =>
 
 gulp.task('aboutScripts', () =>
 
-    gulp.src(['./app/scripts/about.js', './app/scripts/viewer.js', './app/scripts/init.js'])
+    gulp.src(['./app/scripts/main.js', './app/scripts/about.js', './app/scripts/init.js'])
       .pipe($.concat('about.min.js'))
       .pipe($.uglify({ preserveComments: 'some' }))
       // Output files
