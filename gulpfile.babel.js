@@ -163,15 +163,16 @@ gulp.task('viewerScripts', () =>
 
 gulp.task('aboutScripts', () =>
 
-		gulp.src(['./app/scripts/about.js', './app/scripts/viewer.js', './app/scripts/init.js'])
-			.pipe($.concat('about.min.js'))
-			.pipe($.uglify({ preserveComments: 'some' }))
-			// Output files
-			.pipe($.sourcemaps.init())
-			.pipe($.babel())
-			.pipe($.size({ title: 'vaboutScripts'}))
-			.pipe($.sourcemaps.write('.'))
-			.pipe(gulp.dest('dist/public/scripts'))
+    gulp.src(['./app/scripts/main.js', './app/scripts/about.js', './app/scripts/init.js'])
+      .pipe($.concat('about.min.js'))
+      .pipe($.uglify({ preserveComments: 'some' }))
+      // Output files
+      .pipe($.sourcemaps.init())
+      .pipe($.babel())
+      .pipe($.size({ title: 'vaboutScripts'}))
+      .pipe($.sourcemaps.write('.'))
+      .pipe(gulp.dest('dist/public/scripts'))
+
 );
 
 
@@ -266,7 +267,6 @@ gulp.task('serve', ['scripts', 'styles', 'buildStoreItems', 'htmlIncludes'], () 
 		/* middleware: [
 		    function (req, res, next) {
 		        /** First middleware handler ** /
-		    	
 		    	var probPhone = ((/iphone|android|ie|blackberry|fennec/).test(req.headers['user-agent']));
 
 		    	next();
@@ -313,6 +313,7 @@ gulp.task('convertStoreXML', ['getStoreXML'], () => {
 	console.info('convertStoreXML');
 	gulp.src('docs/zazzle.xml')
 		.pipe(xml2json())
+		.on('error', function(e) { console.info(e) })
 		.pipe(rename({ extname: '.json' }))
 		.pipe(gulp.dest('docs'))
 		.on('error', function(e) { handleError(e) });
