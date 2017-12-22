@@ -109,20 +109,20 @@
       filter: blur(0) !important;
       transform: scale(1) translate(0, 0px);
       will-change: filter;
-      transition: filter 250ms, transform 500ms linear;
-      -webkit-transition: filter 250ms, transform 500ms linear;
-      -moz-transition: filter 250ms, transform 500ms linear;
-      -ms-transition: filter 250ms, transform 500ms linear;
-      -o-transition: filter 250ms, transform 500ms linear;
+      transition: filter 250ms, transform 400ms linear;
+      -webkit-transition: filter 250ms, transform 400ms linear;
+      -moz-transition: filter 250ms, transform 400ms linear;
+      -ms-transition: filter 250ms, transform 400ms linear;
+      -o-transition: filter 250ms, transform 400ms linear;
 
       &.blurred {
-        filter: blur(22vw) !important;
+        filter: blur(12vw) !important;
         transform: scale(.5) translate(0, 100px);
-        transition: filter 550ms, transform 800ms linear;
-        -webkit-transition: filter 750ms, transform 800ms linear;
-        -moz-transition: filter 750ms, transform 800ms linear;
-        -ms-transition: filter 750ms, transform 800ms linear;
-        -o-transition: filter 750ms, transform 800ms linear;
+        transition: filter 550ms, transform 500ms linear;
+        -webkit-transition: filter 750ms, transform 500ms linear;
+        -moz-transition: filter 750ms, transform 500ms linear;
+        -ms-transition: filter 750ms, transform 500ms linear;
+        -o-transition: filter 750ms, transform 500ms linear;
 
         will-change: filter;
       }
