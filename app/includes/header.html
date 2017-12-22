@@ -1,4 +1,4 @@
-<meta charset="utf-8">
+	<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,6 +26,8 @@
 <!-- Color the status bar on mobile devices -->
 <meta name="theme-color" content="#2F3BA2">
 <link href="styles/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script>
 function async(u, c) {
@@ -66,4 +68,9 @@ if (navigator.userAgent.indexOf("Speed Insights") === -1) {
 		})
 }
 
+var probPhone = ((/iphone|android|ie|blackberry|fennec/).test(navigator.userAgent.toLowerCase()) && 'ontouchstart' in document.documentElement);
+if(probPhone) {
+	console.info('probPhone');
+	document.querySelector('html').classList.add('probPhone');
+}
 </script>

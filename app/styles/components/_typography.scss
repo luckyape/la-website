@@ -1,28 +1,28 @@
 body {}
 
 a {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 html {
-	line-height: 1.5;
+    line-height: 1.5;
 
-	@media only screen and (min-width: 0) {
-		font-size: 14px;
-	}
+    @media only screen and (min-width: 0) {
+        font-size: 14px;
+    }
 
-	@media only screen and (min-width: $medium-screen) {
-		font-size: 14.5px;
-	}
+    @media only screen and (min-width: $medium-screen) {
+        font-size: 14.5px;
+    }
 
-	@media only screen and (min-width: $large-screen) {
-		font-size: 15px;
-	}
+    @media only screen and (min-width: $large-screen) {
+        font-size: 15px;
+    }
 
-	font-family: "Roboto",
-	sans-serif;
-	font-weight: normal;
-	color: $off-black;
+    font-family: "Roboto",
+    sans-serif;
+    font-weight: normal;
+    color: $off-black;
 }
 
 h2,
@@ -30,12 +30,12 @@ h3,
 h4,
 h5,
 h6 {
-	font-weight: 400;
-	line-height: 1.1;
-	font-family: "bebas-neue", sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-text-stroke: 0.45px rgba(0, 0, 0, 0.1);
+    font-weight: 400;
+    line-height: 1.1;
+    font-family: "bebas-neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-stroke: 0.45px rgba(0, 0, 0, 0.1);
 }
 
 h1,
@@ -49,30 +49,30 @@ p,
 .cta-button,
 .chip,
 .title {
-	opacity: 0;
-	filter: blur(4px);
-	will-change: filter, opacity;
+    opacity: 0;
+    filter: blur(4px);
+    will-change: filter, opacity;
 }
 h5 {
-	letter-spacing: .4px;
+    letter-spacing: .4px;
 }
 .wf-roboto-n3-active.wf-roboto-n4-active.wf-materialicons-n4-active {
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6,
-	p,
-	.icon .material-icons,
-	.cta-button,
-	.chip,
-	.title {
-		opacity: 1;
-		filter: blur(0);
-		transition: all 300ms ease-in-out;
-		will-change: auto;
-	}
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    .icon .material-icons,
+    .cta-button,
+    .chip,
+    .title {
+        opacity: 1;
+        filter: blur(0);
+        transition: all 300ms ease-in-out;
+        will-change: auto;
+    }
 }
 
 // Header Styles
@@ -82,76 +82,76 @@ h3 a,
 h4 a,
 h5 a,
 h6 a {
-	font-weight: inherit;
+    font-weight: inherit;
 }
 
 h1 {
-	font-size: $h1-fontsize;
-	line-height: 110%;
-	margin: ($h1-fontsize / 2) 0 ($h1-fontsize / 2.5) 0;
+    font-size: $h1-fontsize;
+    line-height: 110%;
+    margin: ($h1-fontsize / 2) 0 ($h1-fontsize / 2.5) 0;
 }
 
 h2 {
-	font-size: $h2-fontsize;
-	line-height: 110%;
-	margin: ($h2-fontsize / 2) 0 ($h2-fontsize / 2.5) 0;
+    font-size: $h2-fontsize;
+    line-height: 110%;
+    margin: ($h2-fontsize / 2) 0 ($h2-fontsize / 2.5) 0;
 }
 
 h3 {
-	font-size: $h3-fontsize;
-	line-height: 110%;
-	margin: ($h3-fontsize / 2) 0 ($h3-fontsize / 2.5) 0;
+    font-size: $h3-fontsize;
+    line-height: 110%;
+    margin: ($h3-fontsize / 2) 0 ($h3-fontsize / 2.5) 0;
 }
 
 h4 {
-	font-size: $h4-fontsize;
-	line-height: 110%;
-	margin: ($h4-fontsize / 2) 0 ($h4-fontsize / 2.5) 0;
+    font-size: $h4-fontsize;
+    line-height: 110%;
+    margin: ($h4-fontsize / 2) 0 ($h4-fontsize / 2.5) 0;
 }
 
 h5 {
-	font-size: $h5-fontsize;
-	line-height: 110%;
-	margin: ($h5-fontsize / 2) 0 ($h5-fontsize / 2.5) 0;
+    font-size: $h5-fontsize;
+    line-height: 110%;
+    margin: ($h5-fontsize / 2) 0 ($h5-fontsize / 2.5) 0;
 }
 
 h6 {
-	font-size: $h6-fontsize;
-	line-height: 110%;
-	margin: ($h6-fontsize / 2) 0 ($h6-fontsize / 2.5) 0;
+    font-size: $h6-fontsize;
+    line-height: 110%;
+    margin: ($h6-fontsize / 2) 0 ($h6-fontsize / 2.5) 0;
 }
 
 // Text Styles
 em {
-	font-style: italic;
+    font-style: italic;
 }
 
 strong {
-	font-weight: 500;
+    font-weight: 500;
 }
 
 small {
-	font-size: 75%;
+    font-size: 75%;
 }
 
 .light {
-	font-weight: 300;
+    font-weight: 300;
 }
 
 .thin {
-	font-weight: 200;
+    font-weight: 200;
 }
 
 .flow-text {
-	font-weight: 300;
-	$i: 0;
-	@while $i <=$intervals {
-		@media only screen and (min-width: 360 + ($i * $interval-size)) {
-			font-size: 1.2rem * (1 + (.02 * $i));
-		}
-		$i: $i+1;
-	} // Handle below 360px screen
-	@media only screen and (max-width: 360px) {
-		font-size: 1.5rem;
-	}
+    font-weight: 300;
+    $i: 0;
+    @while $i <=$intervals {
+        @media only screen and (min-width: 360 + ($i * $interval-size)) {
+            font-size: 1.2rem * (1 + (.02 * $i));
+        }
+        $i: $i+1;
+    } // Handle below 360px screen
+    @media only screen and (max-width: 360px) {
+        font-size: 1.5rem;
+    }
 }

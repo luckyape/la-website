@@ -15,7 +15,7 @@
 					<h5 class="header col s12 light">UI, Wordpress, Drupal, Node JS, AngularJS, MEAN/LAMP</h5>
 				</div>
 				<div class="row center">
-					<a id="cta-button" class="cta-button btn-large waves-effect waves-light orange modal-trigger" href="#modal1">Let's Talk About Your Project</a>
+					<a id="cta-button" class="cta-button btn-large waves-effect waves-light orange modal-trigger" href="#contact-options">Let's Talk About Your Project</a>
 				</div>
 			</div>
 		</div>
@@ -41,15 +41,15 @@
 						<div class="icon-block">
 							<div class="center black-text icon"><i class="material-icons">mood</i></div>
 							<h5 class="center">Easy to Work With</h5>
-							<p class="light">Lucky Ape client engagement best practices are: make communication prompt and straightforward; get onboard and leverage strengths to be helpful; target deeply satisfying results; and do your best to punctuate interaction thoughtfully.</p>
+							<p class="light">Lucky Ape client engagement best practices are&#58; make communication prompt and straightforward&#59; get onboard and leverage strengths to be helpful&#59; target deeply satisfying results&#59; and punctuate articulately.</p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- Modal Structure -->
-		<div id="modal1" class="modal modal-fixed-footer">
-	z		<div class="modal-content">
+		<div id="contact-options" class="modal modal-fixed-footer">
+	       <div class="modal-content">
 				<div id="contact-methods" class="contact-methods valign-wrapper">
 				</div>
 			</div>
@@ -66,7 +66,6 @@
 	<!-- endbuild -->
 	<script>
 	(function($) {
-
 		$(function() {
 			var background = 'images/skeletons.jpg';
 			$('<img/>').attr('src', background).load(function() { // create an image element with inner background and load it
@@ -74,11 +73,10 @@
 
 				// set the inner background image and fade in:
 				$('#index-banner').addClass('bgFadeIn'); // need a little delay to let the div render it's bg image before the fade starts
-
 			});
 			$('.modal').modal({
 				ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-					loadContactInfo();
+					window.loadContactInfo();
 				}
 			});
 		}); // end of document ready

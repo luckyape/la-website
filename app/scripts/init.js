@@ -1,6 +1,4 @@
 /* global  Materialize,jQuery, $ */
-
-var $navbar = $navbar || $('#la-navbar-flex');
 var $contWrap = $('#la-content-wrapper');
 
 (function($) {

@@ -6,8 +6,8 @@ const domain =  process.env.DOMAIN;
 
 function ensureDomain(req, res, next) {
   if (!domain || req.hostname === domain) {
-    // OK, continue
-    return next();
+	// OK, continue
+	return next();
   };
 
   // handle port numbers if you need non defaults

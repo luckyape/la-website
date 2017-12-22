@@ -9,6 +9,8 @@
   var pTPad = parseFloat(getComputedStyle(panel).getPropertyValue('padding-top'));
   var dH = document.documentElement.clientHeight;
   var paused = false;
+  var screen = window.screen;
+  var navbar = document.getElementById('la-navbar-flex');
   // var scrollHeight = document.body.scrollHeight;//  window.innerHeight
   var SPPos = 60;
   // scroll pause position
@@ -73,7 +75,6 @@
     var rotate = Math.random() * Math.PI * 2 * 25;
     var s = Math.random() * Math.floor(Math.random() * cL) + 1;
     var delay = Math.random() * 4000 * s;
-    var screen = window.screen;
     var x = (screen.width * Math.random()) / screen.width * 100;
     var y = (screen.height * Math.random()) / screen.height * 80;
     if (y > 60) {
@@ -93,14 +94,14 @@
    * Initiates scrolling effect
    */
   function initScroller() {
-    var length = clouds.length;
-    for (var i = 0; i < length; i++) {
+    var l = clouds.length;
+    for (var i = 0; i < l; i++) {
       if (clouds[i].getBoundingClientRect().bottom * (100 / dH) > 80) {
         clouds[i].classList.add('blurred');
       }
     }
     storyFade();
-    window.onscroll = storyFade;
+    window.addEventListener('scroll', storyFade);
   }
   /*
    * Initiates meteor shower effect
@@ -171,6 +172,57 @@
       }
     }
   }
-  initScroller();
+
+  /*
+   * Facilitate scroll experince for mobile
+   */
+  function initMobileScroll() {
+    var scrollKill = true;
+
+    var sheet = document.createElement('style');
+    sheet.innerHTML = '.la-about-page.probPhone .panel-header { padding-top: ' + (0.20 * screen.height) + 'px; padding-bottom: ' + (0.80 * screen.height) + 'px; will-change: padding-top,padding-bottom;}';
+    document.body.appendChild(sheet);
+    panel.style.paddingTop = 0;
+    panel.style.marginTop = 0;
+
+    window.addEventListener('touchstart', startMotion, false);
+    window.addEventListener('scroll', preventMotion, false);
+    window.addEventListener('touchmove', preventMotion, false);
+    /*
+     * Initiats normal scroll
+     */
+    function startMotion() {
+      if (scrollKill && window.scrollY === 0) {
+        pHead.classList.add('mobile-scroll');
+        pHead.classList.remove('bounce');
+        setTimeout(function() {
+          scrollKill = false;
+          navbar.style.top = '-64px';
+        }, 500);
+      }
+    }
+    /*
+     * Initiats normal scroll
+     */
+    function preventMotion(event) {
+      if (scrollKill) {
+        window.scrollTo(0, 0);
+        event.preventDefault();
+        event.stopPropagation();
+       // navbar.setAttribute('style','');
+      } else if (window.scrollY < -10 && !scrollKill) {
+        pHead.classList.add('bounce');
+        pHead.classList.remove('mobile-scroll');
+        navbar.style.top = '0px';
+        scrollKill = true;
+      }
+    }
+  }
+
+  if (!probPhone) {
+    initScroller();
+  } else if (probPhone) {
+    initMobileScroll();
+  }
   initMeteorShower();
 })();
