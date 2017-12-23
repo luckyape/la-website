@@ -29,7 +29,7 @@
   max-width: 370px;
   .card {
     margin-bottom: 0px;
-  }    
+  }
 }
 @media #{$medium-and-up} {
   .gutter-sizer {
@@ -38,12 +38,12 @@
   .grid-sizer,
   .grid-item {
     min-width: none;
-    max-width: none;    
+    max-width: none;
     margin-bottom: 0px;
     width: 48%;
     .card {
-        margin-bottom: 0px;
-      }    
+      margin-bottom: 0px;
+    }
   }
 }
 /* ---- grid ---- */

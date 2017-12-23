@@ -19,7 +19,7 @@
      * initiates mobile horizonal scroll
      */
     var flickityInit = function() {
-      $($grid).flickity({
+      $carousel = $($grid).flickity({
         cellSelector: '.grid-item',
         wrapAround: true,
         selectedAttraction: 0.2,
@@ -27,7 +27,13 @@
         resize: true,
         pageDots: false
       });
+      $carousel.on('select.flickity', updateStatus);
     };
+    var updateStatus = function () {
+      var slideNumber = flkty.selectedIndex + 1;
+      
+      console.info(slideNumber + '/' + flkty.slides.length);
+    }
     var isotopeInit = function() {
       $grid.isotope({
         layoutMode: 'packery',
@@ -65,7 +71,7 @@
           $grid.isotope('destroy');
         }
         if (!$grid.flickity) {
-          async(['/scripts/lib/flickity/dist/flickity.pkgd.min.js'], flickityInit);
+          async(['https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js'], flickityInit);
         } else if ($grid.flickity) {
           setTimeout(flickityInit, 100);
         }
@@ -76,7 +82,7 @@
 
         if (!$grid.isotope) {
           async(['https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js'], function() {
-            async(['/scripts/lib/isotope-packery/packery-mode.pkgd.min.js'], isotopeInit);
+            async(['https://cdn.jsdelivr.net/npm/isotope-packery@2.0.0/packery-mode.pkgd.js'], isotopeInit);
           });
         } else if ($grid.isotope) {
           setTimeout(isotopeInit, 100);

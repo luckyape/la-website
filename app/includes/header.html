@@ -1,10 +1,4 @@
-	<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>
-	Lucky Ape Corporate Communications Ltd - Vancouver BC
-</title>
+
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <!-- Disable tap highlight on IE -->
@@ -69,6 +63,7 @@ if (navigator.userAgent.indexOf("Speed Insights") === -1) {
 }
 
 var probPhone = ((/iphone|android|ie|blackberry|fennec/).test(navigator.userAgent.toLowerCase()) && 'ontouchstart' in document.documentElement);
+probPhone = 1;
 if(probPhone) {
 	console.info('probPhone');
 	document.querySelector('html').classList.add('probPhone');
