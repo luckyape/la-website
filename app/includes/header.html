@@ -25,47 +25,80 @@
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script>
 function async(u, c) {
-	var d = document,
-		t = 'script',
-		n = 0,
-		loadEvent = function(e) {
-			n--;
-			if (!n) {
-				c(null, e);
-			}
-		};
-	if (Array.isArray(u)) {
-		n = u.length;
-		for (var i = 0; i < n; i++) {
-			var j = {
-				o: d.createElement(t),
-				s: d.getElementsByTagName(t)[0],
-			};
-			j.o.src = u[i];
-			if (c) {
-				j.o.addEventListener('load', loadEvent, false);
-			}
-			setTimeout(function() {
-				j.s.parentNode.insertBefore(j.o, j.s);
-			}, 1);
-		}
-	}
+    var d = document,
+        t = 'script',
+        n = 0,
+        loadEvent = function(e) {
+            n--;
+            if (!n) {
+                c(null, e);
+            }
+        };
+    if (Array.isArray(u)) {
+        n = u.length;
+        for (var i = 0; i < n; i++) {
+            var j = {
+                o: d.createElement(t),
+                s: d.getElementsByTagName(t)[0],
+            };
+            j.o.src = u[i];
+            if (c) {
+                j.o.addEventListener('load', loadEvent, false);
+            }
+            setTimeout(function() {
+                j.s.parentNode.insertBefore(j.o, j.s);
+            }, 1);
+        }
+    }
 }
 if (navigator.userAgent.indexOf("Speed Insights") === -1) {
-	async(["https://www.googletagmanager.com/gtag/js?id=UA-20443414-1"],
-		function() {
-			window.dataLayer = window.dataLayer || [];
+    async(["https://www.googletagmanager.com/gtag/js?id=UA-20443414-1"],
+        function() {
+            window.dataLayer = window.dataLayer || [];
 
-			function gtag() { dataLayer.push(arguments); }
-			gtag('js', new Date());
-			gtag('config', 'UA-20443414-1');
-		})
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'UA-20443414-1');
+        })
 }
 
 var probPhone = ((/iphone|android|ie|blackberry|fennec/).test(navigator.userAgent.toLowerCase()) && 'ontouchstart' in document.documentElement);
 probPhone = 1;
 if(probPhone) {
-	console.info('probPhone');
-	document.querySelector('html').classList.add('probPhone');
+    console.info('probPhone');
+    document.querySelector('html').classList.add('probPhone');
 }
+WebFontConfig = {
+    typekit: {
+        id: 'yil6mnu'
+    },
+    google: {
+        families: ['Material Icons','Roboto:regular','Roboto:light']
+    },  
+    custom: {
+        families: ['Socicon'],
+        urls: ['/styles/social-font.css']
+    }
+};    
+
+(function(d) {
+    var wf = d.createElement('script'), s = d.scripts[0];
+    wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
+    wf.async = true;
+    s.parentNode.insertBefore(wf, s);
+})(document);
 </script>
+
+
+
+
+
+
+
+<style>
+
+
+    .material-icons {
+      opacity: 0;
+    }
+</style>

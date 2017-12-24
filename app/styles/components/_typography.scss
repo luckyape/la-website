@@ -19,10 +19,10 @@ html {
         font-size: 15px;
     }
 
-	font-family: "Roboto",
-	sans-serif;
-	font-weight: normal;
-	color: $off-black;
+    font-family: "Roboto",
+    sans-serif;
+    font-weight: normal;
+    color: $off-black;
 }
 
 
@@ -46,7 +46,7 @@ h4,
 h5,
 h6,
 p,
-.icon .material-icons,
+.material-icons,
 .cta-button,
 .chip,
 .title {
@@ -65,7 +65,7 @@ h5 {
     h5,
     h6,
     p,
-    .icon .material-icons,
+    .material-icons,
     .cta-button,
     .chip,
     .title {
@@ -99,11 +99,11 @@ h2 {
 }
 
 h3 {
-	font-size: $h3-fontsize;
-	font-family: Roboto, sans-serif;
-	font-weight: 300;
-	line-height: 110%;
-	margin: ($h3-fontsize / 2) 0 ($h3-fontsize / 2.5) 0;
+    font-size: $h3-fontsize;
+    font-family: Roboto, sans-serif;
+    font-weight: 300;
+    line-height: 110%;
+    margin: ($h3-fontsize / 2) 0 ($h3-fontsize / 2.5) 0;
 }
 
 h4 {
