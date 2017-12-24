@@ -15,8 +15,8 @@
 <body class="la-store-page la-viewer">
   <!-- @include includes/navbar.html -->
   <div id="la-content-wrapper" class="la-content-wrapper">
-    <div class="container">
-      <div class="row">
+    <div class="container la-filter">
+      <div class="row  viewer-header">
         <div class="col center s10 offset-s1 flow-text">
           <h1 class="extra-padding-height flow-text">Company Store</h1>
           <div class="show-on-small center toggle-filter">
@@ -39,14 +39,19 @@
       <i class="material-icons">menu</i>
     </a>
       </div>
-      <div class="row products-filter">
+      <div class="row viewer-filter">
         <div class="right">
           <a id="info-spot" class="info-spot right green waves-effect waves-light btn btn-floating question-mark">?</a>
         </div>
-        <div id="viewerChips" class="products chips"></div>
+        <div id="viewerChips" class="products clearfix chips"></div>
       </div>
     </div>
     <div class="container">
+      <div class="row">
+        <div class="position-ratio center  s12 col">
+          <span id="viewer-current-slide"></span>/<span id="viewer-total-slides"></span>
+        </div>
+      </div>
       <div id="viewerCards" class="viewer-cards row">
         <div class="grid-sizer"></div>
         <div class="gutter-sizer"></div>

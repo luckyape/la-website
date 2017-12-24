@@ -1,9 +1,9 @@
-* {
+/** {
 		box-sizing: border-box;
 }
 
 
-/* inherit height from window */
+/* inherit height from window * /
 .disciplines.chips {
 	min-height: 82px;
 }
@@ -46,7 +46,7 @@
 		}
 	}
 }
-/* ---- grid ---- */
+/* ---- grid ---- * /
 @media #{$large-and-up} {
 	.gutter-sizer {
 			width: 2%;
@@ -60,4 +60,4 @@
 				margin-bottom: 0px;
 			}    
 	}
-}
+}*/

@@ -1,164 +1,179 @@
 /* global jQuery,  window, async, probPhone */
 (function($) {
-	$(function() {
-		var filters = {
-			chips: []
-		};
-		var $grid = $('#viewerCards');
-		var $chips = {};
-		var chipsArr = [];
-		var chipsObj = {};
-		/* var testTouch = function() {
-			var el = document.createElement('div');
-			el.setAttribute('ontouchstart', 'return;');
-			// or try "ontouchstart"
-			return typeof el.ongesturestart === "function";
-		}; */
+  $(function() {
+    var filters = {
+      chips: []
+    };
+    var $grid = $('#viewerCards');
+    var $chips = {};
+    var chipsArr = [];
+    var chipsObj = {};
+    var cards = document.querySelectorAll('.card');
+    /*
+    *  Reveals viewer card
+    */
+    var revealCards = function() {
+      	for(var i = 0; i < cards.length; i++) {
+      		cards[i].style.opacity = 1;
+      	}
+    }
+    /* var testTouch = function() {
+    	var el = document.createElement('div');
+    	el.setAttribute('ontouchstart', 'return;');
+    	// or try "ontouchstart"
+    	return typeof el.ongesturestart === "function";
+    }; */
 
-		/*
-		 * initiates mobile horizonal scroll
-		 */
-		var flickityInit = function() {
-			
-			$carousel = $($grid).flickity({
-				cellSelector: '.grid-item',
-				wrapAround: true,
-				selectedAttraction: 0.2,
-				friction: 0.8,
-				resize: true,
-				pageDots: false
-			});
+    /*
+     * initiates mobile horizonal scroll
+     */
+    var flickityInit = function() {
 
-			var currentSlide = document.getElementById('viewer-current-slide');
-			var totalSlides = document.getElementById('viewer-total-slides');			
+      $carousel = $($grid).flickity({
+        cellSelector: '.grid-item',
+        wrapAround: true,
+        selectedAttraction: 0.2,
+        friction: 0.8,
+        resize: true,
+        pageDots: false,
+        cellAlign: 'center'
+      });
+	  revealCards();
+      var currentSlide = document.getElementById('viewer-current-slide');
+      var totalSlides = document.getElementById('viewer-total-slides');
 
-			var updateStatus = function () {		
-				var slideNumber = flkty.selectedIndex + 1;	
-				console.info(slideNumber + '/' + flkty.slides.length);
-				currentSlide.innerHTML = slideNumber;
-				totalSlides.innerHTML = flkty.slides.length;
-			}
+      var updateStatus = function() {
+        var slideNumber = flkty.selectedIndex + 1;
+        console.info(slideNumber + '/' + flkty.slides.length);
+        currentSlide.innerHTML = slideNumber;
+        totalSlides.innerHTML = flkty.slides.length;
+      }
 
-			$carousel.on('select.flickity', updateStatus);
-			var flkty = $carousel.data('flickity');
-			updateStatus();
-		};
-		
-		var isotopeInit = function() {
-			$grid.isotope({
-				layoutMode: 'packery',
-				packery: {
-					columnWidth: '.grid-sizer',
-					gutter: '.gutter-sizer'
-				},
-				itemSelector: '.grid-item',
-				percentPosition: true,
-				resize: true,
-				filter: function() {
-					var isMatched = true;
-					var $this = $(this);
+      $carousel.on('select.flickity', updateStatus);
+      var flkty = $carousel.data('flickity');
+      updateStatus();
+    };
 
-					if (filters.selected) {
-						isMatched = $($this[0]).hasClass(filters.selected);
-					} else {
-						filters.chips = $chips.material_chip('data').map(function(c) {
-							return c.id;
-						});
-						for (var i = 0; i < filters.chips.length; i++) {
-							if ($this[0].className.indexOf(filters.chips[i]) > -1) {
-								return true;
-							}
-						}
-						return false;
-					}
-					return isMatched;
-				}
-			});
-		};
-		var matchMedia = function() {
-			if (probPhone) {
-				if ($grid.hasClass('isotope')) {
-					$grid.isotope('destroy');
-				}
-				if (!$grid.flickity) {
-					async(['https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js'], flickityInit);
-				} else if ($grid.flickity) {
-					setTimeout(flickityInit, 100);
-				}
-			} else {
-				if ($grid.hasClass('flickity-enabled')) {
-					$grid.flickity('destroy');
-				}
+    var isotopeInit = function() {
+      $grid.isotope({
+        layoutMode: 'packery',
+        packery: {
+          columnWidth: '.grid-sizer',
+          gutter: '.gutter-sizer'
+        },
+        itemSelector: '.grid-item',
+        percentPosition: true,
+        resize: true,
+        filter: function() {
+          var isMatched = true;
+          var $this = $(this);
 
-				if (!$grid.isotope) {
-					async(['https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js'], function() {
-						async(['https://cdn.jsdelivr.net/npm/isotope-packery@2.0.0/packery-mode.pkgd.js'], isotopeInit);
-					});
-				} else if ($grid.isotope) {
-					setTimeout(isotopeInit, 100);
-				}
-			}
-		};
+          if (filters.selected) {
+            isMatched = $($this[0]).hasClass(filters.selected);
+          } else {
+            filters.chips = $chips.material_chip('data').map(function(c) {
+              return c.id;
+            });
+            for (var i = 0; i < filters.chips.length; i++) {
+              if ($this[0].className.indexOf(filters.chips[i]) > -1) {
+                return true;
+              }
+            }
+            return false;
+          }
+          return isMatched;
+        }
+      });
+      revealCards();
+    };
+    var matchMedia = function() {
+      if (probPhone) {
+        if ($grid.hasClass('isotope')) {
+          $grid.isotope('destroy');
+        }
+        if (!$grid.flickity) {
+          async(['https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js'], flickityInit);
+        } else if ($grid.flickity) {
+          setTimeout(flickityInit, 100);
+        }
+      } else {
+        if ($grid.hasClass('flickity-enabled')) {
+          $grid.flickity('destroy');
+        }
 
-		var getChips = function(i, chip) {
-			var chipText = $(chip).text().trim();
-			if (chipsObj[chipText] !== null) {
-				chipsArr.push({
-					tag: chipText,
-					id: chipText.trim().replace(/\s+/g, '-').toLowerCase()
-				});
+        if (!$grid.isotope) {
+          async(['https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js'], function() {
+            async(['https://cdn.jsdelivr.net/npm/isotope-packery@2.0.0/packery-mode.pkgd.js'], isotopeInit);
+          });
+        } else if ($grid.isotope) {
+          setTimeout(isotopeInit, 100);
+        }
+      }
+    };
 
-				chipsObj[chipText] = null;
-			}
-		};
-		var intiChips = function() {
-			$chips = $('#viewerChips');
-			$chips.material_chip({
-				data: chipsArr,
-				placeholder: '...',
-				autocompleteOptions: {
-					data: chipsObj,
-					limit: Infinity,
-					minLength: 1
-				}
-			});
-			$('input', $chips).focus();
-			$chips.on('click', function() {
-				if (filters.selected) {
-					filters.selected = null;
-					$grid.isotope();
-				}
-				//  chipsObj[chip.tag] = (chipsObj[chip.tag])? true : null;
-			});
-			$chips.on('chip.select', function(e, chip) {
-				// you have the added chip here
-				filters.selected = chip.tag;
-				$grid.isotope();
-			});
-			$chips.on('chip.add', function() {
-				// you have the added chip here
-				$grid.isotope();
-			});
-			$chips.on('chip.delete', function() {
-				// you have the deleted chip here
-				$grid.isotope();
-			});
-		};
+    var getChips = function(i, chip) {
+      var chipText = $(chip).text().trim();
+      if (chipsObj[chipText] !== null) {
+        chipsArr.push({
+          tag: chipText,
+          id: chipText.trim().replace(/\s+/g, '-').toLowerCase()
+        });
 
-		$(window).resize(matchMedia);
-		matchMedia();
+        chipsObj[chipText] = null;
+      }
+    };
+    var intiChips = function() {
+      $chips = $('#viewerChips');
+      $chips.material_chip({
+        data: chipsArr,
+        placeholder: '...',
+        autocompleteOptions: {
+          data: chipsObj,
+          limit: Infinity,
+          minLength: 1
+        }
+      });
+      $('input', $chips).focus();
+      $chips.on('click', function() {
+        if (filters.selected) {
+          filters.selected = null;
+          $grid.isotope();
+        }
+        //  chipsObj[chip.tag] = (chipsObj[chip.tag])? true : null;
+      });
+      $chips.on('chip.select', function(e, chip) {
+        // you have the added chip here
+        filters.selected = chip.tag;
+        $grid.isotope();
+      });
+      $chips.on('chip.add', function() {
+        // you have the added chip here
+        $grid.isotope();
+      });
+      $chips.on('chip.delete', function() {
+        // you have the deleted chip here
+        $grid.isotope();
+      });
+    };
 
-		$('.card-chips .chip, .card-action  .chip').each(getChips).promise().done(intiChips);
+    $(window).resize(matchMedia);
+    matchMedia();
 
-		$('.info-spot').click(function() {
-			$('.tap-target').tapTarget('open');
-		});
+    $('.card-chips .chip, .card-action  .chip').each(getChips).promise().done(intiChips);
 
-		$('.toggle-filter').click(function() {
-			$('.products-filter').removeClass('no-animation');
-			$('.products-filter,.toggle-filter').toggleClass('filter-on');
-		});
-	});
-	// end of document ready
+    $('.info-spot').click(function() {
+      $('.tap-target').tapTarget('open');
+    });
+
+    $('.toggle-filter a').click(function() {
+      // $('.products-filter').removeClass('no-animation');
+      // $('.products-filter').height($('#viewerChips').height());
+      var sheet = document.createElement('style');
+      sheet.innerHTML = '.filter-on.viewer-filter { min-height: ' + ( $('#viewerChips').height() + 20 ) + 'px; will-change: min-height;}';
+      document.body.appendChild(sheet);
+      $('.viewer-filter,.toggle-filter').toggleClass('filter-on');
+    });
+  });
+  // end of document ready
 })(jQuery);
 // end of jQuery name space
