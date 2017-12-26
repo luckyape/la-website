@@ -75,7 +75,6 @@
   
   var probPhone = ((/iphone|android|ie|blackberry|fennec/).test(navigator.userAgent.toLowerCase()) && 'ontouchstart' in document.documentElement);
   if(probPhone) {
-      console.info('probPhone');
       document.querySelector('html').classList.add('probPhone');
   }
   WebFontConfig = {

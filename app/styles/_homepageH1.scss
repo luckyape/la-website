@@ -37,7 +37,7 @@
     opacity: 0;
     filter: blur(24px);
     content: '';
-    height: 390px;
+    height: 325px;
     width: 100%;
     position: absolute;
     top: 0;
@@ -45,6 +45,9 @@
     background-attachment: scroll;
     background-repeat: repeat-x;
     background-position: bottom;
+    @media #{$small-and-down} {
+    
+    }
   }
   &.bgFadeIn::before {
     transition: all 1000ms ease-in-out;
@@ -61,7 +64,7 @@
   -webkit-animation: backgroundScroll 10s cubic-bezier(.52, .13, .48, .98) 1;
   animation: backgroundScroll 10s cubic-bezier(.52, .13, .48, .98) 1;
 }
-
+/*
 @-webkit-keyframes backgroundScroll {
   0% {
     background-position: -100% bottom;
@@ -73,7 +76,7 @@
     background-position: 0% bottom;
   }
 }
-
+*/
 @keyframes backgroundScroll {
   0% {
     background-position: -100% bottom;
@@ -92,14 +95,14 @@
   .h1-banner {
     //background-size: 100% auto;   
     h1 {
-      font-size: 7vw;
+      font-size: 46px;;
     }
     h5 {
       font-size: 24px;
     }
 
     &::before {
-      height: 395px;
+      height: 360px;
     }
   }
 }
@@ -129,7 +132,7 @@
     }
     h5 {}
     &::before {
-      height: 425px;
+      height: 365px;
     }
   }
 }
@@ -137,11 +140,11 @@
 
 @media only screen and (min-device-width: 768px) {
 
-
   .horizontal-scroll {
     -webkit-animation: backgroundScroll 20s cubic-bezier(.52, .13, .48, .98) infinite;
     animation: backgroundScroll 20s cubic-bezier(.52, .13, .48, .98) infinite;
   }
+
 }
 
 .icon-block {

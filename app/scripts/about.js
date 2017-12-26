@@ -6,7 +6,7 @@
   var pHead = document.getElementById('panel-header');
   var clouds = panel.querySelectorAll('.cloud');
   var pPos = null;
-  var pTPad = parseFloat(getComputedStyle(panel).getPropertyValue('padding-top'));
+  var pTPad = parseFloat(getComputedStyle(pHead).getPropertyValue('top'));
   var dH = document.documentElement.clientHeight;
   var paused = false;
   var screen = window.screen;
@@ -100,6 +100,7 @@
         clouds[i].classList.add('blurred');
       }
     }
+    console.info('init scroll');
     storyFade();
     window.addEventListener('scroll', storyFade);
   }
@@ -130,7 +131,8 @@
       var tPos = panel.getBoundingClientRect();
       var vh = (100 / dH);
       var pPosH = pPos.height;
-
+      console.info(vh, tPos.y, pPosH, pTPad);
+      console.info((tPos.y * vh * -1) + (pPosH * vh),  (pTPad * vh) - 22);
       if ((tPos.y * vh * -1) + (pPosH * vh) > (pTPad * vh) - 22) {
         pHead.style.position = 'absolute';
         pHead.style.top = pTPad - pPosH + 'px';

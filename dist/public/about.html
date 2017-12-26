@@ -75,7 +75,6 @@
   
   var probPhone = ((/iphone|android|ie|blackberry|fennec/).test(navigator.userAgent.toLowerCase()) && 'ontouchstart' in document.documentElement);
   if(probPhone) {
-      console.info('probPhone');
       document.querySelector('html').classList.add('probPhone');
   }
   WebFontConfig = {
@@ -130,10 +129,10 @@
   <div id="la-content-wrapper" class="la-content-wrapper row">
     <div class="la-bg-wrapper container">
       <!-- h1 class="header center text-white">Meteoric Origins</h1 -->
-      <div class="panels " id="panels">
+      <div class="panels" id="panels">
         <div id="panel-header" class="panel-header bounce">
           <h5 class="header light">One warm summer's night<br>under meteror peppered sky<br>I was down by Kits Beach...<br>
-      <i class="indicator  down material-icons white-text">&#xE5DB;</i></h5>
+          <i class="indicator  down material-icons white-text">&#xE5DB;</i></h5>
         </div>
         <p class="left-align light cloud">Lucky Ape incorporated in September 2010 with the goal of providing web resource flexibility to a range of agency clients. Lucky Ape is also a vehicle for safely referencing myself in the third person.</p>
         <p class="left-align light cloud">Back then Wordpress and Drupal contracts punctuated work creating game web sites for Electronics Arts.</p>

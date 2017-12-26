@@ -75,7 +75,6 @@
   
   var probPhone = ((/iphone|android|ie|blackberry|fennec/).test(navigator.userAgent.toLowerCase()) && 'ontouchstart' in document.documentElement);
   if(probPhone) {
-      console.info('probPhone');
       document.querySelector('html').classList.add('probPhone');
   }
   WebFontConfig = {
@@ -154,7 +153,7 @@
             <div class="icon-block">
               <div class="center black-text icon"><i class="material-icons">group</i></div>
               <h5 class="center">Agency Clients</h5>
-              <p class="light">As part of an agile scrum development team or as a full stack development team of one, agency work is about hitting the ground running as an on time, within the budget superhero to leads and project managers.</p>
+              <p class="light">As part of an agile scrum development team or as a full stack development team of one; experience has taught hitting the ground running and being indispensable to project managers is what agency work is about.</p>
             </div>
           </div>
           <div class="col s12 m4">
@@ -165,16 +164,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <!-- Modal Structure -->
-    <div id="contact-options" class="modal modal-fixed-footer">
-      <div class="modal-content">
-        <div id="contact-methods" class="contact-methods valign-wrapper">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Nevermind</a>
       </div>
     </div>
         <footer class="page-footer">
@@ -223,6 +212,16 @@
         </script>
     
   </div>
+  <!-- Modal Structure -->
+  <div id="contact-options" class="modal modal-fixed">
+    <div class="modal-content">
+      <div id="contact-methods" class="contact-methods valign-wrapper">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Nevermind</a>
+    </div>
+  </div>
   
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
@@ -234,21 +233,42 @@
   <script>
   (function($) {
     $(function() {
+      var body = $('html > body');
+      $('#cta-button').click(function(){
+        body.addClass('modal-open');
+      });
       var background = 'images/skeletons.jpg';
-      $('<img/>').attr('src', background).load(function() { // create an image element with inner background and load it
-        $(this).remove(); // remove it
-
+      $('<img/>').attr('src', background).load(function() {
+        // create an image element with inner background and load it
+        $(this).remove();
         // set the inner background image and fade in:
-        $('#index-banner').addClass('bgFadeIn'); // need a little delay to let the div render it's bg image before the fade starts
+        $('#index-banner').addClass('bgFadeIn');
+        // need a little delay to let the div render it's bg image before the fade starts
       });
       $('.modal').modal({
-        ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+        startingTop: '-40%',
+        endingTop: '10%',
+        ready: function(modal, trigger) {
+          // Callback for Modal open. Modal and trigger parameters available.
+         var sniffModalClose = function(el) {
+            var classList = Object.values(el.target.classList);
+            if(classList.indexOf('modal-overlay') > -1 || classList.indexOf('modal-close') > -1 ) {
+              body.removeClass('modal-open');
+              window.removeEventListener('click', sniffModalClose);
+              window.removeEventListener('touch', sniffModalClose);
+            }
+          }
+          window.addEventListener('click', sniffModalClose, false);
+          window.addEventListener('touch', sniffModalClose, false);
+
           window.loadContactInfo();
         }
       });
-    }); // end of document ready
-  })(jQuery); // end of jQuery name space
 
+    });
+    // end of document ready
+  })(jQuery);
+  // end of jQuery name space
   </script>
   <!-- Built with love using Web Starter Kit -->
 </body>
