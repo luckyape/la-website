@@ -5,14 +5,18 @@
   var panel = document.getElementById('panels');
   var pHead = document.getElementById('panel-header');
   var clouds = panel.querySelectorAll('.cloud');
-  var pPos = null;
-  var pTPad = parseFloat(getComputedStyle(pHead).getPropertyValue('top'));
-  var dH = document.documentElement.clientHeight;
+  var headPos = null;
+  var panelPadTop = parseFloat(getComputedStyle(panel).getPropertyValue('padding-top'));
+  var docHeight = document.documentElement.clientHeight;
   var paused = false;
+  var stuck = false;
   var screen = window.screen;
+  var origHeadTop = pHead.getBoundingClientRect().top;
+  var headPos = null;
+  var vh = (100 / docHeight);
   var navbar = document.getElementById('la-navbar-flex');
   // var scrollHeight = document.body.scrollHeight;//  window.innerHeight
-  var SPPos = 60;
+  var pausePos = 60;
   // scroll pause position
 
   /**
@@ -96,7 +100,7 @@
   function initScroller() {
     var l = clouds.length;
     for (var i = 0; i < l; i++) {
-      if (clouds[i].getBoundingClientRect().bottom * (100 / dH) > 80) {
+      if (clouds[i].getBoundingClientRect().bottom * (100 / docHeight) > 80) {
         clouds[i].classList.add('blurred');
       }
     }
@@ -120,28 +124,26 @@
    */
   function storyFade() {
     var scrollY = window.scrollY;
+    var panelPos = panel.getBoundingClientRect();
+    headPos = pHead.getBoundingClientRect();
+    //  console.info((panelPos.y * vh * -1) + (headPosH * vh),  (headPosTop * vh) - 22);
 
-    if (!paused && scrollY > SPPos) {
-      pPos = pHead.getBoundingClientRect();
-      pHead.style.position = 'fixed';
-      pHead.style.left = pPos.left + 'px';
-      pHead.style.top = pPos.top + 'px';
-      paused = true;
+    if (!paused && !stuck && origHeadTop - headPos.top > pausePos) {
+      pause();
     } else if (paused) {
-      var tPos = panel.getBoundingClientRect();
-      var vh = (100 / dH);
-      var pPosH = pPos.height;
-      console.info(vh, tPos.y, pPosH, pTPad);
-      console.info((tPos.y * vh * -1) + (pPosH * vh),  (pTPad * vh) - 22);
-      if ((tPos.y * vh * -1) + (pPosH * vh) > (pTPad * vh) - 22) {
+      var panelPos = panel.getBoundingClientRect();
+      var headPosH = headPos.height;
+      if (!stuck && headPos.bottom >= panelPadTop - scrollY + 40) {
         pHead.style.position = 'absolute';
-        pHead.style.top = pTPad - pPosH + 'px';
+        pHead.style.top = panelPadTop - headPosH - 20 + 'px';
         pHead.style.left = 0;
-        paused = false;
         pHead.classList.remove('bounce');
+        stuck = true;
+      } else if (headPos.top >= origHeadTop) {
+        pause();
       }
 
-      if (tPos.height > tPos.bottom) {
+      if (panelPos.height > panelPos.bottom) {
         var unblur = panel.querySelector('p.blurred');
         var blur = panel.querySelectorAll('p:not(.blurred)');
         var uPos;
@@ -172,6 +174,16 @@
           }
         }
       }
+    }
+
+    function pause() {
+      console.info('pause');
+      headPos = pHead.getBoundingClientRect();
+      pHead.style.position = 'fixed';
+      pHead.style.left = headPos.left + 'px';
+      pHead.style.top = headPos.top + 'px';
+      paused = true;
+      stuck = false;
     }
   }
 
@@ -211,7 +223,7 @@
         window.scrollTo(0, 0);
         event.preventDefault();
         event.stopPropagation();
-       // navbar.setAttribute('style','');
+        // navbar.setAttribute('style','');
       } else if (window.scrollY < -10 && !scrollKill) {
         pHead.classList.add('bounce');
         pHead.classList.remove('mobile-scroll');

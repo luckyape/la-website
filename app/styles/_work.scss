@@ -1,63 +1,63 @@
 /** {
-		box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 
 /* inherit height from window * /
 .disciplines.chips {
-	min-height: 82px;
+  min-height: 82px;
 }
 
 .gutter-sizer {
-	width: 1%;
+  width: 1%;
 }
 .work-cards {
-	margin-left: .5%;
-	margin-bottom: 20px;
+  margin-left: .5%;
+  margin-bottom: 20px;
 }
 
 .grid-item {
-	float: left;
-	margin: 1%;
+  float: left;
+  margin: 1%;
 }
 .card-image {
-			padding-bottom: 40px;
+      padding-bottom: 40px;
 }
 .grid-sizer,
 .grid-item {
-	min-width: 290px;
-	max-width: 370px;
-	.card {
-		margin-bottom: 0px;
-	}
+  min-width: 290px;
+  max-width: 370px;
+  .card {
+    margin-bottom: 0px;
+  }
 }
 @media #{$medium-and-up} {
-	.gutter-sizer {
-		width: 2%;
-	}
-	.grid-sizer,
-	.grid-item {
-		min-width: none;
-		max-width: none;
-		margin-bottom: 0px;
-		width: 48%;
-		.card {
-			margin-bottom: 0px;
-		}
-	}
+  .gutter-sizer {
+    width: 2%;
+  }
+  .grid-sizer,
+  .grid-item {
+    min-width: none;
+    max-width: none;
+    margin-bottom: 0px;
+    width: 48%;
+    .card {
+      margin-bottom: 0px;
+    }
+  }
 }
 /* ---- grid ---- * /
 @media #{$large-and-up} {
-	.gutter-sizer {
-			width: 2%;
+  .gutter-sizer {
+      width: 2%;
 
-	}
+  }
 
-	.grid-sizer,
-	.grid-item {
-			width: 31%;
-		.card {
-				margin-bottom: 0px;
-			}    
-	}
+  .grid-sizer,
+  .grid-item {
+      width: 31%;
+    .card {
+        margin-bottom: 0px;
+      }    
+  }
 }*/

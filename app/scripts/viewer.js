@@ -13,15 +13,15 @@
     *  Reveals viewer card
     */
     var revealCards = function() {
-      	for(var i = 0; i < cards.length; i++) {
-      		cards[i].style.opacity = 1;
-      	}
+        for(var i = 0; i < cards.length; i++) {
+          cards[i].style.opacity = 1;
+        }
     }
     /* var testTouch = function() {
-    	var el = document.createElement('div');
-    	el.setAttribute('ontouchstart', 'return;');
-    	// or try "ontouchstart"
-    	return typeof el.ongesturestart === "function";
+      var el = document.createElement('div');
+      el.setAttribute('ontouchstart', 'return;');
+      // or try "ontouchstart"
+      return typeof el.ongesturestart === "function";
     }; */
 
     /*
@@ -38,7 +38,7 @@
         pageDots: false,
         cellAlign: 'center'
       });
-	  revealCards();
+    revealCards();
       var currentSlide = document.getElementById('viewer-current-slide');
       var totalSlides = document.getElementById('viewer-total-slides');
 
