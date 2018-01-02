@@ -241,7 +241,7 @@ gulp.task('clean', () => del(['.tmp', 'dist/public/*', '!dist/public/.git'], { d
 
 gulp.task('buildStoreItems', ['convertStoreXML', 'getStoreXML'], () => {
 	return gulp
-		.src('app/includes/store-products.tmpl', { base: "./" })
+		.src('app/includes/store-items.tmpl', { base: "./" })
 		.pipe(data(() => (JSON.parse(
 			fs.readFileSync('docs/zazzle.json')
 		))))
@@ -252,9 +252,23 @@ gulp.task('buildStoreItems', ['convertStoreXML', 'getStoreXML'], () => {
 		.on('error', function(e) { handleError(e) });
 });
 
+gulp.task('buildWorkItems', () => {
+	return gulp
+		.src('app/includes/work-items.tmpl', { base: "./" })
+		.pipe(data(() => (JSON.parse(
+			fs.readFileSync('docs/work.json')
+		))))
+		.pipe(template())
+		.pipe(rename({ extname: '.html' }))
+		.pipe(gulp.dest('./'))
+		.pipe(gulp.dest('dist/public'))
+		.on('error', function(e) { handleError(e) });
+});
+
+
 
 // Watch files for changes & reload
-gulp.task('serve', ['scripts', 'styles', 'buildStoreItems', 'htmlIncludes'], () => {
+gulp.task('serve', ['scripts', 'styles', 'buildStoreItems', 'buildWorkItems', 'htmlIncludes'], () => {
 	browserSync({
 		notify: false,
 		// Customize the Browsersync console logging prefix
@@ -279,6 +293,7 @@ gulp.task('serve', ['scripts', 'styles', 'buildStoreItems', 'htmlIncludes'], () 
 
 	gulp.watch(['.tmp/**/*.html', 'app/**/*.html'], ['htmlIncludes', reload]);
 	gulp.watch(['app/includes/store-products.tmpl'], ['buildStoreItems', reload]);
+	gulp.watch(['app/includes/work-items.tmpl'], ['buildWorkItems', reload]);	
 	gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
 	gulp.watch(['app/scripts/*.js'], ['lint', 'scripts', reload]);
 	gulp.watch(['app/images/**/*'], reload);

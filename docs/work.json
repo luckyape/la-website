@@ -1,0 +1,29 @@
+{
+	"items": [{
+		"title": "Google Partners Academy",
+		"description": "Multi-session event booking portal for Google Partners Academy. Comprehensive language/localization asset management functionality with Google Drive integration.",
+		"imgsrc": "images/gp-screengrab2.png",
+		"keywords": ["google-api","php","app-design","angularjs","kohana"]
+		}, {
+		"title": "BC Trucking Association",
+		"description": "Created new \<a href=\"https://www.bctrucking.com/\"\>Drupal site\</a\> including online store built in Ubercart. Ported large member database into Drupal. Built a number of custom modules.",
+		"imgsrc": "images/bcta-screengrab.png",
+		"keywords": ["drupal","ubercart","php","mysql","ecommerce"]
+		}, {
+		"title": "Fiat Chrysler EDI",
+		"description": "Automated intergration with Fiat Chrysler production line EDI on behave of logistics vendor. Web based tools for billing audits including algortyhmic fee estimation.",
+		"imgsrc": "images/ca-screengrab.png",
+		"keywords": ["app-design","ui-design","nodejs","bash","edi","mongodb"]
+		}, {
+		"title": "Feedlife.ca",
+		"description": "Design &amp; Developed <a href=\"http://feedlife.ca/\">Wordpress site</a> enabling client to deliver vegan cooking classes online.",
+		"imgsrc": "images/fl-screengrab.png",
+		"keywords": ["woocommerce","wordpress","ui-design"]
+		}, {
+		"title": "Think Tank Directory",
+		"description": "Design &amp; Developed <a href=\"http://feedlife.ca/\">Wordpress site</a> enabling client to deliver vegan cooking classes online.",
+		"imgsrc": "images/tt-screengrab.png",
+		"keywords": ["woocommerce","wordpress","ui-design"]
+		}
+	]
+}

@@ -4,15 +4,15 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="A light hearted take on company swag store. Uses Gulp to access remote XML form Zazzle and publishes page. ">
+  <meta name="description" content="Fullstack Web Developer, Vancouver BC. Likes ui, wordpress, drupal, node.js, angularjs, mean/lamp stacks.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>
-    Swag Store
+    Fullstack Web Developer, Vancouver BC
   </title>
   <!-- @include includes/header.html -->
 </head>
 
-<body>
+<body class="la-homepage">
   <!-- @include includes/navbar.html -->
   <div id="la-content-wrapper" class="la-content-wrapper">
     <div class="section h1-banner horizontal-scroll" id="index-banner">
@@ -94,14 +94,25 @@
           var sniffModalClose = function(el) {
             var classList = Object.values(el.target.classList);
             if (classList.indexOf('modal-overlay') > -1 || classList.indexOf('modal-close') > -1) {
-              body.removeClass('modal-open');
-              window.removeEventListener('click', sniffModalClose);
-              window.removeEventListener('touch', sniffModalClose);
+              modalClose();
             }
-          }
-          window.addEventListener('click', sniffModalClose, false);
-          window.addEventListener('touch', sniffModalClose, false);
+          };
+          var sniffEscKey = function(e){
+            console.info(e.key, e.target.nodeName);
+              if((e.key==='Escape'||e.key==='Esc'||e.keyCode==27)){
+                modalClose();
+              }
+          };
+          var modalClose = function() {
+            body.removeClass('modal-open');
+            window.removeEventListener('keyup', sniffEscKey);
+            window.removeEventListener('click', sniffModalClose);
+            window.removeEventListener('touchstart', sniffModalClose);
+          };
 
+          window.addEventListener('click', sniffModalClose, false);
+          window.addEventListener('touchstart', sniffModalClose, false);
+          window.addEventListener('keyup', sniffEscKey, false);
           window.loadContactInfo();
         }
       });

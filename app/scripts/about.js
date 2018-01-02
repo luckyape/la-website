@@ -2,16 +2,19 @@
 /* global  window, document, getComputedStyle, probPhone */
 (function aboutPage() {
   'use strict';
+  window.onbeforeunload = function(){ 
+    panel.style.visibility = 'hidden';
+    window.scrollTo(0,0); 
+  }
   var panel = document.getElementById('panels');
   var pHead = document.getElementById('panel-header');
   var clouds = panel.querySelectorAll('.cloud');
-  var headPos = null;
   var panelPadTop = parseFloat(getComputedStyle(panel).getPropertyValue('padding-top'));
   var docHeight = document.documentElement.clientHeight;
   var paused = false;
   var stuck = false;
   var screen = window.screen;
-  var origHeadTop = pHead.getBoundingClientRect().top;
+  var origHeadTop = parseFloat(getComputedStyle(pHead).getPropertyValue('top'));//pHead.getBoundingClientRect().top;
   var headPos = null;
   var vh = (100 / docHeight);
   var navbar = document.getElementById('la-navbar-flex');
@@ -104,7 +107,6 @@
         clouds[i].classList.add('blurred');
       }
     }
-    console.info('init scroll');
     storyFade();
     window.addEventListener('scroll', storyFade);
   }
@@ -124,9 +126,7 @@
    */
   function storyFade() {
     var scrollY = window.scrollY;
-    var panelPos = panel.getBoundingClientRect();
-    headPos = pHead.getBoundingClientRect();
-    //  console.info((panelPos.y * vh * -1) + (headPosH * vh),  (headPosTop * vh) - 22);
+    headPos = pHead.getBoundingClientRect ();
 
     if (!paused && !stuck && origHeadTop - headPos.top > pausePos) {
       pause();
@@ -139,8 +139,9 @@
         pHead.style.left = 0;
         pHead.classList.remove('bounce');
         stuck = true;
+        pause = false;
       } else if (headPos.top >= origHeadTop) {
-        pause();
+        pause();       
       }
 
       if (panelPos.height > panelPos.bottom) {
@@ -174,10 +175,10 @@
           }
         }
       }
-    }
+    } 
 
     function pause() {
-      console.info('pause');
+      
       headPos = pHead.getBoundingClientRect();
       pHead.style.position = 'fixed';
       pHead.style.left = headPos.left + 'px';

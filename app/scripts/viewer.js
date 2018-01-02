@@ -5,17 +5,30 @@
       chips: []
     };
     var $grid = $('#viewerCards');
+    var $viewerCounter = $('#viewer-counter');
     var $chips = {};
     var chipsArr = [];
     var chipsObj = {};
-    var cards = document.querySelectorAll('.card');
+    var $cards = $('.viewer-item', $grid);
+    var flickityOpt = {
+      cellSelector: '.flickity-item',
+      wrapAround: true,
+      selectedAttraction: 0.2,
+      friction: 0.8,
+      resize: true,
+      pageDots: false,
+      cellAlign: 'center'
+    };
+    var flkty = {};
+    var whichPlugin = function() {
+      (probPhone) ? flickityFilter(): $grid.isotope();
+    }
+
     /*
-    *  Reveals viewer card
-    */
+     *  Reveals viewer card
+     */
     var revealCards = function() {
-        for(var i = 0; i < cards.length; i++) {
-          cards[i].style.opacity = 1;
-        }
+      $cards.removeClass('hide-item');
     }
     /* var testTouch = function() {
       var el = document.createElement('div');
@@ -24,37 +37,80 @@
       return typeof el.ongesturestart === "function";
     }; */
 
+
     /*
      * initiates mobile horizonal scroll
      */
     var flickityInit = function() {
-
-      $carousel = $($grid).flickity({
-        cellSelector: '.grid-item',
-        wrapAround: true,
-        selectedAttraction: 0.2,
-        friction: 0.8,
-        resize: true,
-        pageDots: false,
-        cellAlign: 'center'
-      });
-    revealCards();
-      var currentSlide = document.getElementById('viewer-current-slide');
-      var totalSlides = document.getElementById('viewer-total-slides');
-
+      if ($grid.flickity) {
+        $grid.flickity('destroy');
+        $cards.addClass('hide-item');
+      }
+      var $carousel = $grid.flickity(flickityOpt);
+      $('.flickity-item', $grid).removeClass('hide-item');
+      var flkty = $carousel.data('flickity');
       var updateStatus = function() {
         var slideNumber = flkty.selectedIndex + 1;
-        console.info(slideNumber + '/' + flkty.slides.length);
-        currentSlide.innerHTML = slideNumber;
-        totalSlides.innerHTML = flkty.slides.length;
+        $viewerCounter.text(slideNumber + '/' + flkty.slides.length);
       }
-
       $carousel.on('select.flickity', updateStatus);
-      var flkty = $carousel.data('flickity');
       updateStatus();
     };
 
+    var flickityFilter = function() {
+      var chipFilter = function(index, obj) {
+        var $item = $(obj);
+        console.info(filters.selected);
+        $item.removeClass('flickity-item');
+        if (filters.selected) {
+          if ($item.data('keywords').indexOf(filters.selected) > -1) {
+            $item.addClass('flickity-item');
+          }
+        } else {
+          filters.chips = $chips.material_chip('data').map(function(c) {
+            return c.tag;
+          });
+          for (var i = 0; i < filters.chips.length; i++) {
+            console.info(filters.chips[i]);
+            if ($item.data('keywords').indexOf(filters.chips[i]) > -1) {
+              $item.addClass('flickity-item');
+              break;
+            }
+          }
+        }
+      }
+      $viewerCounter.removeClass('thud');
+      window.requestAnimationFrame(function() {
+        window.requestAnimationFrame(function() {
+          $viewerCounter.addClass('thud');
+        });
+      });
+      $('.viewer-item', $grid)
+        .each(chipFilter)
+        .promise()
+        .done(flickityInit);
+    }
+
     var isotopeInit = function() {
+      var chipFilter = function() {
+        var isMatched = true;
+        var $this = $(this);
+
+        if (filters.selected) {
+          isMatched = $this.data('keywords').indexOf(filters.selected) > -1;
+        } else {
+          filters.chips = $chips.material_chip('data').map(function(c) {
+            return c.tag;
+          });
+          for (var i = 0; i < filters.chips.length; i++) {
+            if ($this.data('keywords').indexOf(filters.chips[i]) > -1) {
+              return true;
+            }
+          }
+          return false;
+        }
+        return isMatched;
+      };
       $grid.isotope({
         layoutMode: 'packery',
         packery: {
@@ -64,25 +120,7 @@
         itemSelector: '.grid-item',
         percentPosition: true,
         resize: true,
-        filter: function() {
-          var isMatched = true;
-          var $this = $(this);
-
-          if (filters.selected) {
-            isMatched = $($this[0]).hasClass(filters.selected);
-          } else {
-            filters.chips = $chips.material_chip('data').map(function(c) {
-              return c.id;
-            });
-            for (var i = 0; i < filters.chips.length; i++) {
-              if ($this[0].className.indexOf(filters.chips[i]) > -1) {
-                return true;
-              }
-            }
-            return false;
-          }
-          return isMatched;
-        }
+        filter: chipFilter
       });
       revealCards();
     };
@@ -134,42 +172,41 @@
         }
       });
       $('input', $chips).focus();
+
       $chips.on('click', function() {
         if (filters.selected) {
           filters.selected = null;
-          $grid.isotope();
+          whichPlugin();
         }
-        //  chipsObj[chip.tag] = (chipsObj[chip.tag])? true : null;
       });
       $chips.on('chip.select', function(e, chip) {
-        // you have the added chip here
         filters.selected = chip.tag;
-        $grid.isotope();
+        whichPlugin();
       });
-      $chips.on('chip.add', function() {
-        // you have the added chip here
-        $grid.isotope();
-      });
-      $chips.on('chip.delete', function() {
-        // you have the deleted chip here
-        $grid.isotope();
+      $chips.on('chip.add', whichPlugin);
+      $chips.on('chip.delete', function(chip) {
+        if (filters.selected === chip.tag) {
+          filters.selected = null;
+        }
+        whichPlugin();
       });
     };
 
-    $(window).resize(matchMedia);
-    matchMedia();
+    //$(window).resize(matchMedia);
 
-    $('.card-chips .chip, .card-action  .chip').each(getChips).promise().done(intiChips);
+
+    $('.card-chips .chip, .card-action  .chip')
+      .each(getChips)
+      .promise()
+      .done(intiChips, matchMedia);
 
     $('.info-spot').click(function() {
       $('.tap-target').tapTarget('open');
     });
 
     $('.toggle-filter a').click(function() {
-      // $('.products-filter').removeClass('no-animation');
-      // $('.products-filter').height($('#viewerChips').height());
       var sheet = document.createElement('style');
-      sheet.innerHTML = '.filter-on.viewer-filter { min-height: ' + ( $('#viewerChips').height() + 20 ) + 'px; will-change: min-height;}';
+      sheet.innerHTML = '.filter-on.viewer-filter { min-height: ' + ($('#viewerChips').height() + 20) + 'px; will-change: min-height;}';
       document.body.appendChild(sheet);
       $('.viewer-filter,.toggle-filter').toggleClass('filter-on');
     });
