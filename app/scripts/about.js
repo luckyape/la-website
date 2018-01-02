@@ -2,10 +2,7 @@
 /* global  window, document, getComputedStyle, probPhone */
 (function aboutPage() {
   'use strict';
-  window.onbeforeunload = function(){ 
-    panel.style.visibility = 'hidden';
-    window.scrollTo(0,0); 
-  }
+
   var panel = document.getElementById('panels');
   var pHead = document.getElementById('panel-header');
   var clouds = panel.querySelectorAll('.cloud');
@@ -14,14 +11,17 @@
   var paused = false;
   var stuck = false;
   var screen = window.screen;
-  var origHeadTop = parseFloat(getComputedStyle(pHead).getPropertyValue('top'));//pHead.getBoundingClientRect().top;
+  var origHeadTop = parseFloat(getComputedStyle(pHead).getPropertyValue('top'));
   var headPos = null;
   var vh = (100 / docHeight);
   var navbar = document.getElementById('la-navbar-flex');
   // var scrollHeight = document.body.scrollHeight;//  window.innerHeight
   var pausePos = 60;
   // scroll pause position
-
+  window.onbeforeunload = function() {
+    panel.style.visibility = 'hidden';
+    window.scrollTo(0, 0);
+  };
   /**
    * Animates shooting stars
    * @param {array} canvas - array of canvas dom objects
@@ -126,7 +126,7 @@
    */
   function storyFade() {
     var scrollY = window.scrollY;
-    headPos = pHead.getBoundingClientRect ();
+    headPos = pHead.getBoundingClientRect();
 
     if (!paused && !stuck && origHeadTop - headPos.top > pausePos) {
       pause();
@@ -139,9 +139,9 @@
         pHead.style.left = 0;
         pHead.classList.remove('bounce');
         stuck = true;
-        pause = false;
+        // paused = false;
       } else if (headPos.top >= origHeadTop) {
-        pause();       
+        pause();
       }
 
       if (panelPos.height > panelPos.bottom) {
@@ -175,10 +175,9 @@
           }
         }
       }
-    } 
+    }
 
     function pause() {
-      
       headPos = pHead.getBoundingClientRect();
       pHead.style.position = 'fixed';
       pHead.style.left = headPos.left + 'px';

@@ -1,4 +1,4 @@
-/* global jQuery,  window, async, probPhone */
+/* global jQuery,  window, async, probPhone, document */
 (function($) {
   $(function() {
     var filters = {
@@ -19,24 +19,19 @@
       pageDots: false,
       cellAlign: 'center'
     };
-    var flkty = {};
-    var whichPlugin = function() {
-      (probPhone) ? flickityFilter(): $grid.isotope();
-    }
 
     /*
      *  Reveals viewer card
      */
     var revealCards = function() {
       $cards.removeClass('hide-item');
-    }
+    };
     /* var testTouch = function() {
       var el = document.createElement('div');
       el.setAttribute('ontouchstart', 'return;');
       // or try "ontouchstart"
       return typeof el.ongesturestart === "function";
     }; */
-
 
     /*
      * initiates mobile horizonal scroll
@@ -52,7 +47,7 @@
       var updateStatus = function() {
         var slideNumber = flkty.selectedIndex + 1;
         $viewerCounter.text(slideNumber + '/' + flkty.slides.length);
-      }
+      };
       $carousel.on('select.flickity', updateStatus);
       updateStatus();
     };
@@ -78,7 +73,7 @@
             }
           }
         }
-      }
+      };
       $viewerCounter.removeClass('thud');
       window.requestAnimationFrame(function() {
         window.requestAnimationFrame(function() {
@@ -89,8 +84,14 @@
         .each(chipFilter)
         .promise()
         .done(flickityInit);
-    }
-
+    };
+    var whichPlugin = function() {
+      if (probPhone) {
+        flickityFilter();
+      } else if (!probPhone) {
+        $grid.isotope();
+      }
+    };
     var isotopeInit = function() {
       var chipFilter = function() {
         var isMatched = true;
@@ -151,12 +152,15 @@
 
     var getChips = function(i, chip) {
       var chipText = $(chip).text().trim();
-      if (chipsObj[chipText] !== null) {
+
+      console.info(chipText, chipsObj[chipText], $(chip).is(':first-child'));
+      if ($(chip).is(':first-child')) {
         chipsArr.push({
           tag: chipText,
           id: chipText.trim().replace(/\s+/g, '-').toLowerCase()
         });
-
+      }
+      if (chipsObj[chipText] !== null) {
         chipsObj[chipText] = null;
       }
     };
@@ -191,9 +195,6 @@
         whichPlugin();
       });
     };
-
-    //$(window).resize(matchMedia);
-
 
     $('.card-chips .chip, .card-action  .chip')
       .each(getChips)

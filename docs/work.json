@@ -1,29 +1,49 @@
 {
-	"items": [{
-		"title": "Google Partners Academy",
-		"description": "Multi-session event booking portal for Google Partners Academy. Comprehensive language/localization asset management functionality with Google Drive integration.",
-		"imgsrc": "images/gp-screengrab2.png",
-		"keywords": ["google-api","php","app-design","angularjs","kohana"]
-		}, {
-		"title": "BC Trucking Association",
-		"description": "Created new \<a href=\"https://www.bctrucking.com/\"\>Drupal site\</a\> including online store built in Ubercart. Ported large member database into Drupal. Built a number of custom modules.",
-		"imgsrc": "images/bcta-screengrab.png",
-		"keywords": ["drupal","ubercart","php","mysql","ecommerce"]
-		}, {
-		"title": "Fiat Chrysler EDI",
-		"description": "Automated intergration with Fiat Chrysler production line EDI on behave of logistics vendor. Web based tools for billing audits including algortyhmic fee estimation.",
-		"imgsrc": "images/ca-screengrab.png",
-		"keywords": ["app-design","ui-design","nodejs","bash","edi","mongodb"]
-		}, {
-		"title": "Feedlife.ca",
-		"description": "Design &amp; Developed <a href=\"http://feedlife.ca/\">Wordpress site</a> enabling client to deliver vegan cooking classes online.",
-		"imgsrc": "images/fl-screengrab.png",
-		"keywords": ["woocommerce","wordpress","ui-design"]
-		}, {
-		"title": "Think Tank Directory",
-		"description": "Design &amp; Developed <a href=\"http://feedlife.ca/\">Wordpress site</a> enabling client to deliver vegan cooking classes online.",
-		"imgsrc": "images/tt-screengrab.png",
-		"keywords": ["woocommerce","wordpress","ui-design"]
-		}
-	]
-}
+    "items": [{
+        "title": "Google Partners Academy",
+        "description": "Multi-session event booking portal for Google Partners Academy. Comprehensive language/localization asset management functionality with Google Drive integration.",
+        "imgsrc": "images/gp-screengrab2.png",
+        "keywords": ["angularjs","google-api","php","app-design","kohana","mysql","web-services","mvc","full-stack","js"]
+        }, {
+        "title": "BC Trucking Association",
+        "description": "Created new <a href=\"https://www.bctrucking.com/\">Drupal site</a> including online store built in Ubercart. Ported large member database into Drupal. Built a number of custom modules.",
+        "imgsrc": "images/bcta-screengrab.png",
+        "keywords": ["drupal","ubercart","php","mysql","ecommerce","js"]
+        }, {
+        "title": "Fiat Chrysler EDI",
+        "description": "Automated intergration with Fiat Chrysler production line EDI on behave of logistics vendor. Web based tools for billing audits including algortyhmic fee estimation.",
+        "imgsrc": "images/vv-screengrab.png", 
+        "keywords": ["nodejs","angularjs","app-design","ui-design","bash","edi","mongodb","mean","full-stack","js"]
+        }, {
+        "title": "Feedlife.ca",
+        "description": "Design &amp; Developed <a href=\"http://feedlife.ca/\">Wordpress site</a> enabling client to deliver vegan cooking classes online.",
+        "imgsrc": "images/fl-screengrab.jpg",
+        "keywords": ["wordpress","php","woocommerce","ecommerce","online-classes","ui-design","mysql","js"]
+        }, {
+        "title": "Think Tank Directory",
+        "description": "Added <a href=\"http://www.thinktankinitiative.org/think-tanks\">section</a> to existing site. Custom Google Map with IsotopeJS implementation integrated with Drupal content.",
+        "imgsrc": "images/tt-screengrab.png",
+        "keywords": ["jquery","drupal","php","google-api","js"]
+        }, {
+        "title": "Blast Radius",
+        "description": "Multiple contracts working on clients such as Microsoft, SaskTel and Novartis. Highlighted by year long engagement deploying various web assets for Novartis OTC brands working remotely.",
+        "imgsrc": "images/br-screengrab.png",
+        "keywords": ["js","web-services","front-end","scss","foundation-css","facebook-api"]
+        },  {
+        "title": "JobuTrax",
+        "description": "Calgary based start up providing oil patch equipment operators ability to track various assets in the field, arrange transport, provide billing rates and schedule regulatory tasks.", 
+        "imgsrc": "images/jt-screengrab.png",
+        "keywords": ["full-stack","php","symfony","app-design","ui-design","jquery","mysql","php","mvc","js"]
+        }, {
+        "title": "Martin's Apple Chips",
+        "description": "Small Drupal based marketing site. Main landing page featured a challenging combination of interface features.", 
+        "imgsrc": "images/mc-screengrab.jpg",
+        "keywords": ["php","lamp","drupal","jquery","responsive","mysql","js"]
+        },   {
+        "title": "Chile Avocados",
+        "description": "Drupal marketing site that previously site received a score of 0/100 Google PageSpeed score, delivered emhanceents that received a score of 100/100.", 
+        "imgsrc": "images/ca-screengrab.png", 
+        "keywords": ["lamp","drupal","jquery","responsive","mysql","php","pagespeed","js"]
+        }
+    ]
+}  

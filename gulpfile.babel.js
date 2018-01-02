@@ -163,15 +163,15 @@ gulp.task('viewerScripts', () =>
 
 gulp.task('aboutScripts', () =>
 
-    gulp.src(['./app/scripts/main.js', './app/scripts/about.js', './app/scripts/init.js'])
-      .pipe($.concat('about.min.js'))
-      .pipe($.uglify({ preserveComments: 'some' }))
-      // Output files
-      .pipe($.sourcemaps.init())
-      .pipe($.babel())
-      .pipe($.size({ title: 'vaboutScripts'}))
-      .pipe($.sourcemaps.write('.'))
-      .pipe(gulp.dest('dist/public/scripts'))
+	gulp.src(['./app/scripts/main.js', './app/scripts/about.js', './app/scripts/init.js'])
+	  .pipe($.concat('about.min.js'))
+	  .pipe($.uglify({ preserveComments: 'some' }))
+	  // Output files
+	  .pipe($.sourcemaps.init())
+	  .pipe($.babel())
+	  .pipe($.size({ title: 'vaboutScripts'}))
+	  .pipe($.sourcemaps.write('.'))
+	  .pipe(gulp.dest('dist/public/scripts'))
 
 );
 
@@ -278,14 +278,6 @@ gulp.task('serve', ['scripts', 'styles', 'buildStoreItems', 'buildWorkItems', 'h
 		// Run as an https by uncommenting 'https: true'
 		// Note: this uses an unsigned certificate which on first access
 		//       will present a certificate warning in the browser.
-		/* middleware: [
-		    function (req, res, next) {
-		        /** First middleware handler ** /
-		    	var probPhone = ((/iphone|android|ie|blackberry|fennec/).test(req.headers['user-agent']));
-
-		    	next();
-		    }
-		],*/
 		https: false,
 		server: ['.tmp', 'app'],
 		port: 3001
@@ -293,7 +285,7 @@ gulp.task('serve', ['scripts', 'styles', 'buildStoreItems', 'buildWorkItems', 'h
 
 	gulp.watch(['.tmp/**/*.html', 'app/**/*.html'], ['htmlIncludes', reload]);
 	gulp.watch(['app/includes/store-products.tmpl'], ['buildStoreItems', reload]);
-	gulp.watch(['app/includes/work-items.tmpl'], ['buildWorkItems', reload]);	
+	gulp.watch(['app/includes/work-items.tmpl','docs/work.json'], ['buildWorkItems', reload]);	
 	gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
 	gulp.watch(['app/scripts/*.js'], ['lint', 'scripts', reload]);
 	gulp.watch(['app/images/**/*'], reload);
