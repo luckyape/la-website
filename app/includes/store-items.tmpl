@@ -1,7 +1,7 @@
 <%
 	_.forEach(rss['channel'][0].item, function(item){
 		%>
-		<div class="viewer-item grid-item flickity-item" data-keywords="['<%- item['media:keywords'][0].split(',').join('\',\'') %>']">
+		<div class="viewer-item hide-item grid-item flickity-item" data-keywords="['<%- item['media:keywords'][0].split(',').join('\',\'') %>']">
 			<div class="card sticky-action">
 				<div class="card-content"><i class="material-icons right">more_vert</i>
 					<h6 class="card-title activator grey-text text-darken-4"><%- item.title %></h6>

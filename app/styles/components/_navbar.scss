@@ -1,32 +1,43 @@
 
 #la-navbar-flex {
-  top:-63px; 
+  top:-63px;
   position: relative;
-  z-index: 5;  
+  z-index: 5;
 }
 .wf-bebasneue-n4-active #la-navbar-flex, #la-navbar-flex.reveal {
   transition: top 300ms ease-in-out;
-  top: 0px; 
+  top: 0px;
   //z-index: 5;
 }
-body.la-about-page .about-lnk,
+
+.la-about-page .about-lnk {
+  border-bottom: 3px solid #4c6974;
+}
 body.la-tool-page  .tools-lnk,
 body.la-store-page .store-lnk,
 body.la-work-page  .work-lnk {
   border-bottom: 3px solid green;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(129, 199, 132, 0.05);
 }
+.la-about-page .side-nav .about-lnk,
+body.la-tool-page .side-nav .tools-lnk,
+body.la-store-page .side-nav .store-lnk,
+body.la-work-page .side-nav .work-lnk {
+  border-bottom: 3px solid #f87642;
+  background-color: #81C784;
+}
+#la-navbar-flex ul.side-nav > li  {
 
+
+  letter-spacing: .4px;
+}
 nav {
   &.nav-extended {
-    
     height: auto;
-
     .nav-wrapper {
       min-height: $navbar-height-mobile;
       height: auto;
     }
-
     .nav-content {
       position: relative;
       line-height: normal;
@@ -40,7 +51,7 @@ nav {
   height: $navbar-height-mobile;
   line-height: $navbar-line-height-mobile;
 
-  a { color: $navbar-font-color; } 
+  a { color: $navbar-font-color; }
 
   i,
   [class^="mdi-"], [class*="mdi-"],

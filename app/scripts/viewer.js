@@ -26,12 +26,6 @@
     var revealCards = function() {
       $cards.removeClass('hide-item');
     };
-    /* var testTouch = function() {
-      var el = document.createElement('div');
-      el.setAttribute('ontouchstart', 'return;');
-      // or try "ontouchstart"
-      return typeof el.ongesturestart === "function";
-    }; */
 
     /*
      * initiates mobile horizonal scroll
@@ -78,7 +72,7 @@
           $viewerCounter.addClass('thud');
         });
       });
-      $grid.css('min-height', $grid.height());
+    //  $grid.css('min-height', $grid.height());
       $cards
         .each(chipFilter)
         .promise()
@@ -162,7 +156,7 @@
       }
     };
     var intiChips = function() {
-      $chips = $('#viewerChips');
+      $chips = $('#viewer-chips');
       $chips.material_chip({
         data: chipsArr,
         placeholder: '...',
@@ -193,7 +187,7 @@
       });
     };
 
-    $('.card-chips .chip, .card-action  .chip')
+    $('.card-action .chip', $grid)
       .each(getChips)
       .promise()
       .done(intiChips, matchMedia);
@@ -204,7 +198,7 @@
 
     $('.toggle-filter a').click(function() {
       var sheet = document.createElement('style');
-      sheet.innerHTML = '.filter-on.viewer-filter { min-height: ' + ($('#viewerChips').height() + 20) + 'px; will-change: min-height;}';
+      sheet.innerHTML = '.filter-on.viewer-filter { min-height: ' + ($chips.height() + 20) + 'px; will-change: min-height;}';
       document.body.appendChild(sheet);
       $('.viewer-filter,.toggle-filter').toggleClass('filter-on');
     });
