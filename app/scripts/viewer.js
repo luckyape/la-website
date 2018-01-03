@@ -4,7 +4,7 @@
     var filters = {
       chips: []
     };
-    var $grid = $('#viewerCards');
+    var $grid = $('#viewer-cards');
     var $viewerCounter = $('#viewer-counter');
     var $chips = {};
     var chipsArr = [];
@@ -55,7 +55,6 @@
     var flickityFilter = function() {
       var chipFilter = function(index, obj) {
         var $item = $(obj);
-        console.info(filters.selected);
         $item.removeClass('flickity-item');
         if (filters.selected) {
           if ($item.data('keywords').indexOf(filters.selected) > -1) {
@@ -66,7 +65,6 @@
             return c.tag;
           });
           for (var i = 0; i < filters.chips.length; i++) {
-            console.info(filters.chips[i]);
             if ($item.data('keywords').indexOf(filters.chips[i]) > -1) {
               $item.addClass('flickity-item');
               break;
@@ -80,7 +78,8 @@
           $viewerCounter.addClass('thud');
         });
       });
-      $('.viewer-item', $grid)
+      $grid.css('min-height', $grid.height());
+      $cards
         .each(chipFilter)
         .promise()
         .done(flickityInit);
@@ -152,8 +151,6 @@
 
     var getChips = function(i, chip) {
       var chipText = $(chip).text().trim();
-
-      console.info(chipText, chipsObj[chipText], $(chip).is(':first-child'));
       if ($(chip).is(':first-child')) {
         chipsArr.push({
           tag: chipText,

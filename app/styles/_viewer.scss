@@ -1,288 +1,293 @@
 .la-viewer {
-  * {
-    box-sizing: border-box;
-  }
-  .viewer-header {
-    margin-bottom: 0;
-  }
-  .toggle-filter {
-    display: none;
-    font-size: 12px;
-    i {
-      font-size: 15px;
-      background-color: #e4e4e4;
-      border-radius: 16px;
-      padding: 7px;
-    }
-  }
-  .position-ratio {
-    display: none;
-  }
-  .question-mark {
-    line-height: 27px;
-    font-size: 12px;
-    width: 24px;
-    height: 24px;
-  }
+	min-height: 100%;
+  overflow-x: hidden;
+  width: 100%;
+	* {
+		box-sizing: border-box;
+	}
+	.viewer-header {
+		margin-bottom: 0;
+	}
+	.toggle-filter {
+		display: none;
+		font-size: 12px;
+		i {
+			font-size: 15px;
+			background-color: #e4e4e4;
+			border-radius: 16px;
+			padding: 7px;
+		}
+	}
+	.position-ratio {
+		display: none;
+	}
+	.question-mark {
+		line-height: 27px;
+		font-size: 12px;
+		width: 24px;
+		height: 24px;
+	}
 
-  .store-tap-target {
-    position: fixed;
-    right: 5px;
-    bottom: 5px;
-    z-index: 1000;
-  }
+	.store-tap-target {
+		position: fixed;
+		right: 5px;
+		bottom: 5px;
+		z-index: 1000;
+	}
 
-  .tap-target .tap-target-content {
-    text-align: right;
-    p {
-      margin: 4px;
-    }
-  }
+	.tap-target .tap-target-content {
+		text-align: right;
+		p {
+			margin: 4px;
+		}
+	}
 
-  .tap-target-row {
-    height: 0;
-    margin: 0;
-  }
-  /* inherit height from window */
-  .products.chips {
-    min-height: 82px;
-  }
-
-
-  .viewer-cards {
-    position: relative;
-    .card-title {
-      i.material-icons.right {
-        margin-left: 0px
-      }
-    }
-    .flickity .card .card-image img {
-
-    }
-    .card-action i.material-icons {
-      font-size: 1.1em;
-      vertical-align: text-top;
-      font-weight: 600;
-    }
-
-    .card-chips {
-      display: none;
-    }
-    .viewer-item {
-      .card {
-        transition: opacity 300ms ease-in;
-        opacity: 1;
-      }
-      &.hide-item {
-        .card {
-          opacity: 0;
-        }
-      }
-      &:not(.flickity-item) {
-        display: none;
-      }
-    }
-  }
-  .grid-item {
-    float: left;
-    margin: 1%;
-  }
-
-  .gutter-sizer {
-    width: 2%;
-  }
-  .card-image {
-    padding-bottom: 0px;
-  }
-  .grid-sizer,
-  .grid-item {
-    margin-bottom: 0px;
-    margin-top: 0px;
-    width: 48%;
-    .card {
-      margin-bottom: 0px;
-    }
-  }
-  .card-action {
-    padding: 16px 4px 24px;
-  }
-
-  .card {
-    transition: opacity 300ms ease-in;
-    opacity: 1;
-    .card-content {
-      i {
-        margin-right: -10px;
-      }
-      .card-title {
-        font-family: "Roboto", sans-serif;
-      }
-    }
-  }
-  /* move page dots into carousel */
-  .flickity-page-dots {
-    bottom: 10px;
-  }
+	.tap-target-row {
+		height: 0;
+		margin: 0;
+	}
+	/* inherit height from window */
+	.products.chips {
+		min-height: 82px;
+	}
 
 
-  @media #{$small-and-down} {
+	.viewer-cards {
+		min-height: 300px;
+		position: relative;
+		.card-title {
+			i.material-icons.right {
+				margin-left: 0px
+			}
+		}
+		.flickity .card .card-image img {
 
-    .product-cards {
-      position: relative;
-    }
+		}
+		.card-action i.material-icons {
+			font-size: 1.1em;
+			vertical-align: text-top;
+			font-weight: 600;
+		}
 
-    .grid-sizer,
-    .grid-item {
-      width: 100%;
-      margin: 0;
-    }   
-    .flickity-viewport {
-      //overflow: hidden;
-      width: 100%;
-      .grid-item {
-        min-height: initial;
-        min-width: initial;
-      }
-    }
-    .grid-item {
-      min-height: 240px;
-      min-width: 375px;
-      
-    }
-    .card {
-      width: 75vw;
-      margin: 0 10vw;
-      border-radius: 5px;
-      counter-increment: inherit;
-      .card-action {
-        padding: 9px 4px;
-        p {
-          margin-bottom: 0;
-        }
-      }
-      .card-content {
-        padding: 9px 12px;
-        .card-title {
-          font-size: 14px;
-          line-height: 18px;
-        }
-        i.material-icons {
-          font-size: 18px;
-          margin-top: 7px;
-        }
-      }
-    }
-    .viewer-filter {
-      height: 0;
-      min-height: 0;
-      transform: scale(0, 0);
-      transform-origin: 60% -30px;
-      transition: 300ms all ease-in;
-      &.filter-on {
-        transform: scale(1, 1);
-        transform-origin: 0 0;
-      }
-    }
-    .toggle-filter {
-      a {
-        cursor: pointer;
-      }
-      .hide-filter {
-        display: none;
-      }
-      &.filter-on {
-        .hide-filter {
-          display: inline;
-        }
-        .show-filter {
-          display: none;
-        }
-      }
-    }
-  }
-  /* ---- grid ---- */
-  @media #{$large-and-up} {
-    .gutter-sizer {
-      width: 2%;
-    }
-    .grid-sizer,
-    .grid-item {
-      width: 31%;
-      .card {
-        margin-bottom: 0px;
-      }
-    }
-  }
+		.card-chips {
+			display: none;
+		}
+		.viewer-item {
+			.card {
+				transition: opacity 300ms ease-in;
+				opacity: 1;
+			}
+			&.hide-item {
+				.card {
+					opacity: 0;
+				}
+			}
+			&:not(.flickity-item) {
+				display: none;
+			}
+		}
+	}
+	.grid-item {
+		margin: 1%;
+		position: absolute;
+		top:0;
+	}
+
+	.gutter-sizer {
+		width: 2%;
+	}
+	.card-image {
+		padding-bottom: 0px;
+	}
+	.grid-sizer,
+	.grid-item {
+		margin-bottom: 0px;
+		margin-top: 0px;
+		width: 48%;
+		.card {
+			margin-bottom: 0px;
+		}
+	}
+	.card-action {
+		padding: 16px 4px 24px;
+	}
+
+	.card {
+		transition: opacity 300ms ease-in;
+		opacity: 1;
+		.card-content {
+			i {
+				margin-right: -10px;
+			}
+			.card-title {
+				font-family: "Roboto", sans-serif;
+			}
+		}
+	}
+	/* move page dots into carousel */
+	.flickity-page-dots {
+		bottom: 10px;
+	}
 
 
-  &.probPhone {}
+	@media #{$small-and-down} {
+
+		.product-cards {
+			position: relative;
+		}
+
+		.grid-sizer,
+		.grid-item {
+			width: 100%;
+			margin: 0;
+		}   
+		.flickity-viewport {
+			//overflow: hidden;
+			width: 100%;
+			.grid-item {
+				min-height: initial;
+				min-width: initial;
+			}
+		}
+		.grid-item {
+			min-height: 240px;
+			min-width: 375px;
+			
+		}
+		.card {
+			width: 75vw;
+			margin: 0 10vw;
+			border-radius: 5px;
+			counter-increment: inherit;
+			.card-action {
+				padding: 9px 4px;
+				p {
+					margin-bottom: 0;
+				}
+			}
+			.card-content {
+				padding: 9px 12px;
+				.card-title {
+					font-size: 14px;
+					line-height: 18px;
+				}
+				i.material-icons {
+					font-size: 18px;
+					margin-top: 7px;
+				}
+			}
+		}
+		.viewer-filter {
+			height: 0;
+			min-height: 0;
+			transform: scale(0, 0);
+			transform-origin: 60% -30px;
+			transition: 300ms all ease-in;
+			&.filter-on {
+				transform: scale(1, 1);
+				transform-origin: 0 0;
+			}
+		}
+		.toggle-filter {
+			a {
+				cursor: pointer;
+			}
+			.hide-filter {
+				display: none;
+			}
+			&.filter-on {
+				.hide-filter {
+					display: inline;
+				}
+				.show-filter {
+					display: none;
+				}
+			}
+		}
+	}
+	/* ---- grid ---- */
+	@media #{$large-and-up} {
+		.gutter-sizer {
+			width: 2%;
+		}
+		.grid-sizer,
+		.grid-item {
+			width: 31%;
+			.card {
+				margin-bottom: 0px;
+			}
+		}
+	}
+
+
+	&.probPhone {}
 
 }
 
 .probPhone {
-  .position-ratio {
-    display: block;
-  }
+	.position-ratio {
+		display: block;
+	}
 }
 
 .viewer-counter {
-  opacity: 0;
-  &.thud {
-    opacity: .5;
-    -webkit-animation: thud 2.5s ease 0s 1 normal;
-    animation: thud 2.5s ease 0s 1 normal;
-  }
+	opacity: 0;
+	&.thud {
+		opacity: .5;
+		-webkit-animation: thud 2.5s ease 0s 1 normal;
+		animation: thud 2.5s ease 0s 1 normal;
+	}
 }
 
 @-webkit-keyframes thud {
-  0% {
+	0% {
 
-    -webkit-transform: scale(0);
-    transform: scale(1);
-  }
+		-webkit-transform: scale(0);
+		transform: scale(1);
+	}
 
-  30% {
-    opacity: 1;
-    -webkit-transform: scale(1.6);
-    transform: scale(1.6);
-  
-  }
+	30% {
+		opacity: 1;
+		-webkit-transform: scale(1.6);
+		transform: scale(1.6);
+	
+	}
 
-  60% {
-    opacity: 1;
-    -webkit-transform: scale(1.6);
-    transform: scale(1.6);
+	60% {
+		opacity: 1;
+		-webkit-transform: scale(1.6);
+		transform: scale(1.6);
 
-  }
+	}
 
-  100% {
-    -webkit-transform: scale(1);
-    transform: scale(1);
+	100% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
  
-  }
+	}
 }
 
 @keyframes thud {
-  0% {
+	0% {
 
-    -webkit-transform: scale(0);
-    transform: scale(1);
-  }
+		-webkit-transform: scale(0);
+		transform: scale(1);
+	}
 
-  30% {
-    -webkit-transform: scale(1.6);
-    transform: scale(1.6);
-    opacity: 1;
-  }
+	30% {
+		-webkit-transform: scale(1.6);
+		transform: scale(1.6);
+		opacity: 1;
+	}
 
-  60% {
-    -webkit-transform: scale(1.6);
-    transform: scale(1.6);
-    opacity: 1;
-  }
+	60% {
+		-webkit-transform: scale(1.6);
+		transform: scale(1.6);
+		opacity: 1;
+	}
 
-  100% {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-  }
+	100% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
 }
