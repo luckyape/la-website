@@ -2,140 +2,140 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Fullstack Web Developer, Vancouver BC. Likes ui, wordpress, drupal, node.js, angularjs, mean/lamp stacks.">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>
-    Fullstack Web Developer, Vancouver BC
-  </title>
-  <!-- @include includes/header.html -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="Fullstack Web Developer, Vancouver BC. Likes ui, wordpress, drupal, node.js, angularjs, mean/lamp stacks.">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>
+		Fullstack Web Developer, Vancouver BC
+	</title>
+	<!-- @include includes/header.html -->
 </head>
 
 <body class="la-homepage">
-  <!-- @include includes/navbar.html -->
-  <div id="la-content-wrapper" class="la-content-wrapper">
-    <div class="section h1-banner horizontal-scroll" id="index-banner">
-      <div class="container" valign-wrapper>
-        <h1 class="header  center green-text">Fullstack Web Developer,<br>Vancouver BC</h1>
-        <div class="row center">
-          <h5 class="header col s12 light">UI, Wordpress, Drupal, Node.JS, AngularJS, MEAN/LAMP</h5>
-        </div>
-        <div class="row center">
-          <a id="cta-button" class="cta-button btn-large waves-effect waves-light deep-orange modal-trigger" href="#contact-options">Let's Talk About Your Project</a>
-        </div>
-      </div>
-    </div>
-    <div class="container benefits">
-      <div class="section ">
-        <!--   Icon Section   -->
-        <div class="row">
-          <div class="col s12 m4">
-            <div class="icon-block">
-              <div class="center black-text icon"><i class="material-icons">all_inclusive</i></div>
-              <h5 class="center">20 Years Experience</h5>
-              <p class="light">The excitement that defined the dot com era was always tamped down by developers who where coding from books. While widely implemented standards and DevOps are ok, <a href="https://stackoverflow.com/users/714768/luckyape">StackOverflow</a> has been truly transformative.</p>
-            </div>
-          </div>
-          <div class="col s12 m4">
-            <div class="icon-block">
-              <div class="center black-text icon"><i class="material-icons">group</i></div>
-              <h5 class="center">Agency Clients</h5>
-              <p class="light">As part of an agile scrum development team or as a full stack development team of one; experience has taught hitting the ground running and being indispensable to project managers is what agency work is about.</p>
-            </div>
-          </div>
-          <div class="col s12 m4">
-            <div class="icon-block">
-              <div class="center black-text icon"><i class="material-icons">mood</i></div>
-              <h5 class="center">Easy to Work With</h5>
-              <p class="light">Lucky Ape client engagement best practices are&#58; make communication prompt and straightforward&#59; get onboard and leverage strengths to be helpful&#59; target deeply satisfying results&#59; and punctuate articulately.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- @include includes/footer.html -->
-  </div>
-  <!-- Modal Structure -->
-  <div id="contact-options" class="modal modal-fixed">
-    <div class="modal-content">
-      <div id="contact-methods" class="contact-methods valign-wrapper">
-      </div>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Nevermind</a>
-    </div>
-  </div>
-  <!-- @include includes/global-js.html -->
-  <!-- build:js scripts/main.min.js -->
-  <script type="text/javascript" src="scripts/main.js"></script>
-  <script type="text/javascript" src="scripts/init.js"></script>
-  <!-- endbuild -->
-  <script>
-  (function($) {
-    $(function() {
-      var body = $('html > body');
-      $('#cta-button').click(function() {
-        body.addClass('modal-open');
-      });
-      var background = 'images/skeletons.jpg';
-      $('<img/>').attr('src', background).load(function() {
-        // create an image element with inner background and load it
-        $(this).remove();
-        // set the inner background image and fade in:
-        $('#index-banner').addClass('bgFadeIn');
-        // need a little delay to let the div render it's bg image before the fade starts
-      });
-      $('.modal').modal({
-        startingTop: '-40%',
-        endingTop: '10%',
-        ready: function(modal, trigger) {
-          // Callback for Modal open. Modal and trigger parameters available.
-          var sniffModalClose = function(el) {
-            var classList = Object.values(el.target.classList);
-            if (classList.indexOf('modal-overlay') > -1 || classList.indexOf('modal-close') > -1) {
-              modalClose();
-            }
-          };
-          var sniffEscKey = function(e){
-            console.info(e.key, e.target.nodeName);
-              if((e.key==='Escape'||e.key==='Esc'||e.keyCode==27)){
-                modalClose();
-              }
-          };
-          var modalClose = function() {
-            body.removeClass('modal-open');
-            window.removeEventListener('keyup', sniffEscKey);
-            window.removeEventListener('click', sniffModalClose);
-            window.removeEventListener('touchstart', sniffModalClose);
-          };
+	<!-- @include includes/navbar.html -->
+	<div id="la-content-wrapper" class="la-content-wrapper">
+		<div class="section h1-banner horizontal-scroll" id="index-banner">
+			<div class="container" valign-wrapper>
+				<h1 class="header  center green-text">Fullstack Web Developer,<br>Vancouver BC</h1>
+				<div class="row center">
+					<h5 class="header col s12 light">UI, Wordpress, Drupal, Node.JS, AngularJS, MEAN/LAMP</h5>
+				</div>
+				<div class="row center">
+					<a id="cta-button" class="cta-button btn-large waves-effect waves-light deep-orange modal-trigger" href="#contact-options">Let's Talk About Your Project</a>
+				</div>
+			</div>
+		</div>
+		<div class="container benefits">
+			<div class="section ">
+				<!--   Icon Section   -->
+				<div class="row">
+					<div class="col s12 m4">
+						<div class="icon-block">
+							<div class="center black-text icon"><i class="material-icons">all_inclusive</i></div>
+							<h5 class="center">20 Years Experience</h5>
+							<p class="light">The excitement that defined the dot com era was always tamped down by developers who where coding from books. While widely implemented standards and DevOps are ok, <a href="https://stackoverflow.com/users/714768/luckyape">StackOverflow</a> has been truly transformative.</p>
+						</div>
+					</div>
+					<div class="col s12 m4">
+						<div class="icon-block">
+							<div class="center black-text icon"><i class="material-icons">group</i></div>
+							<h5 class="center">Agency Clients</h5>
+							<p class="light">As part of an agile scrum development team or as a full stack development team of one; experience has taught hitting the ground running and being indispensable to project managers is what agency work is about.</p>
+						</div>
+					</div>
+					<div class="col s12 m4">
+						<div class="icon-block">
+							<div class="center black-text icon"><i class="material-icons">mood</i></div>
+							<h5 class="center">Easy to Work With</h5>
+							<p class="light">Lucky Ape client engagement best practices are&#58; make communication prompt and straightforward&#59; get onboard and leverage strengths to be helpful&#59; target deeply satisfying results&#59; and punctuate articulately.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- @include includes/footer.html -->
+	</div>
+	<!-- Modal Structure -->
+	<div id="contact-options" class="modal modal-fixed">
+		<div class="modal-content">
+			<div id="contact-methods" class="contact-methods valign-wrapper">
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Nevermind</a>
+		</div>
+	</div>
+	<!-- @include includes/global-js.html -->
+	<!-- build:js scripts/main.min.js -->
+	<script type="text/javascript" src="scripts/main.js"></script>
+	<script type="text/javascript" src="scripts/init.js"></script>
+	<!-- endbuild -->
+	<script>
+	(function($) {
+		$(function() {
+			var body = $('html > body');
+			$('#cta-button').click(function() {
+				body.addClass('modal-open');
+			});
+			var background = 'images/skeletons.jpg';
+			$('<img/>').attr('src', background).load(function() {
+				// create an image element with inner background and load it
+				$(this).remove();
+				// set the inner background image and fade in:
+				$('#index-banner').addClass('bgFadeIn');
+				// need a little delay to let the div render it's bg image before the fade starts
+			});
+			$('.modal').modal({
+				startingTop: '-40%',
+				endingTop: '10%',
+				ready: function(modal, trigger) {
+					// Callback for Modal open. Modal and trigger parameters available.
+					var sniffModalClose = function(el) {
+						var classList = Object.values(el.target.classList);
+						if (classList.indexOf('modal-overlay') > -1 || classList.indexOf('modal-close') > -1) {
+							modalClose();
+						}
+					};
+					var sniffEscKey = function(e){
+						console.info(e.key, e.target.nodeName);
+							if((e.key==='Escape'||e.key==='Esc'||e.keyCode==27)){
+								modalClose();
+							}
+					};
+					var modalClose = function() {
+						body.removeClass('modal-open');
+						window.removeEventListener('keyup', sniffEscKey);
+						window.removeEventListener('click', sniffModalClose);
+						window.removeEventListener('touchstart', sniffModalClose);
+					};
 
-          window.addEventListener('click', sniffModalClose, false);
-          window.addEventListener('touchstart', sniffModalClose, false);
-          window.addEventListener('keyup', sniffEscKey, false);
-          window.loadContactInfo();
-        }
-      });
+					window.addEventListener('click', sniffModalClose, false);
+					window.addEventListener('touchstart', sniffModalClose, false);
+					window.addEventListener('keyup', sniffEscKey, false);
+					window.loadContactInfo();
+				}
+			});
 
-    });
-    // end of document ready
-  })(jQuery);
-  /*
-   * Displayes obuscated contact info
-   */
-  window.loadContactInfo = function() {
-    var contactMethods = document.getElementById('contact-methods');
-    var contactHash = 'PGEgaHJlZj0ic21zOjEtNjA0LTM0MC03OTI1IiBjbGFzcz0ic21zLWxpbmsgaWNvbiBpY29uLWNoYXQgaWNvbi1jaGF0LWRpbXMiPlNNUzxkaXY+NjA0LTM0MC03OTI1PC9kaXY+PC9hPjxhIGhyZWY9Im1haWx0bzppbmZvQGx1Y2t5YXBlLmNvbT9zdWJqZWN0PSU1QldXVyUyMElucXVpcmUlNUQiIGNsYXNzPSJpY29uIGljb24tZW52ZWxvcGUgaWNvbi1lbnZlbG9wZS1kaW1zIj5FbWFpbDxkaXY+aW5mb0BsdWNreWFwZS5jb208L2Rpdj48L2E+PGEgaHJlZj0idGVsOjEtNjA0LTM0MC03OTI1IiBjbGFzcz0iaWNvbiBpY29uLXBob25lLWNhbGwgaWNvbi1waG9uZS1jYWxsLWRpbXMiPlRlbDxkaXY+NjA0LTM0MC03OTI1PC9kaXY+PC9hPg==';
-    contactMethods.innerHTML = atob(contactHash);
-    if (!probPhone) {
-      var smsLink = document.querySelector('.sms-link');
-      document.querySelector('.contact-methods').removeChild(smsLink);
-    }
-  };
-  // end of jQuery name space
+		});
+		// end of document ready
+	})(jQuery);
+	/*
+	 * Displayes obuscated contact info
+	 */
+	window.loadContactInfo = function() {
+		var contactMethods = document.getElementById('contact-methods');
+		var contactHash = 'PGEgaHJlZj0ic21zOjEtNjA0LTM0MC03OTI1IiBjbGFzcz0ic21zLWxpbmsgaWNvbiBpY29uLWNoYXQgaWNvbi1jaGF0LWRpbXMiPlNNUzxkaXY+NjA0LTM0MC03OTI1PC9kaXY+PC9hPjxhIGhyZWY9Im1haWx0bzppbmZvQGx1Y2t5YXBlLmNvbT9zdWJqZWN0PSU1QldXVyUyMElucXVpcmUlNUQiIGNsYXNzPSJpY29uIGljb24tZW52ZWxvcGUgaWNvbi1lbnZlbG9wZS1kaW1zIj5FbWFpbDxkaXY+aW5mb0BsdWNreWFwZS5jb208L2Rpdj48L2E+PGEgaHJlZj0idGVsOjEtNjA0LTM0MC03OTI1IiBjbGFzcz0iaWNvbiBpY29uLXBob25lLWNhbGwgaWNvbi1waG9uZS1jYWxsLWRpbXMiPlRlbDxkaXY+NjA0LTM0MC03OTI1PC9kaXY+PC9hPg==';
+		contactMethods.innerHTML = atob(contactHash);
+		if (!probPhone) {
+			var smsLink = document.querySelector('.sms-link');
+			document.querySelector('.contact-methods').removeChild(smsLink);
+		}
+	};
+	// end of jQuery name space
 
-  </script>
-  <!-- Built with love using Web Starter Kit -->
+	</script>
+	<!-- Built with love using Web Starter Kit -->
 </body>
 
 </html>
