@@ -232,11 +232,29 @@
       }
     }
   }
-
-  if (!probPhone) {
-    initScroller();
-  } else if (probPhone) {
-    initMobileScroll();
+  /*
+   * Init based on client
+   */
+  function init() {
+    if (!probPhone) {
+      initScroller();
+    } else if (probPhone) {
+      initMobileScroll();
+    }
   }
+
+  function scrollResize() {
+    window.scrollTo(0, 0);
+    pHead.setAttribute('style', '');
+    paused = false;
+    stuck = false;
+    panelPadTop = parseFloat(getComputedStyle(panel).getPropertyValue('padding-top'));
+    docHeight = document.documentElement.clientHeight;
+    origHeadTop = parseFloat(getComputedStyle(pHead).getPropertyValue('top'));
+    storyFade();
+    init();
+  }
+  window.addEventListener('resize', scrollResize, true);
+  init();
   initMeteorShower();
 })();

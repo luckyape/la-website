@@ -72,7 +72,7 @@
           $viewerCounter.addClass('thud');
         });
       });
-    //  $grid.css('min-height', $grid.height());
+      //  $grid.css('min-height', $grid.height());
       $cards
         .each(chipFilter)
         .promise()
