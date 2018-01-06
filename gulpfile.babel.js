@@ -43,7 +43,7 @@ import data from 'gulp-data';
 import template from 'gulp-template';
 import download from 'gulp-download-stream';
 import sitemap from 'gulp-sitemap';
-
+import purify from 'gulp-purifycss';
 
 //var parseString = require().parseString;
 const $ = gulpLoadPlugins();
@@ -52,6 +52,10 @@ const reload = browserSync.reload;
 dotenv.config();
 
 // create site map 
+
+function handleError(e)  {
+	console.info(e);
+}
 
 gulp.task('sitemap', () =>
     gulp.src(['app/*.html','!app/google*.html'], {
@@ -62,7 +66,6 @@ gulp.task('sitemap', () =>
         }))
         .pipe(gulp.dest('dist/public'))
         .pipe($.size({ title: 'sitemap' })));
-
 
 
 
@@ -128,6 +131,7 @@ gulp.task('styles', () => {
       precision: 10
     }).on('error', $.sass.logError))
     .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
+    .pipe(purify(['app/scripts/*.js', 'app/*.html', 'app/includes/*.html']))
     .pipe(gulp.dest('.tmp/styles'))
     // Concatenate and minify styles
     .pipe($.if('*.css', $.cssnano({ minifyFontValues: false, discardUnused: false })))
@@ -198,14 +202,11 @@ gulp.task('copylibs', () =>
 );
 
 
+
 // html includes
 gulp.task('htmlIncludes', function() {
   return gulp.src(['app/*.html', 'app/includes/*.html'])
     .pipe(foreach(function(stream, file) {
-      var items = function() {
-        x
-      };
-      console.info(file.relative.slice(0, -5));
       return stream
         .pipe(preprocess())
         .on('error', function(e) { handleError(e) });
@@ -299,7 +300,7 @@ gulp.task('serve', ['scripts', 'styles', 'buildStoreItems', 'buildWorkItems', 'h
     port: 3001
   });
 
-  gulp.watch(['.tmp/**/*.html', 'app/**/*.html'], ['htmlIncludes', reload]);
+  gulp.watch(['app/styles/inline-header.css', 'app/**/*.html'], ['htmlIncludes', reload]);
   gulp.watch(['app/includes/store-products.tmpl'], ['buildStoreItems', reload]);
   gulp.watch(['app/includes/work-items.tmpl', 'docs/work.json'], ['buildWorkItems', reload]);
   gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);

@@ -6,18 +6,18 @@
 
 // Variables;
 @import "components/variables";
-
+@import "components/typography";
 // Reset
 @import "components/normalize";
 
 // components
 @import "components/global";
-@import "components/badges";
+//@import "components/badges";
 @import "components/icons-material-design";
 @import "components/grid";
 @import "components/navbar";
 // @import "components/roboto";
-@import "components/typography";
+
 @import "components/transitions";
 @import "components/cards";
 //@import "components/toast";
@@ -41,7 +41,5 @@
 //@import "components/date_picker/default";
 //@import "components/date_picker/default.date";
 //@import "components/date_picker/default.time";
-
-
 @charset "UTF-8";
 

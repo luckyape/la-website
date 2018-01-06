@@ -6,10 +6,15 @@
  * Made By MaterializeCSS.com
  */
 
-@import "materialize";
 @import "homepage";
 @import "viewer";
 @import "tools";
 @import "about";
 @import "footer";
 @import "flickity";
+
+@import "materialize";
+body {
+	opacity: 1;
+	transition: all 300ms ease;
+}
