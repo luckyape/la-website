@@ -1,15 +1,14 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
 # TEAM
 
-  Graham Charles -- Full stack + UI -- @luckyape
+  <name> -- <role> -- <twitter>
 
 # THANKS
 
-  All the devs.
+  <name>
 
 # TECHNOLOGY COLOPHON
 
-  Standards: HTML5, CSS3, Canvass
-
-  Components: JQuery, IsotopeJS, Flickity.js, Materialize CSS
-
-  Software: Node.JS, Web Starter Kit
+  HTML5, CSS3
