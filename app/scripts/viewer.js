@@ -116,6 +116,14 @@
         resize: true,
         filter: chipFilter
       });
+      $('img', $cards).each(function(i, obj) {
+        $('<img/>')
+          .attr('src', obj.src)
+          .load(function() {
+            $(this).remove();
+            $grid.isotope();
+          });
+      });
       revealCards();
     };
     var matchMedia = function() {

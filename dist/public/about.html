@@ -10,15 +10,14 @@
     About LA
   </title>
 
-  
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <!-- Disable tap highlight on IE --> 
+  <!-- Disable tap highlight on IE -->
   <meta name="msapplication-tap-highlight" content="no">
   <!-- Web Application Manifest -->
   <link rel="manifest" href="manifest.json">
   <!-- Add to homescreen for Chrome on Android -->
-  <meta name="mobile-web-app-capable" content="yes">  
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="application-name" content="Lucky Ape Corporate Communications Ltd.">
   <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
   <!-- Add to homescreen for Safari on iOS -->
@@ -28,65 +27,92 @@
   <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
   <!-- Tile icon for Win8 (144x144 + tile color) -->
   <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
-  <meta name="msapplication-TileColor" content="#2F3BA2"> 
+  <meta name="msapplication-TileColor" content="#2F3BA2">
   <!-- Color the status bar on mobile devices -->
   <meta name="theme-color" content="#2F3BA2">
-  
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script>  
+  <script>
   function async(u, c) {
-      var d = document,
-          t = 'script',
-          n = 0,
-          loadEvent = function(e) {
-              n--;
-              if (!n) {
-                  c(null, e);
-              }
-          };
-      if (Array.isArray(u)) {
-          n = u.length;
-          for (var i = 0; i < n; i++) {
-              var j = {
-                  o: d.createElement(t),
-                  s: d.getElementsByTagName(t)[0],
-              };
-              j.o.src = u[i];
-              if (c) {
-                  j.o.addEventListener('load', loadEvent, false);
-              }
-              setTimeout(function() {
-                  j.s.parentNode.insertBefore(j.o, j.s);
-              }, 1);
-          }
+    var d = document,
+      t = 'script',
+      n = 0,
+      loadEvent = function(e) {
+        n--;
+        if (!n) {
+          c(null, e);
+        }
+      };
+    if (Array.isArray(u)) {
+      n = u.length;
+      for (var i = 0; i < n; i++) {
+        var j = {
+          o: d.createElement(t),
+          s: d.getElementsByTagName(t)[0],
+        };
+        j.o.src = u[i];
+        if (c) {
+          j.o.addEventListener('load', loadEvent, false);
+        }
+        setTimeout(function() {
+          j.s.parentNode.insertBefore(j.o, j.s);
+        }, 1);
       }
+    }
   }
   if (navigator.userAgent.indexOf("Speed Insights") === -1) {
-      async(["https://www.googletagmanager.com/gtag/js?id=UA-20443414-1"],
-          function() {
-              window.dataLayer = window.dataLayer || [];
+    async(["https://www.googletagmanager.com/gtag/js?id=UA-20443414-1"],
+      function() {
+        window.dataLayer = window.dataLayer || [];
   
-              function gtag() { dataLayer.push(arguments); }
-              gtag('js', new Date());
-              gtag('config', 'UA-20443414-1');
-          })
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-20443414-1');
+      })
   }
   
   var probPhone = ((/iphone|android|ie|blackberry|fennec/).test(navigator.userAgent.toLowerCase()) && 'ontouchstart' in document.documentElement);
-  if(probPhone) {
-      document.querySelector('html').classList.add('probPhone');
+  if (probPhone) {
+    document.querySelector('html').classList.add('probPhone');
   }
   
+  WebFontConfig = {
+    typekit: {
+      id: 'yil6mnu'
+    },
+    google: {
+      families: ['Material Icons', 'Roboto:regular', 'Roboto:light']
+    },
+    custom: {
+      families: ['Socicon'],
+      urls: ['/styles/social-font.css']
+    }
+  };
+  (function(d) {
+    var wf = d.createElement('script'),
+      s = d.scripts[0];
+    wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
+    wf.async = true;
+    s.parentNode.insertBefore(wf, s);
+  })(document);
+  
   </script>
-  
-  
   <style type="text/css">
-  	body{opacity:0}.cta-button:-webkit-any-link{color:#fff}
-  	/*# sourceMappingURL=inline-header.css.map */
-  	
+  body{opacity:0;background-color:#fff}.cta-button:-webkit-any-link{color:#fff;background-color:#fff}
+  /*# sourceMappingURL=inline-header.css.map */
+  
+  
   </style>
   
-  
+  <style>
+    body {
+      background-color: #000;
+      background-image: url(/images/starfield.jpg);
+      background-size: auto 100%;
+      background-repeat: repeat-x;
+      background-position: bottom;
+      background-attachment: fixed;
+    }
+  </style>
 </head>
 
 <body class="body">
@@ -162,26 +188,7 @@
     	</footer>
     	<link href="styles/style.css" type="text/css" rel="stylesheet" media="screen,projection" />	
     	<!-- CSS  -->
-    	<script type="text/javascript">
-    		WebFontConfig = {
-    			typekit: {
-    				id: 'yil6mnu'
-    			},
-    			google: {
-    				families: ['Material Icons','Roboto:regular','Roboto:light']
-    			},  
-    			custom: {
-    				families: ['Socicon'],
-    				urls: ['/styles/social-font.css']
-    			}
-    		};    
-    		(function(d) {
-    			var wf = d.createElement('script'), s = d.scripts[0];
-    			wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
-    			wf.async = true;
-    			s.parentNode.insertBefore(wf, s);
-    		})(document);
-    	</script>
+    	
     
   </div>
   <canvas class="shootingstar" width="200" height="30"></canvas>
