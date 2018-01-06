@@ -14,15 +14,21 @@ function ensureDomain(req, res, next) {
   res.redirect(`http://${domain}${req.url}`);
 };
 
+function shouldCompress(req, res) {
+  return true
+};
+
 const app = express();
 
 // at top of routing calls
 app.all('*', ensureDomain);
 
-app.use(compression());
+app.use(compression({   threshold: 0,
+  filter: shouldCompress,
+  level: 9  }));
 
 // default to .html (you can omit the extension in the URL)
-app.use(serveStatic(`${__dirname}/public`, {'extensions': ['html','js','css']}));
+app.use(serveStatic(`${__dirname}/public`, {'extensions': ['html','css','js']}));
 
 app.listen(port, () => {
   console.log('Server running...');
