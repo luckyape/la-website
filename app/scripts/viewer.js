@@ -143,7 +143,7 @@
 
         if (!$grid.isotope) {
           async(['https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js'], function() {
-            async(['https://cdn.jsdelivr.net/npm/isotope-packery@2.0.0/packery-mode.pkgd.js'], isotopeInit);
+            async(['https://cdn.jsdelivr.net/npm/isotope-packery@2.0.0/packery-mode.pkgd.min.js'], isotopeInit);
           });
         } else if ($grid.isotope) {
           setTimeout(isotopeInit, 100);

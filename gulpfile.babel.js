@@ -217,7 +217,7 @@ gulp.task('htmlIncludes', function() {
 });
 
 // Scan your HTML for assets & optimize them
-gulp.task('html', () => {
+gulp.task('html', ['htmlIncludes'], () => {
   return gulp.src('app/**/*.html')
     .pipe(foreach(function(stream, file) {
       var items = function() {
@@ -300,7 +300,7 @@ gulp.task('serve', ['scripts', 'styles', 'buildStoreItems', 'buildWorkItems', 'h
     port: 3001
   });
 
-  gulp.watch(['app/styles/inline-header.css', 'app/**/*.html'], ['htmlIncludes', reload]);
+  gulp.watch(['.tmp/styles/inline-header.css', 'app/**/*.html'], ['htmlIncludes', reload]);
   gulp.watch(['app/includes/store-products.tmpl'], ['buildStoreItems', reload]);
   gulp.watch(['app/includes/work-items.tmpl', 'docs/work.json'], ['buildWorkItems', reload]);
   gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);

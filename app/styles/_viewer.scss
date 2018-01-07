@@ -2,6 +2,9 @@
   min-height: 100%;
   overflow-x: hidden;
   width: 100%;
+  .row.viewer-filter {
+    margin-bottom: 0;
+  }
   * {
     box-sizing: border-box;
   }
@@ -49,6 +52,7 @@
   /* inherit height from window */
   .products.chips {
     min-height: 82px;
+    margin-bottom: 0;
   }
 
 

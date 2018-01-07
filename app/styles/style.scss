@@ -1,17 +1,11 @@
-/* Custom Stylesheet */
-/**
- * Use this file to override Materialize files so you can update
- * the core Materialize files in the future
- *
- * Made By MaterializeCSS.com
- */
+
 @import "materialize";
 @import "viewer";
 @import "tools";
 @import "about";
 @import "footer";
 @import "flickity";
-
+@import "viewer";
 body {
 	opacity: 1;
 	transition: all 300ms ease;

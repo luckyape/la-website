@@ -27,12 +27,14 @@
 		background-color: #fff;
 		padding-top: 18px;
 		padding-bottom: 50px;
+		position: relative;
 		h1 {
 			font-family: Roboto;
 			font-size: 8vw;
 			min-height: 70px;
 			margin: 10px 0 1vw;
 			font-weight: 100;
+			line-height: 120%;
 		}
 
 		h5 {
@@ -44,7 +46,7 @@
 		}
 
 		.cta-button {
-			//margin: 17vw 0;
+			// margin: 17vw 0;
 		}
 
 		&::before {
@@ -55,7 +57,7 @@
 			height: 325px;
 			width: 100%;
 			position: absolute;
-			top: 0;
+			bottom: 20px;
 			background-image: url('/images/skeletons.jpg');
 			background-attachment: scroll;
 			background-repeat: repeat-x;
@@ -88,7 +90,6 @@
 			//background-size: 100% auto;   
 			h1 {
 				font-size: 46px;
-				;
 			}
 			h5 {
 				font-size: 24px;
