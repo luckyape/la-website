@@ -3,6 +3,7 @@ const serveStatic = require('serve-static');
 const compression = require('compression');
 const port = process.env.PORT || 3000;
 const domain =  process.env.DOMAIN;
+const mime = require('mime-types');
 
 function ensureDomain(req, res, next) {
   if (!domain || req.hostname === domain) {
@@ -29,11 +30,11 @@ app.use(compression({   threshold: 0,
 
 // default to .html (you can omit the extension in the URL)
 app.use(serveStatic(`${__dirname}/public`, {
-  maxAge: '604800s', 
+  maxAge: '604801s', 
   extensions: ['html','css','js'],
   setHeaders: function (res, path) {
-    if (mime.lookup(path) !== 'text/html') {
-      res.setHeader('Cache-Control', 'public, max-age=0')
+    if (mime.lookup(path) === 'text/html') {
+      res.setHeader('Cache-Control', 'public, max-age=604801s')
     }
     
   }
