@@ -53,7 +53,7 @@ var KarmaServer = karma.Server;
 //var parseString = require().parseString;
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
-
+const cdnUrl =  'https://cdn.luckyape.com'
 dotenv.config();
 
 // create site map
@@ -251,7 +251,7 @@ gulp.task('html', () => {
       noAssets: true
     }))
     .pipe($.if('*.html', $.size({ title: 'html', showFiles: true })))
-    .pipe(replace('<!--CDNURL-->', 'https://d35mz7ar9ho2ga.cloudfront.net'))
+    .pipe(replace('<!--CDNURL-->', cdnUrl))
     .pipe(styleInject())
     .pipe(stripCode({
       start_comment: "start-dev-css",
@@ -403,7 +403,7 @@ gulp.task('cdn-styles', () => {
       precision: 10
     }).on('error', $.sass.logError))
     .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
-    .pipe(replace('<!--CDNURL-->', 'https://d35mz7ar9ho2ga.cloudfront.net'))
+    .pipe(replace('<!--CDNURL-->', cdnUrl))
     .pipe(purify(['app/scripts/*.js', 'app/*.html', 'app/includes/*.html']))
     .pipe(gulp.dest('.tmp/styles'))
     // Concatenate and minify styles
