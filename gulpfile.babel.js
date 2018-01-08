@@ -38,6 +38,7 @@ import pkg from './package.json';
 import foreach from 'gulp-foreach';
 import xml2json from 'gulp-xml2json';
 import rename from 'gulp-rename';
+import replace from 'gulp-replace';
 import fs from 'fs';
 import styleInject from 'gulp-style-inject';
 import data from 'gulp-data';
@@ -145,6 +146,7 @@ gulp.task('styles', () => {
       precision: 10
     }).on('error', $.sass.logError))
     .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
+    .pipe(replace('<!--CDNURL-->', ''))    
     .pipe(purify(['app/scripts/*.js', 'app/*.html', 'app/includes/*.html']))
     .pipe(gulp.dest('.tmp/styles'))
     // Concatenate and minify styles
@@ -225,6 +227,7 @@ gulp.task('htmlIncludes', function() {
         .pipe(preprocess())
         .on('error', function(e) { handleError(e) });
     }))
+    .pipe(replace('<!--CDNURL-->', ''))
     .pipe(gulp.dest('./.tmp/'))
     .pipe(gulp.dest('dist/public'))
     .on('error', function(e) { handleError(e) });
@@ -248,10 +251,11 @@ gulp.task('html', () => {
       noAssets: true
     }))
     .pipe($.if('*.html', $.size({ title: 'html', showFiles: true })))
+    .pipe(replace('<!--CDNURL-->', 'https://d35mz7ar9ho2ga.cloudfront.net'))
     .pipe(styleInject())
     .pipe(stripCode({
-      start_comment: "start-header-css",
-      end_comment: "end-header-css"
+      start_comment: "start-dev-css",
+      end_comment: "end-dev-css"
     }))
     // Minify any HTML
     .pipe($.if('*.html', $.htmlmin({
@@ -301,6 +305,7 @@ gulp.task('buildWorkItems', () => {
     .pipe(gulp.dest('dist/public'))
     .on('error', function(e) { handleError(e) });
 });
+
 
 
 
@@ -366,9 +371,47 @@ gulp.task('convertStoreXML', ['getStoreXML'], () => {
 // Build production files, the default tas
 gulp.task('default', ['clean'], cb => {
   runSequence(
-    'styles', ['lint', 'html', 'scripts', 'images', 'copy', 'copyfonts', 'copylibs','sitemap'],
+    'cdn-styles', ['lint', 'html', 'scripts', 'images', 'copy', 'copyfonts', 'copylibs','sitemap'],
     cb
   )
+});
+// Compile and automatically prefix stylesheets
+gulp.task('cdn-styles', () => {
+  const AUTOPREFIXER_BROWSERS = [
+    'ie >= 10',
+    'ie_mob >= 10',
+    'ff >= 30',
+    'chrome >= 34',
+    'safari >= 7',
+    'opera >= 23',
+    'ios >= 7',
+    'android >= 4.4',
+    'bb >= 10'
+  ];
+
+  // For best performance, don't add Sass partials to `gulp.src`
+  return gulp.src([
+      'app/styles/**/*.scss',
+      'app/styles/**/*.css'
+    ])
+
+    .pipe($.newer('.tmp/styles'))
+
+    .pipe($.sourcemaps.init())
+
+    .pipe($.sass({
+      precision: 10
+    }).on('error', $.sass.logError))
+    .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
+    .pipe(replace('<!--CDNURL-->', 'https://d35mz7ar9ho2ga.cloudfront.net'))
+    .pipe(purify(['app/scripts/*.js', 'app/*.html', 'app/includes/*.html']))
+    .pipe(gulp.dest('.tmp/styles'))
+    // Concatenate and minify styles
+    .pipe($.if('*.css', $.cssnano({ minifyFontValues: false, discardUnused: false })))
+    .pipe($.size({ title: 'styles' }))
+    .pipe($.sourcemaps.write('./'))
+    .pipe(gulp.dest('dist/public/styles'))
+    .pipe(gulp.dest('.tmp/styles'));
 });
 
 // Run PageSpeed Insights
