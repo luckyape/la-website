@@ -30,11 +30,11 @@ app.use(compression({   threshold: 0,
 
 // default to .html (you can omit the extension in the URL)
 app.use(serveStatic(`${__dirname}/public`, {
-  maxAge: '604801s', 
+  maxAge: '605400s', 
   extensions: ['html','css','js'],
   setHeaders: function (res, path) {
     if (mime.lookup(path) === 'text/html') {
-      res.setHeader('Cache-Control', 'public, max-age=604801s')
+      res.setHeader('Cache-Control', 'public, max-age=605400ss')
     }
     
   }
