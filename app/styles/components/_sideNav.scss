@@ -210,8 +210,8 @@
   right: 0;
 
   height: 120vh;
-  background-color: rgba(236,244,252,.5);
-  z-index: 4;
+  background-color: rgba(236,244,252,0);
+  z-index: 2;
 
   will-change: opacity;
 }

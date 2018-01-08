@@ -754,7 +754,6 @@ la-content-wrapper {
   will-change: filter;
 }
 .la-content-wrapper.la-blur {
-  filter: blur(20px);
+  filter: blur(5px); 
   transition: filter .25s;
-
 }

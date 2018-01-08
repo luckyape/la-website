@@ -1,4 +1,4 @@
-/**
+  /**
  *
  *  Web Starter Kit
  *  Copyright 2015 Google Inc. All rights reserved.
@@ -39,11 +39,15 @@ import foreach from 'gulp-foreach';
 import xml2json from 'gulp-xml2json';
 import rename from 'gulp-rename';
 import fs from 'fs';
+import styleInject from 'gulp-style-inject';
 import data from 'gulp-data';
 import template from 'gulp-template';
 import download from 'gulp-download-stream';
 import sitemap from 'gulp-sitemap';
 import purify from 'gulp-purifycss';
+import stripCode from 'gulp-strip-code';
+import karma from 'karma';
+var KarmaServer = karma.Server;
 
 //var parseString = require().parseString;
 const $ = gulpLoadPlugins();
@@ -51,11 +55,21 @@ const reload = browserSync.reload;
 
 dotenv.config();
 
-// create site map 
+// create site map
 
 function handleError(e)  {
 	console.info(e);
 }
+
+
+gulp.task('test', function (done) {
+    var server = new KarmaServer({
+        configFile: __dirname + '/karma.conf.js',
+        browsers: ['Chrome'],
+        singleRun: true
+    }, done);
+    server.start();
+});
 
 gulp.task('sitemap', () =>
     gulp.src(['app/*.html','!app/google*.html'], {
@@ -217,7 +231,7 @@ gulp.task('htmlIncludes', function() {
 });
 
 // Scan your HTML for assets & optimize them
-gulp.task('html', ['htmlIncludes'], () => {
+gulp.task('html', () => {
   return gulp.src('app/**/*.html')
     .pipe(foreach(function(stream, file) {
       var items = function() {
@@ -233,7 +247,12 @@ gulp.task('html', ['htmlIncludes'], () => {
       searchPath: '{.tmp,app}',
       noAssets: true
     }))
-
+    .pipe($.if('*.html', $.size({ title: 'html', showFiles: true })))
+    .pipe(styleInject())
+    .pipe(stripCode({
+      start_comment: "start-header-css",
+      end_comment: "end-header-css"
+    }))
     // Minify any HTML
     .pipe($.if('*.html', $.htmlmin({
       minifyJS: true,
@@ -248,7 +267,8 @@ gulp.task('html', ['htmlIncludes'], () => {
       removeOptionalTags: true
     })))
     // Output files
-    .pipe($.if('*.html', $.size({ title: 'html', showFiles: true })))
+
+   
     .pipe(gulp.dest('dist/public'));
 });
 

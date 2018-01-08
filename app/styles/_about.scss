@@ -1,5 +1,8 @@
 .la-about-page {
   background-color: #ccc;
+   #sidenav-overlay {
+     background-color: rgba(0,0,0,0.6);
+   } 
   &.probPhone {
     overflow-x: hidden;
     height: auto;
@@ -19,7 +22,7 @@
   background-color: transparent; // min-height: 800px;
   .body {
     >div>nav {
-      background-color: #000 !important;
+      background-color: #1c1c1c !important;
       box-shadow: none;
       &>a,
       ul>li>a,
@@ -27,7 +30,11 @@
         color: #496a73;
       }
       .brand-logo {
-        color: #496a73;
+        color: #000;
+        text-shadow: 0 0 75px rgba(76, 105, 116, 1);
+      }
+      .side-nav {
+        background-color: #1c1c1c !important;;
       }
     }
     height: 100%;

@@ -28,7 +28,15 @@ app.use(compression({   threshold: 0,
   level: 9  }));
 
 // default to .html (you can omit the extension in the URL)
-app.use(serveStatic(`${__dirname}/public`, {'extensions': ['html','css','js']}));
+app.use(serveStatic(`${__dirname}/public`, {
+  maxAge: '604800s', 
+  extensions: ['html','css','js'],
+  setHeaders: function (res, path) {
+    
+      res.setHeader('Cache-Control', 'public, max-age=604800s')
+    
+  }
+  }));
 
 app.listen(port, () => {
   console.log('Server running...');

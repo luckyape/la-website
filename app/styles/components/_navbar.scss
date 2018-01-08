@@ -1,7 +1,7 @@
 #la-navbar-flex {
   top: -63px;
   position: relative;
-  z-index: 5;
+  z-index: 15;
 }
 
 .wf-bebasneue-n4-active #la-navbar-flex,
@@ -12,16 +12,22 @@
 
 .la-about-page {
 
-   nav ul > li {
-    &.about-lnk {
-      border-style: dotted;
-      border-width: 0px 1px 1px 1px;
-      border-color: transparent #14323d #436c8a #14323d;
+  nav ul {
+    &>li {
+      &.about-lnk {
+        border-style: dotted;
+        border-width: 0px 1px 1px 1px;
+        border-color: transparent #14323d #436c8a #14323d;
+      }
+      a:hover {
+        background-color: #06252e;
+      }
     }
-    a:hover {
-      background-color: #06252e;
+
+    &.side-nav li.about-lnk {
+      background-color: #496a73;
     }
-   }
+  }
 }
 
 body.la-tool-page .tools-lnk,
