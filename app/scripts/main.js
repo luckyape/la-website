@@ -1,5 +1,4 @@
 /* eslint-env browser */
-/* exported loadContactInfo */
 (function main() {
   'use strict';
   // Check to make sure service workers are supported in the current browser,
@@ -19,6 +18,7 @@
     (window.location.protocol === 'https:' || isLocalhost)) {
     navigator.serviceWorker.register('service-worker.js')
       .then(function(registration) {
+        console.info('service worker registered');
         // updatefound is fired if service-worker.js changes.
         registration.onupdatefound = function() {
           // updatefound is also fired the very first time the SW is installed,

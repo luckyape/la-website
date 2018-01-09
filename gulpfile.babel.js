@@ -93,7 +93,7 @@ gulp.task('lint', () =>
 );
 
 // move fonts
-gulp.task('copyfonts', () =>
+gulp.task('copyFonts', () =>
   gulp.src('./app/fonts/*/*')
   .pipe(gulp.dest('./dist/public/fonts'))
 );
@@ -166,7 +166,7 @@ gulp.task('scripts', ['viewerScripts', 'aboutScripts'], () =>
     //       you need to explicitly list your scripts here in the right order
     //       to be correctly concatenated
     './app/scripts/main.js',
-    './app/scripts/init.js'
+    './app/scripts/init.js'    
     // Other scripts
   ])
   .pipe($.newer('.tmp/scripts'))
@@ -210,13 +210,15 @@ gulp.task('aboutScripts', () =>
   .pipe(gulp.dest('dist/public/scripts'))
 
 );
-
-
-gulp.task('copylibs', () =>
+gulp.task('copyLibs', () =>
   gulp.src('./app/scripts/lib/**')
   .pipe(gulp.dest('./dist/public/scripts/lib'))
 );
 
+gulp.task('copySW', () =>
+  gulp.src('./app/scripts/sw/**')
+    .pipe(gulp.dest('./dist/public/scripts/sw'))
+);
 
 
 // html includes
@@ -371,7 +373,7 @@ gulp.task('convertStoreXML', ['getStoreXML'], () => {
 // Build production files, the default tas
 gulp.task('default', ['clean'], cb => {
   runSequence(
-    'cdn-styles', ['lint', 'html', 'scripts', 'images', 'copy', 'copyfonts', 'copylibs','sitemap'],
+    'cdn-styles', ['lint', 'html', 'scripts', 'images', 'copy', 'copyFonts', 'copyLibs','copySW','sitemap','generate-service-worker'],
     cb
   )
 });
@@ -417,7 +419,7 @@ gulp.task('cdn-styles', () => {
 // Run PageSpeed Insights
 gulp.task('pagespeed', cb =>
   // Update the below URL to the public URL of your site
-  pagespeed('luckyape.com', {
+  pagespeed('www.luckyape.com', {
     strategy: 'mobile'
     // By default we use the PageSpeed Insights free (no API key) tier.
     // Use a Google Developer API key if you have one: http://goo.gl/RkN0vE
