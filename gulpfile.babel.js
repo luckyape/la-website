@@ -373,7 +373,7 @@ gulp.task('convertStoreXML', ['getStoreXML'], () => {
 // Build production files, the default tas
 gulp.task('default', ['clean'], cb => {
   runSequence(
-    'cdn-styles', ['lint', 'html', 'scripts', 'images', 'copy', 'copyFonts', 'copyLibs','copySW','sitemap','generate-service-worker'],
+    'cdn-styles', ['lint', 'html', 'scripts', 'images', 'copy', 'copyFonts', 'copyLibs','copySW','sitemap', 'generate-service-worker'],
     cb
   )
 });
