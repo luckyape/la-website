@@ -9,10 +9,14 @@
 | Feature                                | Summary                                                                                                                                                                                                                                                     |
 |----------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Responsive | A responsive site optimized for the multi-screen web. Powered by [Material Design Lite](http://getmdl.io).  You're free to use as a site template.                          |
-| Non Blocking Css                           | CSS split between main stylesheet references from the footer and styles injected into the html file in the header. This is a strategy to avoid [render blocking](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css).                                                                                                    |
-| Small File Sizes               | Minify and concatenate JavaScript, CSS, HTML and images to help keep your pages lean. (Run `gulp` to create an optimised version of your project to `/dist`)                                                                                                |
-| Customized Fonts               | JavaScript code linting is done using [ESLint](http://eslint.org) - a pluggable linter tool for identifying and reporting on patterns in JavaScript. Web Starter Kit uses ESLint with [eslint-config-google](https://github.com/google/eslint-config-google), which tries to follow the Google JavaScript style guide.                                                                                                |
-| ES2015 via Babel 6.0                   | Optional ES2015 support using [Babel](https://babeljs.io/). To enable ES2015 support remove the line `"only": "gulpfile.babel.js",` in the [.babelrc](.babelrc) file. ES2015 source code will be automatically transpiled to ES5 for wide browser support.  |
+
+| Fast Rendering CSS               | CSS split between main stylesheet references from the footer and styles injected into the html file in the header. This is a strategy to avoid [render blocking](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css).                                                                                                    |
+
+| Small Page Sizes               | JavaScript, CSS, HTML, fonts and images, reduced, minified and concatenate to help keep pages lean.                       |
+
+| Customized Fonts               | Uses [FontForge](https://fontforge.github.io/en-US/) to optimize font file sizes and [Font Loader](https://github.com/typekit/webfontloader) to insure asynchronous, non render blocking font loads. CSS smooths out display during font loads.|
+
+|                    | Optional ES2015 support using [Babel](https://babeljs.io/). To enable ES2015 support remove the line `"only": "gulpfile.babel.js",` in the [.babelrc](.babelrc) file. ES2015 source code will be automatically transpiled to ES5 for wide browser support.  |
 | Built-in HTTP Server                   | A built-in server for previewing your site locally while you develop and iterate                                                                                                                                                                            |
 | Live Browser Reloading                 | Reload the browser in real-time anytime an edit is made without the need for an extension. (Run `gulp serve` and edit your files)                                                                                                                           |
 | Cross-device Synchronization           | Synchronize clicks, scrolls, forms and live-reload across multiple devices as you edit your project. Powered by [BrowserSync](http://browsersync.io). (Run `gulp serve` and open up the IP provided on other devices on your network)                       |
@@ -21,12 +25,7 @@
 
 ## Quickstart
 
-[Download](https://github.com/google/web-starter-kit/releases/latest) the kit or clone this repository and build on what is included in the `app` directory.
-
-There are two HTML starting points, from which you can choose:
-
-- `index.html` - the default starting point, containing Material Design layout.
-- `basic.html` - no layout, but still includes our minimal mobile best-practices
+[Download](https://github.com/luckyape/la-website/) the site or clone this repository and build on what is included in the `app` directory.
 
 Be sure to look over the [installation docs](docs/install.md) to verify your environment is prepared to run WSK.
 Once you have verified that your system can run WSK, check out the [commands](docs/commands.md) available to get started.
