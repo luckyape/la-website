@@ -405,7 +405,6 @@ gulp.task('cdn-styles', () => {
       precision: 10
     }).on('error', $.sass.logError))
     .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
-    .pipe(replace('<!--CDNURL-->', cdnUrl))
     .pipe(purify(['app/scripts/*.js', 'app/*.html', 'app/includes/*.html']))
     .pipe(gulp.dest('.tmp/styles'))
     // Concatenate and minify styles

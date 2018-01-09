@@ -45,9 +45,6 @@
 			height: 100px;
 		}
 
-		.cta-button {
-			// margin: 17vw 0;
-		}
 
 		&::before {
 			will-change: filter, opacity, background-size, background-position;
@@ -58,7 +55,7 @@
 			width: 100%;
 			position: absolute;
 			bottom: 20px;
-			background-image: url('<!--CDNURL-->/images/skeletons.jpg');
+			background-image: url('/images/skeletons.jpg');
 			background-attachment: scroll;
 			background-repeat: repeat-x;
 			background-position: -100vw bottom;

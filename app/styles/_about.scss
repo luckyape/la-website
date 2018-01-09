@@ -14,7 +14,7 @@
   }
   &:not(.probPhone) {
     .body:after {
-      background-image: url('<!--CDNURL-->/images/trees-mask.png');
+      background-image: url('/images/trees-mask.png');
     }
   }
   height: 100%;
@@ -38,7 +38,7 @@
     }
     height: 100%;
     min-height: 800px;
-    background-image: url('<!--CDNURL-->/images/starfield.jpg');
+    background-image: url('/images/starfield.jpg');
     background-size: auto 100%;
     background-repeat: repeat-x;
     background-position: bottom;
