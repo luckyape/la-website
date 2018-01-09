@@ -1,4 +1,4 @@
-# [![www.luckyape.com](https://cdn.luckyape.com/images/skeletons.jpg)](https://github.com/luckyape/la-website/)
+# [![www.luckyape.com](http://cdn.luckyape.com/images/skeletons.jpg)](https://github.com/luckyape/la-website/)
 
 ## Overview
 
