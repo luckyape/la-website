@@ -373,7 +373,7 @@ gulp.task('convertStoreXML', ['getStoreXML'], () => {
 // Build production files, the default tas
 gulp.task('default', ['clean'], cb => {
   runSequence(
-    'cdn-styles', ['lint', 'html', 'scripts', 'images', 'copy', 'copyFonts', 'copyLibs','copySW','sitemap', 'generate-service-worker'],
+    'cdn-styles', ['lint', 'html', 'scripts', 'images', 'copy', 'copyFonts', 'copy-sw-scripts', 'copyLibs','sitemap', 'generate-service-worker'],
     cb
   )
 });
@@ -429,7 +429,7 @@ gulp.task('pagespeed', cb =>
 // Copy over the scripts that are used in importScripts as part of the generate-service-worker task.
 gulp.task('copy-sw-scripts', () => {
   return gulp.src(['node_modules/sw-toolbox/sw-toolbox.js', 'app/scripts/sw/runtime-caching.js'])
-    .pipe(gulp.dest('app/scripts/sw'));
+    .pipe(gulp.dest('dist/public/scripts/sw'));
 });
 
 
@@ -438,7 +438,8 @@ gulp.task('copy-sw-scripts', () => {
 // Generate a service worker file that will provide offline functionality for
 // local resources. This should only be done for the 'dist' directory, to allow
 // live reload to work as expected when serving from the 'app' directory.
-gulp.task('generate-service-worker', ['copy-sw-scripts'], () => {
+//  ['copy-sw-scripts'],
+gulp.task('generate-service-worker', () => {
   const rootDir = 'dist/public';
   const filepath = path.join(rootDir, 'service-worker.js');
   console.info('generate-service-worker');
