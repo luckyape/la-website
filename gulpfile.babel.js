@@ -54,7 +54,8 @@ var KarmaServer = karma.Server;
 //var parseString = require().parseString;
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
-const cdnUrl =  'https://cdn.luckyape.com'
+const cdnUrl =  'https://d2zvnoea48f2cl.cloudfront.net';
+const localUrl =  'http://localhost:3000';
 dotenv.config();
 
 // create site map
@@ -113,8 +114,9 @@ gulp.task('images', () =>
 // Copy all files at the root level (app)
 gulp.task('copy', () =>
   gulp.src([
-    '!app/includes',
-    '!app/*.html',
+    'app/manifest.{json,webapp} ',
+    'app/*.txt',
+    'favicon.ico',
     'node_modules/apache-server-configs/dist/public/.htaccess',
   ], {
     dot: true
@@ -147,17 +149,16 @@ gulp.task('styles', () => {
       precision: 10
     }).on('error', $.sass.logError))
     .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
-   // .pipe(replace('<!--CDNURL-->', ''))    
+    .pipe(replace('%%CDNURL%%', localUrl))
     .pipe(purify(['app/scripts/*.js', 'app/*.html', 'app/includes/*.html']))
-    .pipe(ignore.exclude('./app/styles/inline-header.css'))
     .pipe(gulp.dest('.tmp/styles'))
-  
     // Concatenate and minify styles
+   
     .pipe($.if('*.css', $.cssnano({ minifyFontValues: false, discardUnused: false })))
     .pipe($.size({ title: 'styles' }))
     .pipe($.sourcemaps.write('./'))
-    .pipe(gulp.dest('dist/public/styles'))
-    .pipe(gulp.dest('.tmp/styles'));
+    .pipe(replace(localUrl, cdnUrl))
+    .pipe(gulp.dest('dist/public/styles'));
 
 });
 
@@ -233,9 +234,11 @@ gulp.task('htmlIncludes', function() {
         .pipe(preprocess())
         .on('error', function(e) { handleError(e) });
     }))
-    .pipe(replace('<!--CDNURL-->', ''))
+    .pipe(replace('%%CDNURL%%', localUrl))
     .pipe(gulp.dest('./.tmp/'))
+    .pipe(replace(localUrl, cdnUrl))
     .pipe(gulp.dest('dist/public'))
+
     .on('error', function(e) { handleError(e) });
 });
 
@@ -257,7 +260,6 @@ gulp.task('html', () => {
       noAssets: true
     }))
     .pipe($.if('*.html', $.size({ title: 'html', showFiles: true })))
-    .pipe(replace('<!--CDNURL-->', cdnUrl))
     .pipe(styleInject())
     .pipe(stripCode({
       start_comment: "start-dev-css",
@@ -277,8 +279,8 @@ gulp.task('html', () => {
       removeOptionalTags: true
     })))
     // Output files
-
-   
+    .pipe(replace('%%CDNURL%%', cdnUrl))
+    .pipe(replace(localUrl, cdnUrl))
     .pipe(gulp.dest('dist/public'));
 });
 
@@ -377,7 +379,7 @@ gulp.task('convertStoreXML', ['getStoreXML'], () => {
 // Build production files, the default tas
 gulp.task('default', ['clean'], cb => {
   runSequence(
-    'cdn-styles', ['lint', 'html', 'scripts', 'images', 'copy', 'copy-fonts', 'copy-sw-scripts', 'sitemap', 'generate-service-worker'],
+    'styles', ['lint', 'html', 'scripts', 'images', 'copy', 'copy-fonts', 'copy-sw-scripts', 'sitemap', 'generate-service-worker'],
     cb
   )
 });
@@ -460,16 +462,10 @@ gulp.task('generate-service-worker', () => {
       `${rootDir}/images/**/*`,
       `${rootDir}/scripts/*.js`,
       `${rootDir}/scripts/sw/*.js`,
-      `${rootDir}/styles/*.css`,
-      `${rootDir}/fonts/social-fonts.css`,
-      `${rootDir}/*.{html,json}`,
-      `!${rootDir}/google*.html`,
-      '!google931f7d54e50034cd.html',
-      '//code.jquery.com/jquery-2.1.1.min.js',
-      '//cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js',
-      '//unpkg.com/flickity@2/dist/flickity.pkgd.min.js',
-      '//unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js',
-      '//cdn.jsdelivr.net/npm/isotope-packery@2.0.0/packery-mode.pkgd.min.js'
+      `${rootDir}/styles/style.css`,
+      ` ${rootDir}/styles/social-font.css`,
+      `${rootDir}/fonts/**/*.{woff2,eot}`,
+      `${rootDir}/*.{html,json}`
     ],
     // Translates a static file path to the relative URL that it's served from.
     // This is '/' rather than path.sep because the paths returned from

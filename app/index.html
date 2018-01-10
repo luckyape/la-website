@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -67,7 +66,7 @@
             <div class="icon-block">
               <div class="center black-text icon"><i class="material-icons">group</i></div>
               <h5 class="center">Agency Clients</h5>
-              <p class="light">As part of an agile scrum development team or as a full stack development team of one; experience has taught hitting the ground running and being indispensable to project managers is what agency work is about.</p>
+              <p class="light">As part of an agile scrum development team or as a full stack development team of one; experience shows that hitting the ground running and being indispensable to project managers is what agency work is about.</p>
             </div>
           </div>
           <div class="col s12 m4">
@@ -92,78 +91,77 @@
     </div>
   </div>
   <!-- @include includes/footer.html -->
-
- 
   <!-- Built with love using Web Starter Kit -->
 </body>
- <!-- Modal Structure -->
-  <!-- @include includes/global-js.html -->
-  <!-- build:js /scripts/main.min.js -->
-  <script type="text/javascript" src="scripts/main.js"></script>
-  <script type="text/javascript" src="scripts/init.js"></script>
-  <!-- endbuild -->
- <script>
-  (function($) {
-    $(function() {
-      var body = $('html > body');
-      $('#cta-button').click(function() {
-        body.addClass('modal-open');
-      });
-      var background = '/images/skeletons.jpg';
-      $('<img/>').attr('src', background).load(function() {
-        // create an image element with inner background and load it
-        $(this).remove();
-        // set the inner background image and fade in:
-        $('#index-banner').addClass('bgFadeIn');
-        // need a little delay to let the div render it's bg image before the fade starts
-      });
-      $('.modal').modal({
-        startingTop: '-40%',
-        endingTop: '10%',
-        ready: function(modal, trigger) {
-          // Callback for Modal open. Modal and trigger parameters available.
-          var sniffModalClose = function(el) {
-            var classList = Object.values(el.target.classList);
-            if (classList.indexOf('modal-overlay') > -1 || classList.indexOf('modal-close') > -1) {
-              modalClose();
-            }
-          };
-          var sniffEscKey = function(e) {
-            console.info(e.key, e.target.nodeName);
-            if ((e.key === 'Escape' || e.key === 'Esc' || e.keyCode == 27)) {
-              modalClose();
-            }
-          };
-          var modalClose = function() {
-            body.removeClass('modal-open');
-            window.removeEventListener('keyup', sniffEscKey);
-            window.removeEventListener('click', sniffModalClose);
-            window.removeEventListener('touchstart', sniffModalClose);
-          };
-
-          window.addEventListener('click', sniffModalClose, false);
-          window.addEventListener('touchstart', sniffModalClose, false);
-          window.addEventListener('keyup', sniffEscKey, false);
-          window.loadContactInfo();
-        }
-      });
-
+<!-- Modal Structure -->
+<!-- @include includes/global-js.html -->
+<!-- build:js %%CDNURL%%/scripts/main.min.js -->
+<script type="text/javascript" src="scripts/main.js"></script>
+<script type="text/javascript" src="scripts/init.js"></script>
+<!-- endbuild -->
+<script>
+(function($) {
+  $(function() {
+    var body = $('html > body');
+    $('#cta-button').click(function() {
+      body.addClass('modal-open');
     });
-    // end of document ready
-  })(jQuery);
-  /*
-   * Displayes obuscated contact info
-   */
-  window.loadContactInfo = function() {
-    var contactMethods = document.getElementById('contact-methods');
-    var contactHash = 'PGEgaHJlZj0ic21zOjEtNjA0LTM0MC03OTI1IiBjbGFzcz0ic21zLWxpbmsgaWNvbiBpY29uLWNoYXQgaWNvbi1jaGF0LWRpbXMiPlNNUzxkaXY+NjA0LTM0MC03OTI1PC9kaXY+PC9hPjxhIGhyZWY9Im1haWx0bzppbmZvQGx1Y2t5YXBlLmNvbT9zdWJqZWN0PSU1QldXVyUyMElucXVpcmUlNUQiIGNsYXNzPSJpY29uIGljb24tZW52ZWxvcGUgaWNvbi1lbnZlbG9wZS1kaW1zIj5FbWFpbDxkaXY+aW5mb0BsdWNreWFwZS5jb208L2Rpdj48L2E+PGEgaHJlZj0idGVsOjEtNjA0LTM0MC03OTI1IiBjbGFzcz0iaWNvbiBpY29uLXBob25lLWNhbGwgaWNvbi1waG9uZS1jYWxsLWRpbXMiPlRlbDxkaXY+NjA0LTM0MC03OTI1PC9kaXY+PC9hPg==';
-    contactMethods.innerHTML = atob(contactHash);
-    if (!probPhone) {
-      var smsLink = document.querySelector('.sms-link');
-      document.querySelector('.contact-methods').removeChild(smsLink);
-    }
-  };
-  // end of jQuery name space
+    var background = '/images/skeletons.jpg';
+    $('<img/>').attr('src', background).load(function() {
+      // create an image element with inner background and load it
+      $(this).remove();
+      // set the inner background image and fade in:
+      $('#index-banner').addClass('bgFadeIn');
+      // need a little delay to let the div render it's bg image before the fade starts
+    });
+    $('.modal').modal({
+      startingTop: '-40%',
+      endingTop: '10%',
+      ready: function(modal, trigger) {
+        // Callback for Modal open. Modal and trigger parameters available.
+        var sniffModalClose = function(el) {
+          var classList = Object.values(el.target.classList);
+          if (classList.indexOf('modal-overlay') > -1 || classList.indexOf('modal-close') > -1) {
+            modalClose();
+          }
+        };
+        var sniffEscKey = function(e) {
+          console.info(e.key, e.target.nodeName);
+          if ((e.key === 'Escape' || e.key === 'Esc' || e.keyCode == 27)) {
+            modalClose();
+          }
+        };
+        var modalClose = function() {
+          body.removeClass('modal-open');
+          window.removeEventListener('keyup', sniffEscKey);
+          window.removeEventListener('click', sniffModalClose);
+          window.removeEventListener('touchstart', sniffModalClose);
+        };
 
-  </script>
+        window.addEventListener('click', sniffModalClose, false);
+        window.addEventListener('touchstart', sniffModalClose, false);
+        window.addEventListener('keyup', sniffEscKey, false);
+        window.loadContactInfo();
+      }
+    });
+
+  });
+  // end of document ready
+})(jQuery);
+/*
+ * Displayes obuscated contact info
+ */
+window.loadContactInfo = function() {
+  var contactMethods = document.getElementById('contact-methods');
+  var contactHash = 'PGEgaHJlZj0ic21zOjEtNjA0LTM0MC03OTI1IiBjbGFzcz0ic21zLWxpbmsgaWNvbiBpY29uLWNoYXQgaWNvbi1jaGF0LWRpbXMiPlNNUzxkaXY+NjA0LTM0MC03OTI1PC9kaXY+PC9hPjxhIGhyZWY9Im1haWx0bzppbmZvQGx1Y2t5YXBlLmNvbT9zdWJqZWN0PSU1QldXVyUyMElucXVpcmUlNUQiIGNsYXNzPSJpY29uIGljb24tZW52ZWxvcGUgaWNvbi1lbnZlbG9wZS1kaW1zIj5FbWFpbDxkaXY+aW5mb0BsdWNreWFwZS5jb208L2Rpdj48L2E+PGEgaHJlZj0idGVsOjEtNjA0LTM0MC03OTI1IiBjbGFzcz0iaWNvbiBpY29uLXBob25lLWNhbGwgaWNvbi1waG9uZS1jYWxsLWRpbXMiPlRlbDxkaXY+NjA0LTM0MC03OTI1PC9kaXY+PC9hPg==';
+  contactMethods.innerHTML = atob(contactHash);
+  if (!probPhone) {
+    var smsLink = document.querySelector('.sms-link');
+    document.querySelector('.contact-methods').removeChild(smsLink);
+  }
+};
+// end of jQuery name space
+
+</script>
+
 </html>

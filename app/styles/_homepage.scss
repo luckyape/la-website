@@ -43,7 +43,7 @@
 			font-size: 1.4rem;
 			margin: 0 0;
 			height: 100px;
-		}
+		} 
 
 
 		&::before {
@@ -51,11 +51,11 @@
 			opacity: 0;
 			filter: blur(24px);
 			content: '';
-			height: 325px;
+			height: 325px; 
 			width: 100%;
 			position: absolute;
 			bottom: 20px;
-			background-image: url('/images/skeletons.jpg');
+			background-image: url('%%CDNURL%%/images/skeletons.jpg');
 			background-attachment: scroll;
 			background-repeat: repeat-x;
 			background-position: -100vw bottom;
