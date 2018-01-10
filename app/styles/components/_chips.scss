@@ -62,7 +62,7 @@
     outline: 0;
     margin: 0;
     padding: 0 !important;
-    width: 120px !important;
+    width: 110px !important;
   }
 
   .input:focus {
@@ -85,4 +85,9 @@
 .chips:empty ~ label  {
   font-size: 0.8rem;
   transform: translateY(-140%);
+}
+
+ul.autocomplete-content.dropdown-content {
+  margin:0;
+  background-color: #fff;
 }

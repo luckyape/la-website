@@ -74,6 +74,8 @@
     "express": "^4.12.3",
     "fs": "0.0.1-security",
     "googleapis": "^20.0.1",
+    "gulp-ignore": "^2.0.2",
+    "save-dev": "^2.0.0",
     "serve-static": "^1.9.2"
   }
 }

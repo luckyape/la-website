@@ -206,7 +206,7 @@
 
     $('.toggle-filter a').click(function() {
       var sheet = document.createElement('style');
-      sheet.innerHTML = '.filter-on.viewer-filter { min-height: ' + ($chips.height() + 20) + 'px; will-change: min-height;}';
+      sheet.innerHTML = '.filter-on.viewer-filter { min-height: ' + ($chips.height() + 30) + 'px; will-change: min-height;}';
       document.body.appendChild(sheet);
       $('.viewer-filter,.toggle-filter').toggleClass('filter-on');
     });

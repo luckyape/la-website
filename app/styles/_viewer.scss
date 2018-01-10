@@ -2,6 +2,10 @@
   min-height: 100%;
   overflow-x: hidden;
   width: 100%;
+  .la-filter {
+    position: relative;
+    z-index: 100;
+  }
   .row.viewer-filter {
     margin-bottom: 0;
   }
@@ -10,6 +14,9 @@
   }
   .viewer-header {
     margin-bottom: 0;
+    .col {
+      float: none;
+    }
   }
   .toggle-filter {
     display: none;
@@ -20,7 +27,7 @@
       border-radius: 16px;
       padding: 7px;
     }
-  }
+  } 
   .position-ratio {
     display: none;
   }
