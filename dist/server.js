@@ -6,17 +6,17 @@ const domain =  process.env.DOMAIN;
 const mime = require('mime-types');
 
 function ensureDomain(req, res, next) {
-  if (!domain || req.hostname === domain) {
+	if (!domain || req.hostname === domain) {
 	// OK, continue
 	return next();
-  };
+	};
 
-  // handle port numbers if you need non defaults
-  res.redirect(`http://${domain}${req.url}`);
+	// handle port numbers if you need non defaults
+	res.redirect(`http://${domain}${req.url}`);
 };
 
 function shouldCompress(req, res) {
-  return true
+	return true
 };
 
 const app = express();
@@ -25,21 +25,21 @@ const app = express();
 app.all('*', ensureDomain);
 
 app.use(compression({   threshold: 0,
-  filter: shouldCompress,
-  level: 9  }));
+	filter: shouldCompress,
+	level: 9  }));
 
 // default to .html (you can omit the extension in the URL)
 app.use(serveStatic(`${__dirname}/public`, {
-  maxAge: '605400s', 
-  extensions: ['html','css','js'],
-  setHeaders: function (res, path) {
-    if (mime.lookup(path) === 'text/html') {
-      res.setHeader('Cache-Control', 'public, max-age=605400s')
-    }
-    
-  }
-  }));
+	maxAge: '1209600s', 
+	extensions: ['html','css','js'],
+	setHeaders: function (res, path) {
+		if (mime.lookup(path) === 'text/html') {
+			res.setHeader('Cache-Control', 'public, max-age=1209600s')
+		}
+		
+	}
+	}));
 
 app.listen(port, () => {
-  console.log('Server running...');
+	console.log('Server running...');
 });

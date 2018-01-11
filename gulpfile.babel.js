@@ -450,11 +450,11 @@ gulp.task('generate-service-worker', () => {
 	console.info('generate-service-worker');
 	return swPrecache.write(filepath, {
 		// Used to avoid cache conflicts when serving on localhost.
-		cacheId: pkg.name || 'web-starter-kit',
+		cacheId: pkg.name || 'la-website',
 		// sw-toolbox.js needs to be listed first. It sets up methods used in runtime-caching.js.
 		importScripts: [
-			'scripts/sw/sw-toolbox.js',
-			'scripts/sw/runtime-caching.js'
+			cdnUrl + '/scripts/sw/sw-toolbox.js',
+			cdnUrl + '/scripts/sw/runtime-caching.js'
 		],
 		staticFileGlobs: [
 			// Add/remove glob patterns to match your directory setup.
