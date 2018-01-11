@@ -33,10 +33,7 @@ app.use(serveStatic(`${__dirname}/public`, {
 	maxAge: '1209600s', 
 	extensions: ['html','css','js'],
 	setHeaders: function (res, path) {
-		if (mime.lookup(path) === 'text/html') {
-			res.setHeader('Cache-Control', 'public, max-age=1209600s')
-		}
-		
+		res.setHeader('Cache-Control', 'public, max-age=1209600s')
 	}
 	}));
 

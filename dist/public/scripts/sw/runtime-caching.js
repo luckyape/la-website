@@ -22,34 +22,34 @@
 // That sw-toolbox.js script must be executed first, so it needs to be listed before this in the
 // importScripts() call that the parent service worker makes.
 (function(global) {
-	'use strict';
+  'use strict';
 
-	// See https://github.com/GoogleChrome/sw-toolbox/blob/6e8242dc328d1f1cfba624269653724b26fa94f1/README.md#toolboxroutergeturlpattern-handler-options
-	// and https://github.com/GoogleChrome/sw-toolbox/blob/6e8242dc328d1f1cfba624269653724b26fa94f1/README.md#toolboxfastest
-	// for more details on how this handler is defined and what the toolbox.fastest strategy does.
-	toolbox.router.get('/(.*)', toolbox.fastest, {
-		origin: /\.(?:googleapis|gstatic)\.com$/
-	});
-	toolbox.router.get('/(.*)', toolbox.fastest, {
-		origin: /d2zvnoea48f2cl\.cloudfront\.com$/
-	});
-	toolbox.router.get('/(.*)', toolbox.fastest, {
-		origin: /rlv\.zcache\.com$/
-	});
-	toolbox.router.get('/(.*)', toolbox.fastest, {
-		origin: /unpkg\.com$/
-	});
-	toolbox.router.get('/(.*)', toolbox.fastest, {
-		origin: /cdn\.jsdelivr\.net$/
-	});
-	toolbox.router.get('/(.*)', toolbox.fastest, {
-		origin: /use\.typekit\.net$/
-	});
-	toolbox.router.get('/(.*)', toolbox.fastest, {
-		origin: /code\.jquery\.com$/
-	});
-	toolbox.router.get('/(.*)', toolbox.fastest, {
-		origin: /cdnjs\.cloudflare\.com$/
-	});
+  // See https://github.com/GoogleChrome/sw-toolbox/blob/6e8242dc328d1f1cfba624269653724b26fa94f1/README.md#toolboxroutergeturlpattern-handler-options
+  // and https://github.com/GoogleChrome/sw-toolbox/blob/6e8242dc328d1f1cfba624269653724b26fa94f1/README.md#toolboxfastest
+  // for more details on how this handler is defined and what the toolbox.fastest strategy does.
+  toolbox.router.get('/(.*)', toolbox.fastest, {
+    origin: /\.(?:googleapis|gstatic)\.com$/
+  });
+  toolbox.router.get('/(.*)', toolbox.fastest, {
+    origin: /d2zvnoea48f2cl\.cloudfront\.com$/
+  });
+  toolbox.router.get('/(.*)', toolbox.fastest, {
+    origin: /rlv\.zcache\.com$/
+  });
+  toolbox.router.get('/(.*)', toolbox.fastest, {
+    origin: /unpkg\.com$/
+  });
+  toolbox.router.get('/(.*)', toolbox.fastest, {
+    origin: /cdn\.jsdelivr\.net$/
+  });
+  toolbox.router.get('/(.*)', toolbox.fastest, {
+    origin: /use\.typekit\.net$/
+  });
+  toolbox.router.get('/(.*)', toolbox.fastest, {
+    origin: /code\.jquery\.com$/
+  });
+  toolbox.router.get('/(.*)', toolbox.fastest, {
+    origin: /cdnjs\.cloudflare\.com$/
+  });
 
 })(self);

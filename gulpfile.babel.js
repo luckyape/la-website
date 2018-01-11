@@ -116,7 +116,7 @@ gulp.task('copy', () =>
 	gulp.src([
 		'app/manifest.{json,webapp} ',
 		'app/*.txt',
-		'favicon.ico',
+		'app/favicon.ico',
 		'node_modules/apache-server-configs/dist/public/.htaccess',
 	], {
 		dot: true
