@@ -30,4 +30,26 @@
   toolbox.router.get('/(.*)', toolbox.fastest, {
     origin: /\.(?:googleapis|gstatic)\.com$/
   });
+  toolbox.router.get('/(.*)', toolbox.fastest, {
+    origin: /d2zvnoea48f2cl\.cloudfront\.com$/
+  });
+  toolbox.router.get('/(.*)', toolbox.fastest, {
+    origin: /rlv\.zcache\.com$/
+  });
+  toolbox.router.get('/(.*)', toolbox.fastest, {
+    origin: /unpkg\.com$/
+  });
+  toolbox.router.get('/(.*)', toolbox.fastest, {
+    origin: /cdn\.jsdelivr\.net$/
+  });
+  toolbox.router.get('/(.*)', toolbox.fastest, {
+    origin: /use\.typekit\.net$/
+  });
+  toolbox.router.get('/(.*)', toolbox.fastest, {
+    origin: /code\.jquery\.com$/
+  });
+  toolbox.router.get('/(.*)', toolbox.fastest, {
+    origin: /cdnjs\.cloudflare\.com$/
+  });
+
 })(self);

@@ -466,6 +466,10 @@ gulp.task('generate-service-worker', () => {
 			`${rootDir}/fonts/**/*.{woff2,eot}`,
 			`${rootDir}/*.{html,json}`
 		],
+	  runtimeCaching: [{
+	    urlPattern: /^https:\/\/d2zvnoea48f2cl\.cloudfront\.net\//,
+	    handler: 'cacheFirst'
+	  }],
 		// Translates a static file path to the relative URL that it's served from.
 		// This is '/' rather than path.sep because the paths returned from
 		// glob always use '/'.
