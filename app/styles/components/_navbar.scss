@@ -35,9 +35,9 @@ body.la-tool-page .tools-lnk,
 body.la-store-page .store-lnk,
 body.la-work-page .work-lnk {
   border-style: dotted;
-  border-width: 0px 1px 1px 1px;
-  background-color: rgba(129, 199, 132, 0.05);
-  border-color: transparent rgba(0, 0, 0, 0.09) rgba(0, 0, 0, 0.9);
+  border-width: 0px 1px 2px 1px;
+  background: radial-gradient(ellipse at center,rgba(41,154,11,0) 0,rgba(41,154,11,0) 84%,rgba(41,154,11,.17) 100%);
+  border-color: transparent rgba(0, 0, 0, 0.09) rgb(129, 199, 132);
 }
 
 .la-about-page .side-nav .about-lnk,

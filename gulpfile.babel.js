@@ -1,4 +1,4 @@
-	/**
+/**
  *
  *  Web Starter Kit
  *  Copyright 2015 Google Inc. All rights reserved.
@@ -55,7 +55,7 @@ var KarmaServer = karma.Server;
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 const cdnUrl =  'https://d2zvnoea48f2cl.cloudfront.net';
-const localUrl =  'http://localhost:3000';
+const localUrl =  'http://localhost:3001';
 dotenv.config();
 
 // create site map
@@ -185,6 +185,7 @@ gulp.task('scripts', ['viewerScripts', 'aboutScripts'], () =>
 	.pipe($.sourcemaps.write('.'))
 	.pipe(gulp.dest('dist/public/scripts'))
 	.pipe(gulp.dest('.tmp/scripts'))
+	.on('error', function(e) { handleError(e) })
 	// move fonts
 );
 
@@ -198,7 +199,9 @@ gulp.task('viewerScripts', () =>
 	.pipe($.babel())
 	.pipe($.size({ title: 'viewerScripts' }))
 	.pipe($.sourcemaps.write('.'))
-	.pipe(gulp.dest('dist/public/scripts'))
+	.pipe(gulp.dest('dist/public/scripts'))	
+	.on('error', function(e) { handleError(e) })
+
 );
 
 gulp.task('aboutScripts', () =>
@@ -212,7 +215,7 @@ gulp.task('aboutScripts', () =>
 	.pipe($.size({ title: 'vaboutScripts' }))
 	.pipe($.sourcemaps.write('.'))
 	.pipe(gulp.dest('dist/public/scripts'))
-
+	.on('error', function(e) { handleError(e) })
 );
 gulp.task('copyLibs', () =>
 	gulp.src('./app/scripts/lib/**')
@@ -466,10 +469,10 @@ gulp.task('generate-service-worker', () => {
 			`${rootDir}/fonts/**/*.{woff2,eot}`,
 			`${rootDir}/*.{html,json}`
 		],
-	  runtimeCaching: [{
-	    urlPattern: /^https:\/\/d2zvnoea48f2cl\.cloudfront\.net\//,
-	    handler: 'cacheFirst'
-	  }],
+		runtimeCaching: [{
+			urlPattern: /^https:\/\/d2zvnoea48f2cl\.cloudfront\.net\//,
+			handler: 'cacheFirst'
+		}],
 		// Translates a static file path to the relative URL that it's served from.
 		// This is '/' rather than path.sep because the paths returned from
 		// glob always use '/'.
