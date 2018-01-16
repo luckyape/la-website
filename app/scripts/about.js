@@ -6,7 +6,7 @@
 	var panel = document.getElementById('panels');
 	var pHead = document.getElementById('panel-header');
 	var clouds = panel.querySelectorAll('.cloud');
-	var panelPadTop = parseFloat(getComputedStyle(panel).getPropertyValue('padding-top'));
+	
 	var docHeight = document.documentElement.clientHeight;
 	var paused = false;
 	var stuck = false;
@@ -22,81 +22,7 @@
 		panel.style.visibility = 'hidden';
 		window.scrollTo(0, 0);
 	};
-	/**
-	 * Animates shooting stars
-	 * @param {array} canvas - array of canvas dom objects
-	 */
-	function draw(canvas) {
-		if (canvas.getContext) {
-			var ctx = canvas.getContext('2d');
-			var tailW = canvas.width;
-			var tailH = canvas.height;
-			var i = 0;
-			var s = tailW / tailH;
-			var clear = function() {
-				ctx.clearRect(0, 0, tailW, tailH);
-			};
 
-			var tail = function() {
-				clear();
-				ctx.beginPath();
-				ctx.moveTo(i * s, i);
-				ctx.lineTo(tailW, tailH);
-				ctx.stroke();
-				if (i < tailH) {
-					setTimeout(tail, 0);
-				}
-				i += 2;
-			};
-
-			var meteor = function() {
-				clear();
-				ctx.beginPath();
-				ctx.moveTo(0, 0);
-				ctx.lineTo(i * s, i);
-				ctx.stroke();
-				if (i < tailH) {
-					setTimeout(meteor, 0);
-				} else {
-					ctx.lineWidth = 0.75;
-					ctx.strokeStyle = 'rgba(255, 255, 255, .8)';
-					i = 0;
-					setTimeout(tail, 100);
-				}
-				i++;
-			};
-			ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
-			ctx.lineWidth = 0.8;
-			ctx.lineCap = 'round';
-			meteor();
-		}
-	}
-	/*
-	 * Animates shooting stars
-	 * @param {array} canvas - array of canvas dom objects
-	 * @param {number} cL - length of canvas array
-	 */
-	var shower = function(canvas, cL) {
-		var small = (probPhone) ? 0.6 : 1;
-		var rN = ((Math.random() / 2) * small) + 0.5;
-		var rotate = Math.random() * Math.PI * 2 * 25;
-		var s = Math.random() * Math.floor(Math.random() * cL) + 1;
-		var delay = Math.random() * 4000 * s;
-		var x = (screen.width * Math.random()) / screen.width * 100;
-		var y = (screen.height * Math.random()) / screen.height * 80;
-		if (y > 60) {
-			rN *= 0.6;
-		}
-		var transform = ' translate(' + x + 'vw, ' + y + 'vh) scale(' + rN + ') rotate(' + rotate + 'deg)';
-
-		canvas.style.transform = transform;
-
-		draw(canvas);
-		setTimeout(function() {
-			shower(canvas, cL);
-			canvas.style.display = 'block';
-		}, delay);
-	};
 	/*
 	 * Initiates scrolling effect
 	 */

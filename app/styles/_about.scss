@@ -1,234 +1,267 @@
-.la-about-page {
-  background-color: #ccc;
-   #sidenav-overlay {
-     background-color: rgba(0,0,0,0.6);
-   } 
-  &.probPhone {
-    overflow-x: hidden;
-    height: auto;
-    .body {
-      overflow-x: hidden;
-      position: relative;
-      height: auto;
-    }
-  }
-  &:not(.probPhone) {
-    .body:after {
-      background-image: url('%%CDNURL%%/images/trees-mask.png');
-    }
-  }
-  height: 100%;
-  background-color: transparent; // min-height: 800px;
-  .body {
-    >div>nav {
-      background-color: #1c1c1c !important;
-      box-shadow: none;
-      &>a,
-      ul>li>a,
-      a {
-        color: #496a73;
-      }
-      .brand-logo {
-        color: #000;
-        text-shadow: 0 0 125px rgba(76, 105, 116, 1);
-      }
-      .side-nav {
-        background-color: #1c1c1c !important;;
-      }
-    }
-    height: 100%;
-    min-height: 800px;
-    background-image: url('%%CDNURL%%/images/starfield.jpg');
-    background-size: auto 100%;
-    background-repeat: repeat-x;
-    background-position: bottom;
-    background-attachment: fixed;
-
-    &:after {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-size: auto 100%;
-      background-repeat: repeat-x;
-      background-position: bottom;
-      background-attachment: fixed;
-    }
-  }
-  h1 {
-    color: #fff;
-    font-family: "Oswald", sans-serif;
-    text-transform: uppercase;
-    font-style: italic;
-    letter-spacing: 2px;
-    margin: 0;
-    padding: 3.5vw 0;
-  }
-  h5 {
-    color: #fff;
-    font-family: "bebas-neue", sans-serif;
-    line-height: 35px;
-    margin-bottom: 0;
-    letter-spacing: 0.4px;
-  }
-  .panel-header {
-    width: 300px;
-    margin: 0 auto 0;
-    position: absolute;
-    left: 0px;
-    top: 22vh;
-  }
-  &.probPhone .panel-header {
-    position: static;
-    left: auto;
-    top: auto;
-    transition: 1500ms all linear;
-    -webkit-transition: padding-bottom 800ms, padding-top 500ms linear;
-    -moz-transition: padding-bottom 800ms, padding-top 500ms linear;
-    -ms-transition: padding-bottom 800ms, padding-top 500ms linear;
-    -o-transition: 500ms padding-bottom 800ms, padding-top 500ms linear;
-
-    &.mobile-scroll {
-      transition: padding-bottom 800ms, padding-top 500ms ease-out;
-      -webkit-transition: padding-bottom 800ms, padding-top 500ms ease-out;
-      -moz-transition: padding-bottom 800ms, padding-top 500ms ease-out;
-      -ms-transition: padding-bottom 800ms, padding-top 500ms ease-out;
-      -o-transition: 500ms padding-bottom 800ms, padding-top 500ms ease-out;
-      padding-top: 0px;
-      padding-bottom: 0px;
-    }
-  }
+	
+	.la-about-page {
 
 
-  .body .panels {
-    position: relative;
-    padding-top: 80vh;
-    width: 300px;
-    margin: 0 auto 23vh;
-    height: 100%;
-    &>p {
-      background-color: rgba(0, 0, 0, .2);
-      padding: 12px;
-      color: #fff;
-      filter: blur(0) !important;
-      transform: scale(1) translate(0, 0px);
-      will-change: filter;
-      transition: filter 250ms, transform 400ms linear;
-      -webkit-transition: filter 250ms, transform 400ms linear;
-      -moz-transition: filter 250ms, transform 400ms linear;
-      -ms-transition: filter 250ms, transform 400ms linear;
-      -o-transition: filter 250ms, transform 400ms linear;
+	.la-about-overlay {
+		position: fixed;
+		top:0;
+		height: 100%;
+		width: 100%; 
+		z-index: 1000;
+		background-color: #000;
+	}
 
-      &.blurred {
-        filter: blur(12vw) !important;
-        transform: scale(.5) translate(0, 100px);
-        transition: filter 550ms, transform 500ms linear;
-        -webkit-transition: filter 750ms, transform 500ms linear;
-        -moz-transition: filter 750ms, transform 500ms linear;
-        -ms-transition: filter 750ms, transform 500ms linear;
-        -o-transition: filter 750ms, transform 500ms linear;
+	&.wf-bebasneue-n4-active .la-about-overlay {
+			opacity: 0;
+			transition: opacity 600ms linear; 
+	}
 
-        will-change: filter;
-      }
-      .headshot {
-        border: 1px solid rgba(255, 255, 255, .5);
-        margin: 5px 10px 5px 0;
-        display: inline-block;
-        width: 74px;
-        height: 74px;
-      }
-    }
-    .down {
-      border: 2px solid #fff;
-      border-radius: 40px;
-      margin-top: 10px; // opacity: 0;
-    }
-    .indicator {
-      opacity: 1;
-    }
-    .bounce .indicator {
-      animation: blinker 2.5s ease-out infinite;
-    }
-  }
-  &.probPhone .panels {
-    width: 80vw;
-    h5 {
-      font-size: 28px;
-    }
-    &>p {
-      font-size: 18px;
-    }
-  }
-  &.wf-active .panel-header.zoom .indicator {
-    //animation: zoomin 1s ease-out  1;
-  }
-  .page-footer {
-    background-color: transparent; // position: fixed;
-    width: 100%; // bottom: 0;
-    .row {
-      margin-bottom: 0px;
-      @media #{$medium-and-up} {
-        margin-bottom: inherit;
-      }
-    }
-    .footer-copyright {
-      font-size: 10px;
-      min-height: 25px;
-      @media #{$medium-and-up} {
-        font-size: inherit;
-        min-height: inherit;
-      }
-    }
-  }
-  .shootingstar {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
+		#la-navbar-flex {
+			z-index: 2000;
+			position: relative;
+		}
+	background-color: #ccc;
+	 #sidenav-overlay {
+		 background-color: rgba(0,0,0,0.6);
+	 } 
+	&.probPhone {
+		overflow-x: hidden;
+		height: auto;
+		.body {
+			overflow-x: hidden;
+			position: relative;
+			height: auto;
+		}
+	}
+	&:not(.probPhone) {
+		.body:after {
+			background-image: url('%%CDNURL%%/images/trees-mask.png');
+		}
+	}
+	height: 100%;
+	background-color: transparent; // min-height: 800px;
+	.body {
+		>div>nav {
+			background-color: #1c1c1c !important;
+			box-shadow: none;
+			&>a,
+			ul>li>a,
+			a {
+				color: #496a73;
+			}
+			.brand-logo {
+				color: #000;
+				text-shadow: 0 0 125px rgba(76, 105, 116, 1);
+			}
+			.side-nav {
+				background-color: #1c1c1c !important;;
+			}
+		}
+		height: 100%;
+		min-height: 800px;
+		background-image: url('%%CDNURL%%/images/starfield.jpg');
+		background-size: auto 100%;
+		background-repeat: repeat-x;
+		background-position: bottom;
+		background-attachment: fixed;
+
+		&:after {
+			content: '';
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-size: auto 100%;
+			background-repeat: repeat-x;
+			background-position: bottom;
+			background-attachment: fixed;
+		}
+	}
+	h1 {
+		color: #fff;
+		font-family: "Oswald", sans-serif;
+		text-transform: uppercase;
+		font-style: italic;
+		letter-spacing: 2px;
+		margin: 0;
+		padding: 3.5vw 0;
+	}
+	h5 {
+		color: #fff;
+		font-family: "bebas-neue", sans-serif;
+		line-height: 35px;
+		margin-bottom: 0;
+		letter-spacing: 0.4px;
+	}
+	.panel-header {
+		width: 300px;
+		margin: 0 auto 0;
+		position: absolute;
+		left: calc(50% - 150px);
+		top:45vh;
+		&.paused {
+			position: fixed;
+		}
+
+	}
+	&.probPhone .panel-header {
+		position: static;
+		left: auto;
+		top: auto;
+		transition: 1500ms all linear;
+		-webkit-transition: padding-bottom 800ms, padding-top 500ms linear;
+		-moz-transition: padding-bottom 800ms, padding-top 500ms linear;
+		-ms-transition: padding-bottom 800ms, padding-top 500ms linear;
+		-o-transition: 500ms padding-bottom 800ms, padding-top 500ms linear;
+
+		&.mobile-scroll {
+			transition: padding-bottom 800ms, padding-top 500ms ease-out;
+			-webkit-transition: padding-bottom 800ms, padding-top 500ms ease-out;
+			-moz-transition: padding-bottom 800ms, padding-top 500ms ease-out;
+			-ms-transition: padding-bottom 800ms, padding-top 500ms ease-out;
+			-o-transition: 500ms padding-bottom 800ms, padding-top 500ms ease-out;
+			padding-top: 0px;
+			padding-bottom: 0px;
+		}
+	}
 
 
-  @-webkit-keyframes blinker {
-    0% {
-      opacity: 0.7;
-    }
-    25% {
-      opacity: 0.3;
-      margin-top: 24px;
-      transform: scale(.6)
-    }
-    50% {
-      opacity: 0.3;
-      margin-top: 48px;
-      transform: scale(.7)
-    }
-    75% {
-      opacity: 0.3;
-      margin-top: 24px;
-      transform: scale(.8)
-    }
-    100% {
-      opacity: 0.7;
-    }
-  }
+	.body .panels {
+		position: relative;
+		padding-top: 110vh;
+		width: 300px;
+		margin: 0 auto 23vh;
+		height: 100%;
 
-  @keyframes blinker {
-    25% {
-      opacity: 0.3;
-      margin-top: 24px;
-      transform: scale(.6)
-    }
-    50% {
-      opacity: 0.3;
-      margin-top: 48px;
-      transform: scale(.7)
-    }
-    75% {
-      opacity: 0.3;
-      margin-top: 24px;
-      transform: scale(.8)
-    }
-  }
+		&>p {
+			backface-visibility: hidden;
+			background-color: rgba(0, 0, 0, .2);
+			padding: 12px;
+			color: #fff;
+			filter: blur(.3px) !important;
+			transform: scale(1) translate(0, 0px) ;
+			will-change: filter, transform;
+			transition: filter 600ms, transform 200ms linear;
+
+			&.blurred {
+
+
+				filter: blur(2vw) !important;
+				transform: scale(2,.5) translate(0, 100px) ;
+				transition: filter 1000ms, transform 200ms linear;
+				-webkit-transition: filter 750ms, transform 500ms linear;
+				-moz-transition: filter 750ms, transform 500ms linear;
+				-ms-transition: filter 750ms, transform 500ms linear;
+				-o-transition: filter 750ms, transform 500ms linear;
+
+				will-change: filter, transform;
+			}
+			.headshot {
+				border: 1px solid rgba(255, 255, 255, .5);
+				margin: 5px 10px 5px 0;
+				display: inline-block;
+				width: 74px;
+				height: 74px;
+			}
+		}
+		.down {
+			border: 2px solid #fff;
+			border-radius: 40px;
+			margin-top: 10px; // opacity: 0;
+		}
+		.indicator {
+			opacity: 1;
+		}
+		.bounce .indicator {
+			animation: blinker 2.5s ease-out infinite;
+		}
+	}
+	&.probPhone .panels {
+		width: 80vw;
+		h5 {
+			font-size: 28px;
+		}
+		&>p {
+			font-size: 18px;
+		}
+	}
+	&.wf-active .panel-header.zoom .indicator {
+		//animation: zoomin 1s ease-out  1;
+	}
+	.page-footer {
+		background-color: transparent; // position: fixed;
+		width: 100%; // bottom: 0;
+		position: fixed;
+		bottom: 10px;
+		z-index: 10;
+		a {
+			color: #4c6974; 
+
+		}
+		.row {
+			margin-bottom: 0px;
+			@media #{$medium-and-up} {
+				margin-bottom: inherit;
+			}
+		}
+		.footer-copyright {
+			font-size: 10px;
+			min-height: 25px;
+			color: #263439;
+			@media #{$medium-and-up} {
+				font-size: inherit;
+				min-height: inherit;
+			}
+		}
+	}
+	.shootingstar {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+	}
+
+
+	@-webkit-keyframes blinker {
+		0% {
+			opacity: 0.7;
+		}
+		25% {
+			opacity: 0.3;
+			margin-top: 24px;
+			transform: scale(.6)
+		}
+		50% {
+			opacity: 0.3;
+			margin-top: 48px;
+			transform: scale(.7)
+		}
+		75% {
+			opacity: 0.3;
+			margin-top: 24px;
+			transform: scale(.8)
+		}
+		100% {
+			opacity: 0.7;
+		}
+	}
+
+	@keyframes blinker {
+		25% {
+			opacity: 0.3;
+			margin-top: 24px;
+			transform: scale(.6)
+		}
+		50% {
+			opacity: 0.3;
+			margin-top: 48px;
+			transform: scale(.7)
+		}
+		75% {
+			opacity: 0.3;
+			margin-top: 24px;
+			transform: scale(.8)
+		}
+	}
 }

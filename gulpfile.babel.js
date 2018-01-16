@@ -54,8 +54,8 @@ var KarmaServer = karma.Server;
 //var parseString = require().parseString;
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
-const cdnUrl =  'https://d2zvnoea48f2cl.cloudfront.net';
-const localUrl =  'http://localhost:3001';
+const cdnUrl = 'https://d2zvnoea48f2cl.cloudfront.net';
+const localUrl = '';
 dotenv.config();
 
 // create site map
@@ -199,7 +199,7 @@ gulp.task('viewerScripts', () =>
 	.pipe($.babel())
 	.pipe($.size({ title: 'viewerScripts' }))
 	.pipe($.sourcemaps.write('.'))
-	.pipe(gulp.dest('dist/public/scripts'))	
+	.pipe(gulp.dest('dist/public/scripts')) 
 	.on('error', function(e) { handleError(e) })
 
 );

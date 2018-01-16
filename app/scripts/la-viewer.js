@@ -19,15 +19,15 @@
         cellAlign: 'center'
       },
       isotope: {
-				layoutMode: 'packery',
-				packery: {
-					columnWidth: '.grid-sizer',
-					gutter: '.gutter-sizer'
-				},
-				itemSelector: '.grid-item',
-				percentPosition: true,
-				resize: true
-			}
+        layoutMode: 'packery',
+        packery: {
+          columnWidth: '.grid-sizer',
+          gutter: '.gutter-sizer'
+        },
+        itemSelector: '.grid-item',
+        percentPosition: true,
+        resize: true
+      }
     };
 
     var self = this;
@@ -149,44 +149,44 @@
       return $chips;
     }
     this.isotopeInit = function() {
-			var $chips = self.$chips;
-			var filters = self.filters;
+      var $chips = self.$chips;
+      var filters = self.filters;
       var $grid = $(self.grid);
-			var cards = self.cards;
-			var isotopeOptions = options.isotope;
+      var cards = self.cards;
+      var isotopeOptions = options.isotope;
 
-    	var chipFilter = function() {
-    		var keywords = this.getAttribute('data-keywords').split(',');
-				var isMatched = true;
-				if (filters.selected) {
-					isMatched = keywords.indexOf(filters.selected) > -1;
-				} else {
-					filters.chips = $chips.material_chip('data').map(function(c) {
-						return c.tag;
-					});
-					for (var i = 0; i < filters.chips.length; i++) {
-						if (keywords.indexOf(filters.chips[i]) > -1) {
-							return true;
-						}
-					}
-					return false;
-				}
-				return isMatched;
-			};
-			isotopeOptions.filter = chipFilter;
+      var chipFilter = function() {
+        var keywords = this.getAttribute('data-keywords').split(',');
+        var isMatched = true;
+        if (filters.selected) {
+          isMatched = keywords.indexOf(filters.selected) > -1;
+        } else {
+          filters.chips = $chips.material_chip('data').map(function(c) {
+            return c.tag;
+          });
+          for (var i = 0; i < filters.chips.length; i++) {
+            if (keywords.indexOf(filters.chips[i]) > -1) {
+              return true;
+            }
+          }
+          return false;
+        }
+        return isMatched;
+      };
+      isotopeOptions.filter = chipFilter;
 
-			$grid.isotope(isotopeOptions);
-			
-			$('img', cards).each(function(i, obj) {
-				$('<img/>')
-					.attr('src', obj.src)
-					.load(function() {
-						$(this).remove();
-						$grid.isotope();
-					});
-			});
+      $grid.isotope(isotopeOptions);
+      
+      $('img', cards).each(function(i, obj) {
+        $('<img/>')
+          .attr('src', obj.src)
+          .load(function() {
+            $(this).remove();
+            $grid.isotope();
+          });
+      });
       for (var i = 0, l = cards.length; i < l; i++) {
-				cards[i].classList.remove('hide-item');
+        cards[i].classList.remove('hide-item');
       }
     }
     this.flickityInit = function() {
@@ -245,8 +245,8 @@
   };
   $(function() {
     var viewer = new laViewer();
-		$('.info-spot').click(function() {
-			$('.tap-target').tapTarget('open');
-		});
+    $('.info-spot').click(function() {
+      $('.tap-target').tapTarget('open');
+    });
   });
 })(jQuery);
