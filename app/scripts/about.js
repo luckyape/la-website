@@ -6,7 +6,6 @@
 	var panel = document.getElementById('panels');
 	var pHead = document.getElementById('panel-header');
 	var clouds = panel.querySelectorAll('.cloud');
-	
 	var docHeight = document.documentElement.clientHeight;
 	var paused = false;
 	var stuck = false;

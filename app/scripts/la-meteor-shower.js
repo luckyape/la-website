@@ -154,7 +154,6 @@
     var reattachPointVh = origHeadTop - scrlBeforeDettach;
 
     function init() {
-      
       window.addEventListener('resize', scrollResize, true);
       window.onbeforeunload = function() {
         panel.style.visibility = 'hidden';
@@ -268,7 +267,66 @@
     init();
   }
 
-  fadeInScroll();
-  meteorShower();
 
+  var initMobileScroll = function () {
+    /* header text dom object */
+    var pHead = document.getElementById('panel-header');
+    /* Container for text */
+    var panel = document.getElementById('panels');
+    /* Container for navbar */
+    var navbar = document.getElementById('la-navbar-flex');
+
+    var body = document.querySelector('.body');
+    var scrollKill = true;
+
+  /*  var sheet = document.createElement('style');
+    sheet.innerHTML = '.la-about-page.probPhone {background-position: center -400px }.la-about-page.probPhone .panel-header { padding-top: ' + (0.20 * screen.height) + 'px; padding-bottom: ' + (0.80 * screen.height) + 'px; will-change: padding-top,padding-bottom;}';
+    document.body.appendChild(sheet);
+*/
+    panel.style.paddingTop = 0;
+    panel.style.marginTop = 0;
+
+    window.addEventListener('touchstart', startMotion, false);
+    window.addEventListener('scroll', preventMotion, false);
+    window.addEventListener('touchmove', preventMotion, false);
+    
+
+    
+    /*
+     * Initiats normal scroll
+     */
+    function startMotion() {
+      if (scrollKill && window.scrollY === 0) {
+        body.classList.add('mobile-scroll');
+        pHead.classList.remove('bounce');
+        setTimeout(function() {
+          scrollKill = false;
+          navbar.style.top = '-64px';
+        }, 500);
+      }
+    }
+    /*
+     * Initiats normal scroll
+     */
+    function preventMotion(event) {
+      if (scrollKill) {
+        window.scrollTo(0, 0);
+        event.preventDefault();
+        event.stopPropagation();
+        // navbar.setAttribute('style','');
+      } else if (window.scrollY < -10 && !scrollKill) {
+        pHead.classList.add('bounce');
+        body.classList.remove('mobile-scroll');
+        navbar.style.top = '0px';
+        scrollKill = true;
+      }
+    }
+  }
+
+  if(!probPhone) {
+    fadeInScroll();
+  } else {
+    initMobileScroll()
+  }
+  meteorShower();
 })();
