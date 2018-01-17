@@ -1,7 +1,6 @@
-;(function($) {
-
+/* global document , navigator, async, window, jQuery */
+(function($) {
   var laViewer = function() {
-
     var options = {
       gridId: 'viewer-cards',
       counterId: 'viewer-counter',
@@ -45,7 +44,6 @@
 
     this.init = function() {
       var cL = self.cards.length;
-      var chipsStr = '';
       var filterChips = [];
       var chipsArr = [];
       var autoCompleteData = {};
@@ -53,8 +51,8 @@
       var grid = self.grid;
       var $grid = $(grid);
       var $chips = self.$chips;
-      for (var i = 0; i < cL; i++) {
-        var cardChips = cards[i].getAttribute('data-keywords').split(',');
+      for (var k = 0; k < cL; k++) {
+        var cardChips = cards[k].getAttribute('data-keywords').split(',');
         var first = cardChips[0].trim().replace(/\s+/g, '-').toLowerCase();
         filterChips.push({
           tag: first,
@@ -63,9 +61,9 @@
         chipsArr = chipsArr.concat(cardChips);
       }
 
-      var l = chipsArr.length;
-      while (l--) {
-        var item = chipsArr[l];
+      var cl = chipsArr.length;
+      while (cl--) {
+        var item = chipsArr[cl];
         if (!autoCompleteData[item]) {
           chipsArr.unshift(item);
           autoCompleteData[item] = true;
@@ -107,17 +105,16 @@
           setTimeout(self.isotopeInit, 100);
         }
       }
-    }
+    };
     this.initPlugin = function() {
       if (self.probPhone) {
         self.flickityInit();
       } else if (!this.probPhone) {
         $(self.grid).isotope();
       }
-    }
+    };
 
     this.initChips = function($chips, filterChips, autoCompleteData) {
-
       var filters = self.filters;
       $chips.material_chip({
         data: filterChips,
@@ -147,7 +144,7 @@
         self.initPlugin();
       });
       return $chips;
-    }
+    };
     this.isotopeInit = function() {
       var $chips = self.$chips;
       var filters = self.filters;
@@ -176,7 +173,7 @@
       isotopeOptions.filter = chipFilter;
 
       $grid.isotope(isotopeOptions);
-      
+
       $('img', cards).each(function(i, obj) {
         $('<img/>')
           .attr('src', obj.src)
@@ -188,7 +185,7 @@
       for (var i = 0, l = cards.length; i < l; i++) {
         cards[i].classList.remove('hide-item');
       }
-    }
+    };
     this.flickityInit = function() {
       var $grid = $(self.grid);
       var cards = self.cards;
@@ -201,16 +198,16 @@
         });
       });
 
-      for (var i = 0, l = cards.length; i < l; i++) {
-        var card = cards[i];
+      for (var m = 0, ml = cards.length; m < ml; m++) {
+        var flickityCard = cards[m];
         var filters = self.filters;
         var $chips = self.$chips;
-        var keywords = card.getAttribute('data-keywords').split(',');
-        card.classList.remove('flickity-item');
-        card.classList.add('hide-item');
+        var keywords = flickityCard.getAttribute('data-keywords').split(',');
+        flickityCard.classList.remove('flickity-item');
+        flickityCard.classList.add('hide-item');
         if (filters.selected) {
-          if (card.getAttribute('data-keywords').indexOf(filters.selected) > -1) {
-            card.classList.add('flickity-item');
+          if (flickityCard.getAttribute('data-keywords').indexOf(filters.selected) > -1) {
+            flickityCard.classList.add('flickity-item');
           }
         } else {
           filters.chips = $chips.material_chip('data').map(function(c) {
@@ -218,7 +215,7 @@
           });
           for (var j = 0, fL = filters.chips.length; j < fL; j++) {
             if (keywords.indexOf(filters.chips[j]) > -1) {
-              card.classList.add('flickity-item');
+              flickityCard.classList.add('flickity-item');
             }
           }
         }
@@ -240,11 +237,11 @@
       };
       $carousel.on('select.flickity', updateStatus);
       updateStatus();
-    }
+    };
     this.init();
   };
   $(function() {
-    var viewer = new laViewer();
+    laViewer();
     $('.info-spot').click(function() {
       $('.tap-target').tapTarget('open');
     });

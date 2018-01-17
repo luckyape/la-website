@@ -51,7 +51,7 @@ importScripts("https://d2zvnoea48f2cl.cloudfront.net/scripts/sw/sw-toolbox.js","
 
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["styles/social-font.css","464dcf60d3924cde7fb744f267f32c05"],["styles/style.css","db68128ae923bbca3dec99f093e1a53a"]];
+var PrecacheConfig = [["about.html","cdb0fd5c026b4fb9f24cf5825f97726d"],["footer.html","1602dae8108f136f02d10647a8fd7169"],["global-js.html","760b46740620e3a008f7203d44e3ac53"],["header.html","be21857d2a6a4744b05f54278fe28f79"],["index.html","49bdbd00467be5f119969c072a4d765f"],["navbar.html","4868d33cf5fda9d3b8af9784db133a95"],["store-items.html","0b0d2b3a56912edb4bfd4eacdfca21a1"],["store.html","0dbcf54f5077557ea5d3ca6aba0d7ddf"],["styles/social-font.css","464dcf60d3924cde7fb744f267f32c05"],["styles/style.css","25a2c9ba607df2f18269305f93a6a526"],["tools.html","ed17ec1417845a04f5b73b79ae4d5d26"],["work-items.html","7fcfb545602133e241ca6528bf0551ad"],["work.html","f2f1a34c59cd860ccba1d5416f54e3d7"]];
 /* eslint-enable quotes, comma-spacing */
 var CacheNamePrefix = 'sw-precache-v1-la-website2-' + (self.registration ? self.registration.scope : '') + '-';
 
