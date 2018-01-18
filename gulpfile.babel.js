@@ -55,7 +55,7 @@ var KarmaServer = karma.Server;
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 const cdnUrl = 'https://d2zvnoea48f2cl.cloudfront.net';
-const localUrl = 'http://localhost:3000';
+const localUrl = '';
 dotenv.config();
 
 // create site map

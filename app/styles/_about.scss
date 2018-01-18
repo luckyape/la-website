@@ -8,22 +8,18 @@
 	    transition: opacity 600ms linear;
 	  }
 
-	  #la-navbar-flex {
+	  .la-navbar-flex {
 	    z-index: 2000;
 	    position: relative;
 	  }
+
 	  background-color: #ccc;
+	  
+
 	  #sidenav-overlay {
 	    background-color: rgba(0, 0, 0, 0.6);
 	  }
 
-	  &:not(.probPhone, .isiPad) {
-	    .body:after {
-	      background-image: url('%%CDNURL%%/images/trees-mask.png');
-	    }
-	  }
-	  height: 100%;
-	  background-color: transparent; // min-height: 800px;
 	  .body {
 	    >div>nav {
 	      background-color: #1c1c1c !important;
@@ -42,9 +38,9 @@
 	        ;
 	      }
 	    }
-	    height: 100%;
+	    //height: 100%;
 	    min-height: 800px;
-	    background-image: url('%%CDNURL%%/images/starfield.jpg');
+/*	    background-image: url('%%CDNURL%%/images/starfield.jpg');
 	    background-size: auto 100%;
 	    background-repeat: repeat-x;
 	    background-position: bottom;
@@ -61,7 +57,7 @@
 	      background-repeat: repeat-x;
 	      background-position: bottom;
 	      background-attachment: fixed;
-	    }
+	    }*/
 	  }
 	  h1 {
 	    color: #fff;
@@ -97,8 +93,8 @@
 	    padding-top: 100vh;
 	    width: 300px;
 	    margin: 0 auto 23vh;
-	    height: 100%;
-
+	 //   height: 100%;
+ transform: translate3d(0,0,0);
 	    &>p {
 	      backface-visibility: hidden;
 	      background-color: rgba(0, 0, 0, .2);
@@ -108,18 +104,10 @@
 	      transform: scale(1) translate(0, 0px);
 	      will-change: filter, transform;
 	      transition: filter 600ms, transform 200ms linear;
-
 	      &.blurred {
-
-
 	        filter: blur(2vw) !important;
 	        transform: scale(1.2, .5) translate(0, 100px);
 	        transition: filter 1000ms, transform 200ms linear;
-	        -webkit-transition: filter 750ms, transform 500ms linear;
-	        -moz-transition: filter 750ms, transform 500ms linear;
-	        -ms-transition: filter 750ms, transform 500ms linear;
-	        -o-transition: filter 750ms, transform 500ms linear;
-
 	        will-change: filter, transform;
 	      }
 	      .headshot {
@@ -143,9 +131,7 @@
 	    }
 	  }
 
-	  &.wf-active .panel-header.zoom .indicator {
-	    //animation: zoomin 1s ease-out  1;
-	  }
+
 	  .page-footer {
 	    background-color: transparent; // position: fixed;
 	    width: 100%; // bottom: 0;
@@ -181,12 +167,14 @@
 	  &.isiPad {
 	    background-color: #000;
 	    overflow-x: hidden;
-	    height: auto;
+	   // height: 100%;
 	    .body {
+  			overflow-y: scroll; /* has to be scroll, not auto */
+  			-webkit-overflow-scrolling: touch;
 	      overflow-x: hidden;
 	      position: relative;
 	      height: auto;
-	      height: 100%;
+	     // height: 100%;
 	      min-height: 800px;
 	      background-size: 100% auto;
 	      background-repeat: repeat-x;
@@ -195,8 +183,10 @@
 
 	    .body {
 	    	background-color: #000;
-//	      transition: background-position 900ms ease-in;
-	      &:not(.mobile-scroll):after {
+	    /*	background-size: 100% 65vh; 
+	    	transition: background-size 800ms ease-in;
+	      &:after {
+	      	transition: background-size 800ms ease-in;
 	        content: '';
 	        position: fixed;
 	        top: 0;
@@ -204,27 +194,53 @@
 	        width: 100%;
 	        height: 100%;
 	        background-image: url('%%CDNURL%%/images/trees-mask.png');
-	        background-size: 100% auto;
+	        background-size: 100% 65vh;
 	        background-repeat: repeat-x;
 	        background-position: center top;
-	      }
+	        border-bottom: 10vh solid;
+	        z-index: 100;
+	      }*/
 	      &.mobile-scroll {
-//	        transition: background-position 900ms ease-in;
+	      	.la-navbar-flex {
+	      		top: -64px;
+	      		transition: top 800ms ease-in;	
+	      	}
+					transition: background-size 800ms ease-in;
 	        background-position: center 0px;
+	        background-size: auto 90vh;
+	        &:after {
+						background-size: auto 90vh;
+						transition: background-size 800ms ease-in;
+
+	        }
 	       // background-size: initial;
 	        .panel-header {
-	          transition: padding-bottom 800ms, padding-top 500ms ease-out;
+	          transition: padding-bottom 800ms, padding-top 500ms ease-in;
 	          padding-top: 1vh;
 	          padding-bottom: 0px;
 	        }
 	      }
+	      .panels {
+	      	padding-top: 0px;
+	      	margin-top: 0px;
+	      	padding-bottom: 20vh;
+	      	p {
+ 						transform: translateZ(0);
+	      	}
+
+	      }
 	      .panel-header {
 	        position: static;
+	        transform: translateZ(0);
 	        left: auto;
 	        top: auto;
+	        height: 200px;
 	        padding-top: 20vh;
-	        padding-bottom: 40vh;
+	        padding-bottom: 80vh;
 	        transition: padding-bottom 800ms, padding-top 500ms linear;
+	      }
+	      .page-footer {
+	      	display: static;
 	      }
 	    }
 	  }
