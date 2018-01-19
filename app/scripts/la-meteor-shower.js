@@ -321,7 +321,7 @@
       console.info(window.pageYOffset);
       requestAnimationFrame(mobileAnimationFrames);
     };
-    mobileAnimationFrames();
+   //  mobileAnimationFrames();
     /*
      * Initiats normal scroll
      */
