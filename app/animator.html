@@ -1,0 +1,86 @@
+<html>
+<headd>
+  <style>
+  .elm {
+  	top:0;
+    height: 20px;
+    width: 20px;
+    background-color: #abb88e;
+    position: absolute;
+  }
+  .bump {
+    background-color: #ccc;
+    height: 20px;
+    width: 20px;
+  }
+  </style>
+  </head>
+  <body>
+      <div class="bump"></div>
+    <div class="elm" id="elm">1</div>
+    <div class="elm" id="elm2">2</div>
+    <div class="bump"></div>
+    <script src="scripts/easings.js"></script>
+    <script src="scripts/animator.js"></script>
+    <script>
+  var elem = document.getElementById('elm');
+  var elem2 = document.getElementById('elm2');
+
+  var animas = [{
+    name: 'header',
+    elem: elem,
+    settings: [{
+        prop: 'top',
+        target: 450,
+        startTime: 0,
+        t: 1200,
+		easing: 'easeInOutCubic'
+      },
+      {
+        prop: 'width',
+        target: 500,
+        startTime: 1000,
+        t: 6500,
+    	easing: 'easeInOutCubic'
+      },
+       {
+        prop: 'height',
+        target: 500,
+        startTime: 1000,
+        t: 6500,
+    	easing: 'easeInOutCubic'
+      },
+      {
+        prop: 'border-radius',
+        target: 250,
+        startTime: 1000,
+        t: 6500,
+    	easing: 'easeInOutCubic'
+      }
+    ]
+  }, {
+    name: 'header2',
+    elem: elem2,
+    settings: [       {
+        prop: 'height',
+        target: 500,
+        startTime: 1000,
+        t: 6500,
+    	easing: 'easeInOutCubic'
+      },{
+    	
+      prop: 'marginTop',
+      target: 100,
+      startTime: 80,
+      t: 10000,
+	  easing: 'easeInOutExpo'
+    }]
+  }];
+  var options = {
+    tasks: animas
+  };
+  var headerAnimations = new Animator(options);
+ // headerAnimations.run();
+  </script>
+  </body>
+</html>
