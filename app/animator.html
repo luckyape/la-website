@@ -1,86 +1,168 @@
 <html>
 <headd>
-  <style>
-  .elm {
-  	top:0;
-    height: 20px;
-    width: 20px;
-    background-color: #abb88e;
-    position: absolute;
-  }
-  .bump {
-    background-color: #ccc;
-    height: 20px;
-    width: 20px;
-  }
-  </style>
-  </head>
-  <body>
-      <div class="bump"></div>
-    <div class="elm" id="elm">1</div>
-    <div class="elm" id="elm2">2</div>
-    <div class="bump"></div>
-    <script src="scripts/easings.js"></script>
-    <script src="scripts/animator.js"></script>
-    <script>
-  var elem = document.getElementById('elm');
-  var elem2 = document.getElementById('elm2');
+	<style>
+	.elm {
+		top: 0px;
+		height: 30px;
+		width: 30px;
+		background-color: #abb88e;
+		position: absolute;
+	}
 
-  var animas = [{
-    name: 'header',
-    elem: elem,
-    settings: [{
-        prop: 'top',
-        target: 450,
-        startTime: 0,
-        t: 1200,
-		easing: 'easeInOutCubic'
-      },
-      {
-        prop: 'width',
-        target: 500,
-        startTime: 1000,
-        t: 6500,
-    	easing: 'easeInOutCubic'
-      },
-       {
-        prop: 'height',
-        target: 500,
-        startTime: 1000,
-        t: 6500,
-    	easing: 'easeInOutCubic'
-      },
-      {
-        prop: 'border-radius',
-        target: 250,
-        startTime: 1000,
-        t: 6500,
-    	easing: 'easeInOutCubic'
-      }
-    ]
-  }, {
-    name: 'header2',
-    elem: elem2,
-    settings: [       {
-        prop: 'height',
-        target: 500,
-        startTime: 1000,
-        t: 6500,
-    	easing: 'easeInOutCubic'
-      },{
-    	
-      prop: 'marginTop',
-      target: 100,
-      startTime: 80,
-      t: 10000,
-	  easing: 'easeInOutExpo'
-    }]
-  }];
-  var options = {
-    tasks: animas
-  };
-  var headerAnimations = new Animator(options);
- // headerAnimations.run();
-  </script>
-  </body>
+	.bump {
+		background-color: #ccc;
+		height: 40px;
+		width: 40px;
+	}
+
+	</style>
+	</head>
+
+	<body>
+		<div class="bump"></div>
+		<div class="elm elm1" id="elm">
+			<div id="elm3">1</div>
+		</div>
+		<div class="elm" id="elm2">2</div>
+		<div class="bump"></div>
+		<script src="scripts/easings.js"></script>
+		<script src="scripts/animator.js"></script>
+		<script src="https://unpkg.com/rematrix@0.2.2/dist/rematrix.min.js"></script>
+		<script>
+		var elem = document.getElementById('elm');
+		var elem2 = document.getElementById('elm2');
+
+		var squareTasks = [{
+			name: 'header3',
+			elemId: 'elm2',
+			settings: [{
+				prop: 'transform',
+				delta: {
+					rotate: {
+						delta: 1620
+					},
+					easing: 'easeInOutSine'
+				},
+				s: 0,
+				t: 3250
+			}, {
+				prop: 'left',
+				delta: 600,
+				s: 0,
+				t: 3250
+			}]
+		}];
+
+		var circleTasks = [{
+				name: 'header2',
+				elemId: 'elm3',
+				settings: [{
+					prop: 'transform',
+					delta: {
+						rotate: {
+							delta: 1620
+						},
+						easing: 'easeInOutSine'
+					},
+					s: 0,
+					t: 2500,
+					cb: function(animator) {
+
+						//animator.start()
+					}
+				}]
+			},
+			{
+				name: 'header',
+				elemId: 'elm',
+				settings: [{
+						prop: 'transform',
+						delta: {
+							translateX: {
+								delta: 50
+							},
+							translateY: {
+								delta: 1200,
+								easing: 'easeInQuart'
+							}
+						},
+						s: 0,
+						t: 1250
+					},
+					{
+						prop: 'border-radius',
+						delta: 250,
+						s: 0,
+						t: 1201
+					}, {
+						prop: 'height',
+						delta: -5,
+						s: 1200,
+						t: 100
+					}, {
+						prop: 'top',
+						delta: 5,
+						s: 1200,
+						t: 100,
+					}, {
+						prop: 'top',
+						delta: -5,
+						s: 1250,
+						t: 200,
+					}, {
+						prop: 'height',
+						delta: 5,
+						s: 1300,
+						t: 200,
+					}, {
+						prop: 'transform',
+						delta: {
+							translateX: {
+								delta: 200
+							},
+							translateY: {
+								delta: -600,
+								easing: 'easeOutSine'
+							}
+						},
+						s: 1250,
+						t: 500
+					},
+					{
+						prop: 'transform',
+						delta: {
+							translateX: {
+								delta: 300
+							},
+							translateY: {
+								delta: 600,
+								easing: 'easeOutBounce'
+							}
+						},
+
+						s: 1750,
+						t: 900,
+						cycles: 2
+					}
+				]
+			}
+		];
+
+
+		var options = {
+			jobs: {
+				square: squareTasks,
+				circle: circleTasks
+			}
+
+		};
+		try {
+			var headerAnimations = new Animator(options);
+		} catch (e) {
+			console.info(e);
+		}
+
+		</script>
+	</body>
+
 </html>

@@ -1,150 +1,576 @@
 class Animator {
 
-  constructor(options) {
-    var tasks = options.tasks;
-    var tL = tasks.length;
-    var self = this;
+	constructor(options) {
+		var jobs = Object.keys(options.jobs);
+		var jL = jobs.length;
+		this.jobs = jobs;
+		this.jL = jL;
+		this.tasks = new Array(jL);
+		this.tLs = new Array(jL);
+		this.elems = [];
+		this.props = [];
+		this.jobElemProps = new Array(jL);
+		this.propVals = new Array(jL);
+		this.needDeltas = [];
+		this.pauseOffsets = new Array(jL);
+		this.complete = new Array(jL);
+		this.paused = new Array(jL);
+		this.transformFuncs = ['rotate', 'translateX', 'translateY', 'scaleX', 'scaleY', 'skewX', 'skewY'];
+		this.tFL = this.transformFuncs.length;
+		for (var i = 0; i < jL; i++) {
+			var job = jobs[i];
+			var tasks = options.jobs[job];
+			this.prepareTasks(tasks, i);
+		}
+			 
+		if (options.autostart) {
+			this.start(jobs);
+		}
+	}
+	prepareTasks(tasks, jobIndex) {
 
-    tasks.props = [];
+		var taskProps = [];
+		var tL = tasks.length;
+		this.props[jobIndex] = [];
+		this.needDeltas[jobIndex] = [];
+		this.tLs[jobIndex] = tL;
+		for (var i = 0; i < tL; i++) {
+			/*
+			 * Reverse sort styles so we can use
+			 * manage completed tasks later
+			 */
+			var task = tasks[i];
+			var settings = task.settings;
+			var sL = task.sL || settings.length;
+			task.sL = sL;
 
-    for (var i = 0; i < tasks.length; i++) {
-      /*
-       * Reverse sort styles so we can use
-       * manage completed tasks later
-       */
-      var task = tasks[i];
-      task.settings.sort(function orederSettingStarts(a, b) {
-        return a.start - b.start;
-      });
-      task.startTime = task.settings[0].startTime;
-      task.settings.sort(function reverseOrderSettingCompletion(a, b) {
-        return (b.startTime + b.t) - (a.startTime + a.t);
-      });
-      var taskProps = task.settings.map(function(obj) {
-        return {
-          elem: task.elem,
-          prop: obj.prop
-        };
-      });
-      tasks.props = tasks.props.concat(taskProps);
-      task.completes = task.settings[0].startTime + task.settings[0].t;
-    }
+			if (!task.elem) {
+				task.elem = document.getElementById(task.elemId);
+			}
 
-    tasks.sort(function reverseoOrderTaskStarts(a, b) {
-      return (b.settings[0].startTime + b.settings[0].t) - (a.settings[0].startTime + a.settings[0].t);
-    });
+			if (this.isElement(task.elem)) {
+				if (settings.constructor === Array && settings[0]) {
+					// settings.sort(this.orderSettingStarts);
+					/*
+					 *
+					 */
+					for (var j = 0; j < sL; j++) {
+						/*
+						 * Determine when task starts, the smallest setting value of s
+						 */
+						var s = settings[j].s;
+						if (s === parseInt(s, 10)) {
+							if (task.s === undefined || task.s > s) {
+								task.s = s;
+							}
+						} else {
+							throw 's needs to be an integer';
+						}
+					}
+					/*
+					 * sort settings in reverse order so last to finish is first
+					 */
+					settings.sort(this.reverseOrderSettingCompletion);
+				} else {
+					console.log('No settings provided for task ' + task.name);
+				}
+			} else {
+				throw 'DOM Element (elem) or Element Id (elemId) required.';
+			}
+		}
+		/*
+		 *  order tasks so the first in the index finishes last
+		 */
+		tasks.sort(this.reverseoOrderTaskStarts);
+		var taskElemProps =  [];
+		for (var i = 0; i < tL; i++) {
+			var task = tasks[i];
+			var settings = task.settings;
+			var sL = settings.length;
+			var elems = this.elems;
+			var props = this.props;
+			task.sL = sL;
 
-    this.tasks = options.tasks;
-    this.tL = tasks.length;
+			var elemIndex = elems.indexOf(task.elem.id);
+			if(elemIndex === -1) {
+				elemIndex = elems.length;
+				elems[elemIndex] = task.elem;
+			}
+			task.elemIndex = elemIndex;
 
-    if (options.autostart) {
-      this.start();
-    }
-  };
-  camelCaseToDash(str) {
-    return str.replace( /([a-z])([A-Z])/g, '$1-$2' ).toLowerCase();
-  };
-  getStartingVals() {
-    var props = this.tasks.props;
-    var initVals = {};
-    for (var i = 0; i < props.length; i++) {
-      var prop = props[i];
-      var propVal = getComputedStyle(prop.elem).getPropertyValue(this.camelCaseToDash(prop.prop));
-      initVals[prop.elem.id] = initVals[prop.elem.id] || {};
-      initVals[prop.elem.id][prop.prop] = parseInt(propVal);
-    }
-    this.initVals = initVals;
-    console.info(initVals);
-  };
-  start(reverse) {
-    var self = this;
-    this.direction = (reverse)? -1 : 1;
-    this.complete = false;
-    this.getStartingVals();
-    requestAnimationFrame(function(startTime) {
-      self.runTasks(startTime);
-    });
-  };
-  runTasks(startTime, timestamp) {
-    var self = this;
-    var timestamp = timestamp || startTime + 1;
-    var tL = this.tL;
-    this.runtime = timestamp - startTime;
+			for (var j = 0; j < sL; j++) {
+				var setting = settings[j];
+				setting.isColor = (setting.prop.indexOf('color') > -1);
+				
+				if (setting.prop === 'transform') {
+					/*
+					 * Delta transforms provided as key value pairs
+					 *
+					 */
+					setting.delta = this.getTransformDeltas(setting, setting.delta);
+					setting.isTransform = true;
+				} else if (setting.delta) {
+					setting.delta = this.validatePropVals(setting, setting.delta);
+				} else {
+					/*
+					 * flag if its necessary to calculate deltas
+					 * when animation run
+					 */
+					this.needDeltas[job].push({ taskIndex: i, settingIndex: j });
+				}
 
-    for (var i = 0; i < this.tL; i++) {
-      var task = this.tasks[i];
-      // console.info(this.runtime, task.startTime);
-      var lastTaskSetting = task.settings[0];
-      if (lastTaskSetting.startTime + lastTaskSetting.t < this.runtime) {
-        if (!i) {
-          console.info('complete all!');
-          this.complete = true;
-        }
-        var endVal = this.initVals[task.elem.id][lastTaskSetting.prop] + (this.direction * lastTaskSetting.target);
-        task.elem.style[lastTaskSetting.prop] = endVal;
-        console.info(this.initVals[task.elem.id],lastTaskSetting.prop,this.direction,lastTaskSetting.target);
+				props[elemIndex] = props[elemIndex] || [];
+				var propIndex = props[elemIndex].indexOf(setting.prop);
+				if(propIndex === -1) {
+					propIndex = props[elemIndex].length;
+					props[elemIndex][propIndex] = setting.prop;
+				}
+				setting.propIndex = propIndex;
 
-        console.info('complete task!',endVal, lastTaskSetting.prop);
-        break;
-      } else if (task.startTime <= this.runtime) {
-        // console.info('runTask', task.startTime, this.runtime);
-        this.adjustProps(task);
-      }
-    }
+				taskElemProps[taskElemProps.length] = {
+					elemIndex: elemIndex,
+					propIndex: propIndex,
+					elem: elems[elemIndex],
+					prop: props[elemIndex][propIndex],
+					isRGB: (setting.isColor),
+					isTransform: (setting.isTransform)
+				};
 
-    if (!this.complete) {
-      requestAnimationFrame(function(timestamp) {
-        self.runTasks(startTime, timestamp);
-      });
-    }
-  };
+ /*
+			
+				 * Flatten intructions into props array,
+				 * starting values captured when animation is fired
+				 * from getElementVals()
 
-  adjustProps(task) {
 
-    var settings = task.settings;
-    var elem = task.elem;
-    var tL = settings.length;
+				if()
+				taskProps[taskProps.length] = {
+					name: task.name,
+					elem: task.elem,
+					prop: setting.prop,
+					isRGB: (setting.isColor),
+					isTransform: (setting.isTransform)
+				};*/
+			}
+		}
 
-    for (var i = 0; i < tL; i++) {
-      var setting = settings[i];
-      var settingStartTime = setting.startTime;
-      var t = setting.t;
-      var startPoint = this.initVals[task.elem.id][setting.prop];
-      var target = setting.target;
-      var prop = setting.prop;
-      var end = settingStartTime + t;
-      var direction = this.direction;
+	 
+		this.tasks[jobIndex] = tasks;
+		this.jobElemProps[jobIndex] = taskElemProps;
+	}
+	reverseOrderSettingCompletion(a, b) {
+		if (a.t === parseInt(a.t, 10)) {
+			return (b.s + b.t) - (a.s + a.t);
+		} else {
+			throw 't needs to be an integer';
+		}
+	}
+	reverseoOrderTaskStarts(a, b) {
+		return (b.settings[0].s + b.settings[0].t) - (a.settings[0].s + a.settings[0].t);
+	}
+	orderSettingStarts(a, b) {
+		if (a.s === parseInt(a.s, 10) && b.s === parseInt(b.s, 10)) {
+			return a.s - b.s;
+		} else {
+			throw 's needs to be an integer';
+		}
+	}
+	getTransformDeltas(setting, deltas) {
+		var methods = []
+		for (var i = 0; i < this.tFL; i++) {
+			var func = this.transformFuncs[i];
+			if (deltas[func]) {
+				var method = deltas[func];
+				var delta = this.validatePropVals(setting, deltas[func].delta);
+				methods[methods.length] = { func: func, delta: delta, easing: method.easing };
+			}
+		}
+		return methods;
+	}
+	start(jobs, reverse) {
 
-      /*
-       * the settings are sorted in reverse order of completion
-       * if settings[0] is complete we are done
-       */
-      if(end < this.runtime){
-        console.info('end reached');
-        elem.style[prop] = startPoint + (direction * target);
-        break;
-      }
-      if (settingStartTime <= this.runtime) {
-        var v;
-        var progress = (this.runtime - settingStartTime) / t;
-        if (setting.easing && Math[setting.easing]) {
-          v = Math[setting.easing](this.runtime - settingStartTime, 0, target, t) * direction;
-        } else {
-          v = progress * target * direction;
-        }
-       
-        elem.style[prop] = v + startPoint + 'px';
-        /*
-         * once we hit a complete progess the
-         * this frame is finished
-         */
-        if (progress >= 1) {
-          console.info('progress complete');
-          elem.style[prop] = startPoint + (direction * target); 
-          break;
-        }
-      }
-    }
-  }
+		if (typeof jobs === 'string' || jobs instanceof String) {
+			jobs = [jobs];
+		}
+		if (jobs.constructor === Array) {
+			var self = this;
+			var jL = jobs.length;
+			for (var i = 0; i < jL; i++) { 
+				var jobIndex = this.jobs.indexOf(jobs[i]);
+				var tasks = this.tasks[jobIndex];
+				this.runtime = 0;
+				this.direction = (reverse) ? -1 : 1;
+				this.complete[jobIndex] = false;
+				this.getElementVals(jobIndex);
+				if (this.needDeltas[jobIndex].length) {
+					this.getMissingDeltas(jobIndex);
+				}
+			}
+			requestAnimationFrame(function(s) {
+				self.runTasks(jobs, s);
+			});
+		} else {
+			throw 'Jobs must be passed as array';
+		}
+	}
+	pause(jobs) {
+		var self = this;
+		if (typeof jobs === 'string' || jobs instanceof String) {
+			getPauseTime(jobs);
+			debugger;
+		} else if (jobs.constructor === Array) {
+			var jL = jobs.length;
+			for (var i = 0; i < jL; i++) {
+				this.getPauseTime(job);
+			}
+		} else {
+			throw 'Jobs must be passed as array or string';
+		}
 
+		function getPauseTime(job) {
+			if (!self.paused[job]) {
+				self.paused[job] = self.runtime;
+			}
+		}
+	}
+
+	restart(jobs) {
+		var self = this;
+		if (typeof jobs === 'string' || jobs instanceof String) {
+			this.getOffset(job)
+		} else if (jobs.constructor === Array) {
+			for (var i = 0; i < jL; i++) {
+				var job = jobs[i];
+				this.getOffset(job);
+			}
+		} else {
+			throw 'Jobs must be passed as array or string';
+		}
+
+		function getOffset(job) {
+			if (self.paused[job]) {
+				self.pauseOffsets[job] = self.runtime - self.paused[job];
+				self.paused[job] = false;
+			}
+		}
+	}
+
+	validatePropVals(propObj, propVal) {
+		/*
+		 * Color based CSS needs to be HEX value,
+		 * if not px terminated string or integer is acceptable
+		 */
+
+		if (propObj.prop.indexOf('color') > -1 || propObj.isRGB) {
+			/* is a hex value, convert to number value */
+			if (propObj.isRGB) {
+				/*
+				 * RGB values should only be provided by getPropertyValue passed from getElementVals()
+				 * and assumed valid for now. Needs to be turned into an array of [r,g,b]
+				 */
+				propVal = propVal.match(/rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/);
+				propVal = [parseInt(propVal[1]), parseInt(propVal[2]), parseInt(propVal[3])];
+			} else if (propObj.isColor && this.isHex(propVal)) {
+				/* convert hex values to integer */
+				propVal = this.hexToRgb(propVal.substr(1));
+			} else {
+				throw 'delta value ' + propVal + ' needs to be a hex value for ' + propObj.prop;
+			}
+		} else if (propObj.isTransform) {
+
+			propVal = Rematrix.parse(propVal);
+			//propVal = this.calcTransform(propVal);
+		} else {
+			if (typeof propVal === 'string' && propVal.slice(-2) === 'px') {
+				propVal = propVal.slice(0, -2);
+			}
+			if (!isNaN(propVal)) {
+				propVal = parseInt(propVal, 10);
+			} else {
+				throw 'CSS properties must be px values, delta values should be integer for ' + propObj.prop;
+			}
+		}
+		return propVal;
+	}
+
+	calcTransform(matrix) {
+		/*
+		 * transform vals are always returned as css matrix formation, values
+		 * dont require validation however is returned as string 
+		 * CSS transform property uses methods in order
+		 * these formulas assume translate() is first, rotate() second, skew() 3rd, scale() can go wherever.
+		 */
+		console.info(matrix)
+		var matrixVals = matrix.split('(')[1].split(')')[0].split(',');
+		var a = parseFloat(matrixVals[0]);
+		var b = parseFloat(matrixVals[1]);
+		var c = parseFloat(matrixVals[2]);
+		var d = parseFloat(matrixVals[3]);
+		var e = parseFloat(matrixVals[4]);
+		var f = parseFloat(matrixVals[5]);
+		var a2 = Math.pow(a, 2);
+		var b2 = Math.pow(b, 2);
+		var c2 = Math.pow(c, 2);
+		var d2 = Math.pow(d, 2);
+		var propVals = {};
+		var scale = Math.sqrt(a2 + b2);
+		var scaleX = Math.sqrt(a2 + c2);
+		var scaleY = Math.sqrt(b2 + d2);
+		var rotationRads = Math.atan2(b, a);
+		if (rotationRads < 0) {
+			rotationRads += (2 * Math.PI);
+		}
+		var skew = Math.atan2(a * c + b * d, a2 + b2);
+		skew /= (Math.PI / 180);
+		propVals.scaleX = Math.round(scaleX * 100 + Number.EPSILON) / 100;
+		propVals.scaleY = Math.round(scaleY * 100 + Number.EPSILON) / 100;
+		propVals.skew = Math.round(skew * 100 + Number.EPSILON) / 100;
+		propVals.rotate = Math.round(rotationRads * (180 / Math.PI));
+		propVals.tranformX = e;
+		propVals.tranformY = f;
+
+		return propVals;
+	}
+
+	isElement(elem) {
+		return (
+			typeof HTMLElement === "object" ? elem instanceof HTMLElement :
+			elem && typeof elem === "object" && elem !== null && elem.nodeType === 1 && typeof elem.nodeName === "string"
+		);
+	}
+	isHex(str) {
+		return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(str);
+	}
+	hexToRgb(hex) {
+		var bigint = parseInt(hex, 16);
+		var r = (bigint >> 16) & 255;
+		var g = (bigint >> 8) & 255;
+		var b = bigint & 255;
+		return [r, g, b];
+	}
+	camelCaseToDash(str) {
+		return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+	};
+
+	getElementVals(job) {
+		var jobProps = this.jobElemProps[job];
+		var propVals = this.propVals;
+		var jPL = jobProps.length;
+		for (var i = 0; i < jPL; i++) {
+			var prop = jobProps[i];
+
+			var val = this.getPropertyVal(prop);
+			if (val === undefined) {
+				val = 0;
+			}
+			propVals[prop.elemIndex] = propVals[prop.elemIndex] || [];
+			propVals[prop.elemIndex][prop.propIndex] = val;
+		}
+	}
+
+	getPropertyVal(prop) {
+		var propName = this.camelCaseToDash(prop.prop);
+		var propVal = getComputedStyle(prop.elem).getPropertyValue(propName);
+		propVal = this.validatePropVals(prop, propVal);
+		return propVal;
+	}
+	/*
+	 * Missing delta exist bacause config only provides target.
+	 * Targets should be parsed at the time the tasks run, not on init
+	 * For this reason target setting have this additional overhead when tasks are fired.
+	 */
+	getMissingDeltas(job) {
+		var tasks = this.tasks[job];
+		var missingDeltas = this.needDeltas[job];
+		var l = missingDeltas.length;
+		var delta;
+		for (var i = 0; i < l; i++) {
+			var obj = missingDeltas[i];
+			var task = tasks[obj.taskIndex];
+			var setting = task.settings[obj.settingIndex];
+			var start = this.propVals[job][obj.settingIndex];
+			var end = this.validatePropVals(setting, setting.target);
+			if (end === parseInt(end)) {
+				delta = (end - start);
+			} else if (Array.isArray(end)) {
+				delta = [];
+				delta[0] = parseInt(end[0]) - parseInt(start[0]);
+				delta[1] = parseInt(end[1]) - parseInt(start[1]);
+				delta[2] = parseInt(end[2]) - parseInt(start[2]);
+			}
+			setting.delta = delta;
+		}
+		this.needDeltas[job] = [];
+	}
+
+	runTasks(jobs, s, timestamp) {
+		var self = this;
+		var timestamp = timestamp || s + 1;
+		this.runtime = timestamp - s;
+		for (var j = 0; j < this.jL; j++) {
+			var job = this.jobs.indexOf(jobs[j]);
+			var tasks = this.tasks[job];
+			var tL = this.tLs[job];
+			for (var i = 0; i < tL; i++) {
+				var task = tasks[i];
+				var lastTaskSetting = task.settings[0];
+
+				if (lastTaskSetting.complete) {
+					if (!i) {
+						console.info('complete all!');
+						this.complete[job] = true;
+						// this.initVals = [];
+					}
+					/* The Last item finishes first, so reduce index by 1 */
+					this.tLs[job]--;
+					this.resetSettings(task)
+					console.info('complete task!', task);
+					if (lastTaskSetting.cb) {
+						lastTaskSetting.cb(this);
+					}
+					break;
+				} else if (task.s <= this.runtime) {
+					this.adjustProps(task, job);
+				}
+			}
+		}
+		if (!this.complete[job]) {
+			requestAnimationFrame(function(timestamp) {
+				self.runTasks(jobs, s, timestamp);
+			});
+		}
+	}
+	resetSettings(task) {
+		/*
+		 * Once task is finsihed some of the objects values are no longer correct
+		 * Its likely the last reposition is missing so use the endVal to insure perfect pos
+		 */
+		var sL = task.settings.length;
+		var corrected = [];
+		task.sL = sL;
+		for (var i = 0; i < sL; i++) {
+			var setting = task.settings[i];
+			if (corrected.indexOf(setting.prop) === -1) {
+				task.elem.style[setting.prop] = setting.startVal + (setting.delta * this.direction);
+				corrected[corrected.length] = setting.prop;
+			}
+			delete setting.startVal, setting.endVal;
+		}
+	}
+	refreshStarVal(setting, task) {
+		var prop = setting.prop;
+		var taskName = task.name;
+		var propObj = setting;
+		propObj.elem = task.elem;
+		propObj.isRGB = (propObj.isColor);
+		var probVal = this.getPropertyVal(propObj);
+		this.propVals[propObj.elem.id][prop] = probVal;
+		return probVal;
+	}
+	adjustProps(task, job) {
+		if (this.paused[job]) return;
+		var settings = task.settings;
+		var elem = task.elem;
+		var sL = task.sL;
+		var direction = this.direction;
+		for (var i = 0; i < sL; i++) {
+			var setting = settings[i];
+			var sS = setting.s;
+			if (sS > this.runtime) continue;
+			var sT = setting.t;
+			var delta = setting.delta;
+			var prop = setting.prop;
+
+			if (setting.startVal === undefined) {
+				/*
+				 * First frame of task setting, 
+				 * grab starting point
+				 * and end time for later
+				 */
+				 debugger;
+				if (this.propVals[job][i] === false) {
+					var startVal = this.refreshStarVal(setting, task);
+					this.propVals[job][i] = startVal;
+				}
+				setting.startVal = this.propVals[job][i];
+				setting.endTime = sS + sT;
+				setting.direction = this.direction;
+			}
+			/*
+			 * else if (this.initVals[task.name][prop] !== false) {
+			 *  this.initVals[task.name][prop].val = false;
+			 * }
+			 */
+			var end = setting.endTime;
+			var startVal = setting.startVal;
+			/*
+			 * the settings are sorted in reverse order of completion
+			 * if settings[0] is complete we are done
+			 */
+			if (end < this.runtime) {
+				/* Last srtting finishes first so reduce sL */
+				task.sL--;
+				console.info(startVal, 'end reached for ' + prop);
+				if(prop === 'transform') {
+debugger
+				}
+				//elem.style[prop] = startVal + (delta * direction);
+				setting.complete = true;
+				delete setting.startVal;
+				break;
+			}
+			/*
+			 * if setting's start time has passed
+			 */
+			if (sS <= this.runtime) {
+				/*
+				 * calculate progress based on provided option
+				 */
+				var v;
+				var offset = (this.pauseOffsets[job]) ? this.pauseOffsets[job] : 0;
+				var t = this.runtime - sS + offset;
+				var progress = t / sT;
+				var b = 0;
+				var d = sT;
+				var c;
+				if (setting.isTransform) {
+					var transform = [];
+					var dL = delta.length;
+					for (var j = 0; j < dL; j++) {
+						var method = delta[j];
+						var val;
+						if (method.easing) {
+							c = method.delta * direction;
+							val = parseInt(Math[method.easing](t, b, c, d), 10);
+						} else {
+							val = progress * method.delta * direction;
+						}
+						transform[j] = Rematrix[method.func](val);
+					}
+					transform[transform.length] = startVal;
+					transform = transform.reduce(Rematrix.multiply);
+					this.propVals[job][i] = transform;
+					v = 'matrix3d(' + transform.join(', ') + ')';
+				} else if (setting.isColor) {
+					var rgb = [];
+					for (var j = 0; j < 3; j++) {
+						rgb[j] = parseInt(startVal[j] + (progress * delta[j] * direction), 10);
+					}
+					this.propVals[job][i] = rgb;
+					v = 'rgb(' + rgb.join(',') + ')';
+				} else {
+					if (setting.easing && Math[setting.easing]) {
+						c = delta * direction;
+						v = parseInt((Math[setting.easing](t, b, c, d)) + startVal, 10);
+						this.propVals[job][i] = v;
+					} else {
+						v = parseInt(((progress * delta * direction) + startVal), 10);
+						this.propVals[job][i] = v;
+					}
+					v += 'px';
+				}
+				elem.style[prop] = v;
+			}
+		}
+	}
 }
