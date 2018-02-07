@@ -6,6 +6,7 @@ class Animator {
 		this.jobs = jobs;
 		this.jL = jL;
 		this.tasks = new Array(jL);
+		this.reversedAt = new Array(jL);
 		this.tLs = new Array(jL);
 		this.elems = [];
 		this.props = [];
@@ -22,7 +23,7 @@ class Animator {
 			var tasks = options.jobs[job];
 			this.prepareTasks(tasks, i);
 		}
-			 
+		debugger;
 		if (options.autostart) {
 			this.start(jobs);
 		}
@@ -43,21 +44,19 @@ class Animator {
 			var settings = task.settings;
 			var sL = task.sL || settings.length;
 			task.sL = sL;
-
 			if (!task.elem) {
 				task.elem = document.getElementById(task.elemId);
 			}
-
 			if (this.isElement(task.elem)) {
 				if (settings.constructor === Array && settings[0]) {
 					// settings.sort(this.orderSettingStarts);
 					/*
 					 *
-					 */
+					 * /
 					for (var j = 0; j < sL; j++) {
 						/*
 						 * Determine when task starts, the smallest setting value of s
-						 */
+						 * /
 						var s = settings[j].s;
 						if (s === parseInt(s, 10)) {
 							if (task.s === undefined || task.s > s) {
@@ -81,8 +80,8 @@ class Animator {
 		/*
 		 *  order tasks so the first in the index finishes last
 		 */
-		tasks.sort(this.reverseoOrderTaskStarts);
-		var taskElemProps =  [];
+		tasks.sort(this.reverseOrderTaskStarts);
+		var taskElemProps = [];
 		for (var i = 0; i < tL; i++) {
 			var task = tasks[i];
 			var settings = task.settings;
@@ -92,7 +91,7 @@ class Animator {
 			task.sL = sL;
 
 			var elemIndex = elems.indexOf(task.elem.id);
-			if(elemIndex === -1) {
+			if (elemIndex === -1) {
 				elemIndex = elems.length;
 				elems[elemIndex] = task.elem;
 			}
@@ -101,7 +100,7 @@ class Animator {
 			for (var j = 0; j < sL; j++) {
 				var setting = settings[j];
 				setting.isColor = (setting.prop.indexOf('color') > -1);
-				
+
 				if (setting.prop === 'transform') {
 					/*
 					 * Delta transforms provided as key value pairs
@@ -121,7 +120,7 @@ class Animator {
 
 				props[elemIndex] = props[elemIndex] || [];
 				var propIndex = props[elemIndex].indexOf(setting.prop);
-				if(propIndex === -1) {
+				if (propIndex === -1) {
 					propIndex = props[elemIndex].length;
 					props[elemIndex][propIndex] = setting.prop;
 				}
@@ -136,7 +135,7 @@ class Animator {
 					isTransform: (setting.isTransform)
 				};
 
- /*
+				/*
 			
 				 * Flatten intructions into props array,
 				 * starting values captured when animation is fired
@@ -154,7 +153,7 @@ class Animator {
 			}
 		}
 
-	 
+
 		this.tasks[jobIndex] = tasks;
 		this.jobElemProps[jobIndex] = taskElemProps;
 	}
@@ -165,7 +164,7 @@ class Animator {
 			throw 't needs to be an integer';
 		}
 	}
-	reverseoOrderTaskStarts(a, b) {
+	reverseOrderTaskStarts(a, b) {
 		return (b.settings[0].s + b.settings[0].t) - (a.settings[0].s + a.settings[0].t);
 	}
 	orderSettingStarts(a, b) {
@@ -195,19 +194,22 @@ class Animator {
 		if (jobs.constructor === Array) {
 			var self = this;
 			var jL = jobs.length;
-			for (var i = 0; i < jL; i++) { 
+			var jobIndexes = new Array(jL);
+			for (var i = 0; i < jL; i++) {
 				var jobIndex = this.jobs.indexOf(jobs[i]);
+				jobIndexes[i] = jobIndex;
 				var tasks = this.tasks[jobIndex];
 				this.runtime = 0;
 				this.direction = (reverse) ? -1 : 1;
 				this.complete[jobIndex] = false;
+				this.reversedAt[jobIndex]  = false;
 				this.getElementVals(jobIndex);
 				if (this.needDeltas[jobIndex].length) {
 					this.getMissingDeltas(jobIndex);
 				}
 			}
 			requestAnimationFrame(function(s) {
-				self.runTasks(jobs, s);
+				self.runTasks(jobIndexes, s);
 			});
 		} else {
 			throw 'Jobs must be passed as array';
@@ -215,21 +217,22 @@ class Animator {
 	}
 	pause(jobs) {
 		var self = this;
+
 		if (typeof jobs === 'string' || jobs instanceof String) {
 			getPauseTime(jobs);
-			debugger;
 		} else if (jobs.constructor === Array) {
 			var jL = jobs.length;
 			for (var i = 0; i < jL; i++) {
-				this.getPauseTime(job);
+				getPauseTime(jobs[i]);
 			}
 		} else {
 			throw 'Jobs must be passed as array or string';
 		}
 
 		function getPauseTime(job) {
-			if (!self.paused[job]) {
-				self.paused[job] = self.runtime;
+			var jobIndex = self.jobs.indexOf(job);
+			if (!self.paused[jobIndex]) {
+				self.paused[jobIndex] = self.runtime;
 			}
 		}
 	}
@@ -237,30 +240,57 @@ class Animator {
 	restart(jobs) {
 		var self = this;
 		if (typeof jobs === 'string' || jobs instanceof String) {
-			this.getOffset(job)
+			getOffset(job)
 		} else if (jobs.constructor === Array) {
+			var jL = jobs.length;
 			for (var i = 0; i < jL; i++) {
 				var job = jobs[i];
-				this.getOffset(job);
+				getOffset(job);
 			}
 		} else {
 			throw 'Jobs must be passed as array or string';
 		}
 
 		function getOffset(job) {
-			if (self.paused[job]) {
-				self.pauseOffsets[job] = self.runtime - self.paused[job];
-				self.paused[job] = false;
+			var jobIndex = self.jobs.indexOf(job);
+			if (self.paused[jobIndex]) {
+				self.pauseOffsets[jobIndex] = self.runtime - self.paused[jobIndex];
+				self.paused[jobIndex] = false;
 			}
 		}
 	}
 
+	reverse(jobs) {
+		var self = this;
+		if(!this.tasksReversed) {
+			/* 
+			 * Ordering of array gets flipped 
+			 * and cached into new arrays
+			*/
+		}
+		if (typeof jobs === 'string' || jobs instanceof String) {
+			reverseJob(job)
+		} else if (jobs.constructor === Array) {
+			var jL = jobs.length;
+			for (var i = 0; i < jL; i++) {
+				var job = jobs[i];
+				reverseJob(job);
+			}
+		} else {
+			throw 'Jobs must be passed as array or string';
+		}
+
+		function reverseJob(job) {
+			var jobIndex = self.jobs.indexOf(job);
+			self.reversedAt[jobIndex] = (self.reversedAt[jobIndex])? false : self.runtime;
+			self.tLs[job] = self.tasks[jobIndex].length;
+		}
+	}
 	validatePropVals(propObj, propVal) {
 		/*
 		 * Color based CSS needs to be HEX value,
 		 * if not px terminated string or integer is acceptable
 		 */
-
 		if (propObj.prop.indexOf('color') > -1 || propObj.isRGB) {
 			/* is a hex value, convert to number value */
 			if (propObj.isRGB) {
@@ -268,8 +298,8 @@ class Animator {
 				 * RGB values should only be provided by getPropertyValue passed from getElementVals()
 				 * and assumed valid for now. Needs to be turned into an array of [r,g,b]
 				 */
-				propVal = propVal.match(/rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/);
-				propVal = [parseInt(propVal[1]), parseInt(propVal[2]), parseInt(propVal[3])];
+				propVal = this.splitRGBString(propVal);
+
 			} else if (propObj.isColor && this.isHex(propVal)) {
 				/* convert hex values to integer */
 				propVal = this.hexToRgb(propVal.substr(1));
@@ -331,7 +361,10 @@ class Animator {
 
 		return propVals;
 	}
-
+	splitRGBString(propVal) {
+		propVal = propVal.match(/rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/);
+		return [parseInt(propVal[1]), parseInt(propVal[2]), parseInt(propVal[3])];
+	}
 	isElement(elem) {
 		return (
 			typeof HTMLElement === "object" ? elem instanceof HTMLElement :
@@ -408,7 +441,7 @@ class Animator {
 		var timestamp = timestamp || s + 1;
 		this.runtime = timestamp - s;
 		for (var j = 0; j < this.jL; j++) {
-			var job = this.jobs.indexOf(jobs[j]);
+			var job = jobs[j];
 			var tasks = this.tasks[job];
 			var tL = this.tLs[job];
 			for (var i = 0; i < tL; i++) {
@@ -419,7 +452,6 @@ class Animator {
 					if (!i) {
 						console.info('complete all!');
 						this.complete[job] = true;
-						// this.initVals = [];
 					}
 					/* The Last item finishes first, so reduce index by 1 */
 					this.tLs[job]--;
@@ -429,7 +461,7 @@ class Animator {
 						lastTaskSetting.cb(this);
 					}
 					break;
-				} else if (task.s <= this.runtime) {
+				} else {
 					this.adjustProps(task, job);
 				}
 			}
@@ -438,6 +470,8 @@ class Animator {
 			requestAnimationFrame(function(timestamp) {
 				self.runTasks(jobs, s, timestamp);
 			});
+		} else {
+			debugger;
 		}
 	}
 	resetSettings(task) {
@@ -451,73 +485,79 @@ class Animator {
 		for (var i = 0; i < sL; i++) {
 			var setting = task.settings[i];
 			if (corrected.indexOf(setting.prop) === -1) {
-				task.elem.style[setting.prop] = setting.startVal + (setting.delta * this.direction);
+				
+				/* WRONG */
+
+				task.elem.style[setting.prop] = setting.startVal + (setting.delta * task.direction);
 				corrected[corrected.length] = setting.prop;
 			}
 			delete setting.startVal, setting.endVal;
 		}
 	}
-	refreshStarVal(setting, task) {
-		var prop = setting.prop;
-		var taskName = task.name;
-		var propObj = setting;
-		propObj.elem = task.elem;
-		propObj.isRGB = (propObj.isColor);
-		var probVal = this.getPropertyVal(propObj);
-		this.propVals[propObj.elem.id][prop] = probVal;
-		return probVal;
-	}
+	/*
+		refreshStarVal(setting, task) {
+			var prop = setting.prop;
+			var taskName = task.name;
+			var propObj = setting;
+			propObj.elem = task.elem;
+			propObj.isRGB = (propObj.isColor);
+			var probVal = this.getPropertyVal(propObj);
+			this.propVals[propObj.elem.id][prop] = probVal;
+			return probVal;
+		}
+	*/
 	adjustProps(task, job) {
 		if (this.paused[job]) return;
 		var settings = task.settings;
 		var elem = task.elem;
-		var sL = task.sL;
+		var reversedAt = this.reversedAt[job] || false;
+		var sL = (!reversedAt)? task.sL : settings.length;
 		var direction = this.direction;
+		console.info('adjustProps', sL);
+
 		for (var i = 0; i < sL; i++) {
 			var setting = settings[i];
 			var sS = setting.s;
-			if (sS > this.runtime) continue;
+			var end = setting.endTime;
+			var runtime = (!reversedAt)? this.runtime : reversedAt*2 - this.runtime;
+			if (sS > this.runtime ) continue;
 			var sT = setting.t;
 			var delta = setting.delta;
 			var prop = setting.prop;
 
 			if (setting.startVal === undefined) {
 				/*
-				 * First frame of task setting, 
+				 * First frame of task setting,
 				 * grab starting point
 				 * and end time for later
 				 */
-				 debugger;
-				if (this.propVals[job][i] === false) {
-					var startVal = this.refreshStarVal(setting, task);
-					this.propVals[job][i] = startVal;
-				}
-				setting.startVal = this.propVals[job][i];
+				setting.startVal = this.propVals[task.elemIndex][setting.propIndex];
 				setting.endTime = sS + sT;
-				setting.direction = this.direction;
+				setting.complete = false;
 			}
 			/*
 			 * else if (this.initVals[task.name][prop] !== false) {
 			 *  this.initVals[task.name][prop].val = false;
 			 * }
 			 */
-			var end = setting.endTime;
 			var startVal = setting.startVal;
+			var offset = (this.pauseOffsets[job]) ? this.pauseOffsets[job] : 0;
 			/*
 			 * the settings are sorted in reverse order of completion
 			 * if settings[0] is complete we are done
 			 */
-			if (end < this.runtime) {
+
+			if (!reversedAt && end + offset < runtime) {
 				/* Last srtting finishes first so reduce sL */
 				task.sL--;
 				console.info(startVal, 'end reached for ' + prop);
-				if(prop === 'transform') {
-debugger
-				}
+				if (prop === 'transform') {}
 				//elem.style[prop] = startVal + (delta * direction);
 				setting.complete = true;
-				delete setting.startVal;
+				// delete setting.startVal;
 				break;
+			} else if(reversedAt && sS > runtime) {
+				continue;
 			}
 			/*
 			 * if setting's start time has passed
@@ -527,12 +567,13 @@ debugger
 				 * calculate progress based on provided option
 				 */
 				var v;
-				var offset = (this.pauseOffsets[job]) ? this.pauseOffsets[job] : 0;
-				var t = this.runtime - sS + offset;
+				var t = runtime - sS - offset;
 				var progress = t / sT;
 				var b = 0;
 				var d = sT;
 				var c;
+				
+
 				if (setting.isTransform) {
 					var transform = [];
 					var dL = delta.length;
@@ -540,32 +581,32 @@ debugger
 						var method = delta[j];
 						var val;
 						if (method.easing) {
-							c = method.delta * direction;
+							c = method.delta;
 							val = parseInt(Math[method.easing](t, b, c, d), 10);
 						} else {
-							val = progress * method.delta * direction;
+							val = progress * method.delta;
 						}
 						transform[j] = Rematrix[method.func](val);
 					}
 					transform[transform.length] = startVal;
 					transform = transform.reduce(Rematrix.multiply);
-					this.propVals[job][i] = transform;
+					this.propVals[task.elemIndex][setting.propIndex] = transform;
 					v = 'matrix3d(' + transform.join(', ') + ')';
 				} else if (setting.isColor) {
 					var rgb = [];
 					for (var j = 0; j < 3; j++) {
-						rgb[j] = parseInt(startVal[j] + (progress * delta[j] * direction), 10);
+						rgb[j] = parseInt(startVal[j] + (progress * delta[j]), 10);
 					}
-					this.propVals[job][i] = rgb;
+					this.propVals[task.elemIndex][setting.propIndex] = rgb;
 					v = 'rgb(' + rgb.join(',') + ')';
 				} else {
 					if (setting.easing && Math[setting.easing]) {
-						c = delta * direction;
+						c = delta;
 						v = parseInt((Math[setting.easing](t, b, c, d)) + startVal, 10);
-						this.propVals[job][i] = v;
+						this.propVals[task.elemIndex][setting.propIndex] = v;
 					} else {
-						v = parseInt(((progress * delta * direction) + startVal), 10);
-						this.propVals[job][i] = v;
+						v = parseInt(((progress * delta) + startVal), 10);
+						this.propVals[task.elemIndex][setting.propIndex] = v;
 					}
 					v += 'px';
 				}
