@@ -24,7 +24,7 @@ class Animator {
       var job = jobs[i];
       var tasks = options.jobs[job];
       this.prepareTasks(tasks, i);
-      //    this.prepareReversedTasks(i);
+      this.prepareReversedTasks(i);
     }
 
     if (options.autostart) {
@@ -37,7 +37,6 @@ class Animator {
     var reversedTasks = new Array(tL);
     for (var i = 0; i < tL; i++) {
       var task = tasks[i];
-
       task.settings.sort(this.orderSettingStarts);
       reversedTasks[i] = task;
     }
@@ -167,7 +166,7 @@ class Animator {
   }
   orderSettingStarts(a, b) {
     if (a.s === parseInt(a.s, 10) && b.s === parseInt(b.s, 10)) {
-      return b.s - a.s ;
+      return a.s - b.s;
     } else {
       throw 's needs to be an integer';
     }
@@ -214,54 +213,16 @@ class Animator {
     }
   }
 
-  validatePropVals(propObj, propVal) {
-    /*
-     * Color based CSS needs to be HEX value,
-     * if not px terminated string or integer is acceptable
-     */
-    if (propObj.prop.indexOf('color') > -1 || propObj.isRGB) {
-      /* is a hex value, convert to number value */
-      if (propObj.isRGB) {
-        /*
-         * RGB values should only be provided by getPropertyValue passed from getElementVals()
-         * and assumed valid for now. Needs to be turned into an array of [r,g,b]
-         */
-        propVal = this.splitRGBString(propVal);
-
-      } else if (propObj.isColor && this.isHex(propVal)) {
-        /* convert hex values to integer */
-        propVal = this.hexToRgb(propVal.substr(1));
-      } else {
-        throw 'delta value ' + propVal + ' needs to be a hex value for ' + propObj.prop;
-      }
-    } else if (propObj.isTransform) {
-      propVal = Rematrix.parse(propVal);
-    } else {
-      if (typeof propVal === 'string' && propVal.slice(-2) === 'px') {
-        propVal = propVal.slice(0, -2);
-      }
-      if (!isNaN(propVal)) {
-        propVal = parseInt(propVal, 10);
-      } else {
-        throw 'CSS properties must be px values, delta values should be integer for ' + propObj.prop;
-      }
-    }
-    return propVal;
-  }
-
-
-
   runTasks(jobs, s, timestamp) {
     var self = this;
     var timestamp = timestamp || s + 1;
     this.runtime = timestamp - s;
     document.getElementById('thisRuntime').innerHTML = this.runtime;
-    
+
     for (var j = 0; j < this.jL; j++) {
       var job = jobs[j];
 
       if (this.complete[job]) {
-        document.getElementById('status').innerHTML += 'continuing <br>'
         continue;
       }
       this.complete[job] = (this.complete[job]);
@@ -280,7 +241,7 @@ class Animator {
           /* The Last item finishes first, so reduce index by 1 */
           this.tLs[job]--;
           this.resetSettings(task, job)
-          console.info('complete task!', task);
+          console.info('complete task', task);
           if (lastTaskSetting.cb) {
             lastTaskSetting.cb(this);
           }
@@ -295,48 +256,35 @@ class Animator {
       requestAnimationFrame(function(timestamp) {
         self.runTasks(jobs, s, timestamp);
       });
-    } else {
-              document.getElementById('status').innerHTML += 'complete <br>'
-     
     }
   }
- 
-  /*
-    refreshStarVal(setting, task) {
-      var prop = setting.prop;
-      var taskName = task.name;
-      var propObj = setting;
-      propObj.elem = task.elem;
-      propObj.isRGB = (propObj.isColor);
-      var probVal = this.getPropertyVal(propObj);
-      this.propVals[propObj.elem.id][prop] = probVal;
-      return probVal;
-    }
-  */
+
+
   adjustProps(task, job) {
-    if (this.paused[job]) return;
+    if (this.paused[job]) {
+      return;
+    }
     var reversedAt = this.reversedAt[job] || false;
     var settings = task.settings;
     var taskIndex = task.taskIndex;
     var elem = this.elems[task.elemIndex];
     var sL = task.sL;
     var direction = this.direction;
-if(!sL) {
-     document.getElementById('status').innerHTML += 'no SL <br>'
-}
+    if (!sL) {
+      document.getElementById('status').innerHTML += 'no SL <br>'
+    }
     for (var i = 0; i < sL; i++) {
       var setting = settings[i];
       var sS = setting.s;
       var sT = setting.t;
       var end = setting.endTimes || sS + sT;
+      var offset = (this.pauseOffsets[job]) ? this.pauseOffsets[job] : 0;
       var runtime = (!reversedAt) ? this.runtime : reversedAt * 2 - this.runtime;
+
       /*
        * same in either direction
        */
-    document.getElementById('runtime').innerHTML = runtime;
-
-      if ((!reversedAt && sS > runtime) || (reversedAt && end < runtime)) {
-        document.getElementById('status').innerHTML = 'continue 2 <br>'
+      if ((!reversedAt && sS > runtime - offset) || (reversedAt && end < runtime - offset)) {
         continue;
       }
 
@@ -358,12 +306,6 @@ if(!sL) {
       }
 
       /*
-       * else if (this.initVals[task.name][prop] !== false) {
-       *  this.initVals[task.name][prop].val = false;
-       * }
-       */
-      var offset = (this.pauseOffsets[job]) ? this.pauseOffsets[job] : 0;
-      /*
        * the settings are sorted in reverse order of completion
        * if settings[0] is complete we are done
        */
@@ -381,7 +323,7 @@ if(!sL) {
       /*
        * if setting's start time has passed
        */
-      if ((!reversedAt && sS <= this.runtime) || (reversedAt && end >= runtime)) {
+      if ((!reversedAt && sS <= this.runtime) || (reversedAt && end >= runtime - offset)) {
         /*
          * calculate progress based on provided option
          */
@@ -429,36 +371,96 @@ if(!sL) {
           v += 'px';
         }
         elem.style[prop] = v;
-      }
-      else {
-        document.getElementById('status').innerHTML = 'past end <br>'
-
+      } else {
+        debugger;
       }
     }
   }
 
+  validatePropVals(propObj, propVal) {
+    /*
+     * Color based CSS needs to be HEX value,
+     * if not px terminated string or integer is acceptable
+     */
+    if (propObj.prop.indexOf('color') > -1 || propObj.isRGB) {
+      /* is a hex value, convert to number value */
+      if (propObj.isRGB) {
+        /*
+         * RGB values should only be provided by getPropertyValue passed from getElementVals()
+         * and assumed valid for now. Needs to be turned into an array of [r,g,b]
+         */
+        propVal = this.splitRGBString(propVal);
 
+      } else if (propObj.isColor && this.isHex(propVal)) {
+        /* convert hex values to integer */
+        propVal = this.hexToRgb(propVal.substr(1));
+      } else {
+        throw 'delta value ' + propVal + ' needs to be a hex value for ' + propObj.prop;
+      }
+    } else if (propObj.isTransform) {
+      propVal = Rematrix.parse(propVal);
+    } else {
+      if (typeof propVal === 'string' && propVal.slice(-2) === 'px') {
+        propVal = propVal.slice(0, -2);
+      }
+      if (!isNaN(propVal)) {
+        propVal = parseInt(propVal, 10);
+      } else {
+        throw 'CSS properties must be px values, delta values should be integer for ' + propObj.prop;
+      }
+    }
+    return propVal;
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  resetSettings(task, job) {
+    /*
+     * Once task is finsihed some of the objects values are no longer correct
+     * Its likely the last reposition is missing so use the endVal to insure perfect pos
+     */
+    var sL = task.settings.length;
+    var corrected = [];
+    task.sL = sL;
+    this.pauseOffsets[i] = 0;
+    this.tLs[job] = this.tasks[job].length;
+    for (var i = 0; i < sL; i++) {
+      var setting = task.settings[i];
+      var finalVal;
+      var prop = setting.prop;
+      var elemIndex = task.elemIndex;
+      var taskIndex = task.taskIndex;
+      var propIndex = setting.propIndex;
+      var startVal = this.startVals[job][taskIndex][propIndex];
+      var delta = setting.delta;
+      if (this.reversedAt[job]) {
+        finalVal = startVal;
+        this.propVals[elemIndex][propIndex] = finalVal;
+        if (prop === 'transform') {
+          finalVal = 'matrix3d(' + finalVal.join(', ') + ')';
+        } else {
+          finalVal += 'px';
+        }
+      } else if (prop === 'transform') {
+        var dL = delta.length;
+        var transform = new Array(dL);
+        for (var j = 0; j < dL; j++) {
+          var method = delta[j];
+          transform[j] = Rematrix[method.func](method.delta);
+        }
+        transform[transform.length] = startVal;
+        transform = transform.reduce(Rematrix.multiply);
+        this.propVals[elemIndex][propIndex] = finalVal;
+        finalVal = 'matrix3d(' + transform.join(', ') + ')';
+      } else {
+        finalVal = startVal + delta;
+        this.propVals[elemIndex][propIndex] = finalVal;
+        finalVal += 'px';
+      }
+      this.elems[elemIndex].style[prop] = finalVal;
+    }
+  }
 
   pause(jobs) {
     var self = this;
-
     if (typeof jobs === 'string' || jobs instanceof String) {
       getPauseTime(jobs);
     } else if (jobs.constructor === Array) {
@@ -471,9 +473,9 @@ if(!sL) {
     }
 
     function getPauseTime(job) {
-      var jobIndex = self.jobs.indexOf(job);
-      if (!self.paused[jobIndex]) {
-        self.paused[jobIndex] = self.runtime;
+      var i = self.jobs.indexOf(job);
+      if (!self.paused[i]) {
+        self.paused[i] = self.runtime;
       }
     }
   }
@@ -493,22 +495,24 @@ if(!sL) {
     }
 
     function getOffset(job) {
-      var jobIndex = self.jobs.indexOf(job);
-      if (self.paused[jobIndex]) {
-        self.pauseOffsets[jobIndex] = self.runtime - self.paused[jobIndex];
-        self.paused[jobIndex] = false;
+      var i = self.jobs.indexOf(job);
+      self.pauseOffsets[i] = self.pauseOffsets[i] || 0;
+      if (self.paused[i]) {
+        var offset = self.runtime - self.paused[i];
+        if(self.reversedAt[i]) {
+          self.reversedAt[i] += offset;
+        }
+        self.pauseOffsets[i] += offset;
+        self.paused[i] = false;
+        document.getElementById('offset').innerHTML = self.pauseOffsets[i];
+
       }
     }
   }
 
   reverse(jobs) {
     var self = this;
-    if (!this.tasksReversed) {
-      /* 
-       * Ordering of array gets flipped 
-       * and cached into new arrays
-       */
-    }
+
     if (typeof jobs === 'string') {
       reverseJob(job)
     } else if (jobs.constructor === Array) {
@@ -520,12 +524,21 @@ if(!sL) {
     } else {
       throw 'Jobs must be passed as array or string';
     }
-    document.getElementById('reversedAt').innerHTML =  self.runtime;
+    document.getElementById('reversedAt').innerHTML = self.runtime;
+
     function reverseJob(job) {
-      var jobIndex = self.jobs.indexOf(job);
-      if (jobIndex === -1) return;
-      self.reversedAt[jobIndex] = (self.reversedAt[jobIndex]) ? false : self.runtime;
-      self.tLs[job] = self.tasks[jobIndex].length;
+      var i = self.jobs.indexOf(job);
+      self.pauseOffsets[i] = self.pauseOffsets[i] || 0;
+
+      if (i === -1) return;
+      if (self.reversedAt[i]) {
+        self.pauseOffsets[i] += 2 * (self.runtime - self.reversedAt[i]);
+        self.reversedAt[i] = false;
+        self.tLs[i] = self.tasks[i].length;
+      } else {
+        self.reversedAt[i] = (self.reversedAt[i]) ? false : self.runtime;
+        self.tLs[i] = self.tasks[i].length;
+      }
     }
   }
   cloneObj(obj) {
@@ -658,48 +671,5 @@ if(!sL) {
     }
     this.needDeltas[job] = [];
   }
-  resetSettings(task, job) {
-    /*
-     * Once task is finsihed some of the objects values are no longer correct
-     * Its likely the last reposition is missing so use the endVal to insure perfect pos
-     */
-    var sL = task.settings.length;
-    var corrected = [];
-    task.sL = sL;
-    for (var i = 0; i < sL; i++) {
-      var setting = task.settings[i];
-      var finalVal;
-      var prop = setting.prop;
-      var elemIndex = task.elemIndex;
-      var propIndex = setting.propIndex;
-      var startVal = this.startVals[job][elemIndex][propIndex];
-      var delta = setting.delta;
-      if(this.reversedAt[job]) {
-        finalVal = startVal;
-        this.propVals[elemIndex][propIndex] = finalVal;
-        if(prop === 'transform') {
-          finalVal = 'matrix3d(' + finalVal.join(', ') + ')';
-        } else {
-          finalVal += 'px';
-        }
-      } else if(prop === 'transform') {
-        var dL = delta.length;
-        var transform = new Array(dL);
-        for (var j = 0; j < dL; j++) {
-          var method = delta[j];
-          transform[j] = Rematrix[method.func](method.delta);
-        }
-        transform[transform.length] = startVal;
-        transform = transform.reduce(Rematrix.multiply);
-        this.propVals[elemIndex][propIndex] = finalVal;
-        finalVal = 'matrix3d(' + transform.join(', ') + ')';
-      } else {
-        finalVal = startVal +  delta;
-        this.propVals[elemIndex][propIndex] = finalVal;
-        finalVal += 'px';
-      }
 
-      this.elems[elemIndex].style[prop] = finalVal;
-    }
-  }
 }
