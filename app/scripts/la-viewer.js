@@ -1,4 +1,3 @@
-
 /* global document, navigator, async, window, $ */
 var laViewer = function(options) { // eslint-disable-line no-unused-vars
   var settings = {
@@ -35,187 +34,26 @@ var laViewer = function(options) { // eslint-disable-line no-unused-vars
       itemSelector: '.grid-item',
       percentPosition: true,
       resize: true
-    }};
+    }
+  };
   $.extend(settings, options);
-  console.info(settings);
-  var self = this;
-  this.$el = $(this);
-  this.$document = $(document);
-  this.grid = document.getElementById(settings.gridId);
-  this.counter = document.getElementById(settings.counterId);
-  this.cards = this.grid.querySelectorAll(settings.cardClass);
-  this.viewerFilterChips = document.getElementById(settings.viewerFilterChipsId);
-  this.$chips = $(this.viewerFilterChips);
-  this.probPhone = ((/iphone|android|ie|blackberry|fennec/).test(navigator.userAgent.toLowerCase()) && 'ontouchstart' in document.documentElement);
-  this.filters = {
+  var grid = document.getElementById(settings.gridId);
+  var counter = document.getElementById(settings.counterId);
+  var cards = grid.querySelectorAll(settings.cardClass);
+  var viewerFilterChips = document.getElementById(settings.viewerFilterChipsId);
+  var $chips = $(viewerFilterChips);
+  var probPhone = ((/iphone|android|ie|blackberry|fennec/).test(navigator.userAgent.toLowerCase()) && 'ontouchstart' in document.documentElement);
+  var filters = {
     chips: []
   };
-  this.initViewer = function() {
-    var $grid = $(this.grid);
-    var $overlay = $('#la-viewer-overlay');
-    if (this.probPhone) {
-      if (this.grid.isotope) {
-        $grid.isotope('destroy');
-      }
-      if (!$grid.flickity) {
-        async(['https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js'], this.flickityInit);
-        async(['https://cdn.jsdelivr.net/npm/jquery.panzoom@3.2.2/dist/jquery.panzoom.min.js']);
-      } else if ($grid.flickity) {
-        setTimeout(this.flickityInit, 100);
-      }
-    } else {
-      if ($grid.flickity) {
-        $grid.flickity('destroy');
-      }
-
-      if (!$grid.isotope) {
-        async(['https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js'], function() {
-          async(['https://cdn.jsdelivr.net/npm/isotope-packery@2.0.0/packery-mode.pkgd.min.js'], self.isotopeInit);
-        });
-      } else if ($grid.isotope) {
-        setTimeout(self.isotopeInit, 100);
-      }
-    }
-
-    $('[data-lg-image]', $grid).click(openLightbox);
-
-    $overlay.click(closeLightBox);
-
-    function openLightbox() {
-      var imgUrl = this.getAttribute('data-lg-image');
-      var showLoader = setTimeout(function() {
-        $('.loader-container').fadeIn('slow');
-      }, 300);
-
-      $('<img/>')
-        .attr('src', imgUrl)
-        .load(function() {
-          clearTimeout(showLoader);
-          $('.loader-container').hide();
-          $('.img-container .image', $overlay).html(this);
-          $('.img-container', $overlay).fadeIn();
-          $('.img-container', $overlay).panzoom({
-            minScale: 1,
-            panOnlyWhenZoomed: true
-          });
-          $('.panzoom .close', $overlay).on('touchstart', function(e) {
-            e.stopImmediatePropagation();
-          });
-        });
-      $overlay.fadeIn('fast');
-    }
-
-    function closeLightBox() {
-      $('.img-container .image', $overlay).html('');
-      $('.img-container', $overlay).hide();
-      $overlay.fadeOut('fast');
-      $('.img-container', $overlay).panzoom('reset');
-    }
-  };
-  this.init = function() {
-    var $chips = self.$chips;
-    this.$chips = self.initChips($chips);
-    this.fiterResults = this.viewerFilterChips.querySelector('.autocomplete-content');
-    $('.toggle-filter a').click(toggleFilter);
-    this.initViewer();
-
-    function toggleFilter() {
-      var sheet = document.createElement('style');
-      var filterHeight = self.$chips.height();
-      sheet.innerHTML = '.filter-on.viewer-filter { min-height: ' + (filterHeight + 30) + 'px; will-change: min-height;}';
-      document.body.appendChild(sheet);
-      var filterToggles = document.querySelectorAll('.tap-target-row,.viewer-filter,.toggle-filter');
-      for (var i = 0, l = filterToggles.length; i < l; i++) {
-        filterToggles[i].classList.toggle('filter-on');
-      }
-    }
-  };
-
-  this.initPlugin = function() {
-    if (self.probPhone) {
-      self.flickityInit();
-    } else if (!this.probPhone) {
-      $(self.grid).isotope();
-    }
-  };
-
-  this.initMaterializeChips = function($chips) {
-    var filterChips = [];
-    var chipsArr = [];
-    var autoCompleteData = {};
-    var cL = self.cards.length;
-    var filters = self.filters;
-    var cards = self.cards;
-
-    for (var k = 0; k < cL; k++) {
-      var cardChips = cards[k].getAttribute('data-keywords').split(',');
-      var first = cardChips[0].trim().replace(/\s+/g, '-').toLowerCase();
-      filterChips.push({
-        tag: first,
-        id: first
-      });
-      chipsArr = chipsArr.concat(cardChips);
-    }
-
-    var cl = chipsArr.length;
-    for (var i = 0; i < cl; i++) {
-      var item = chipsArr[i];
-      if (!autoCompleteData[item]) {
-        autoCompleteData[item] = null;
-      }
-    }
-    var chipOptions = settings.chipOptions;
-    chipOptions.data = filterChips;
-    chipOptions.autocompleteOptions.data = autoCompleteData;
-    $chips.material_chip(chipOptions);
-    $('input', $chips).focus();
-
-    $chips.on('click', function() {
-      if (filters.selected) {
-        filters.selected = null;
-        self.initPlugin();
-      }
+  var getChips = function() {
+    var filterChips = Array.prototype.slice.call(viewerFilterChips.querySelectorAll('.chip')).map(function(c) {
+      return c.firstChild.textContent;
     });
-    $chips.on('chip.select', function(e, chip) {
-      filters.selected = chip.tag;
-      self.initPlugin();
-    });
-
-    $chips.on('chip.add', self.initPlugin);
-    $chips.on('chip.delete', function(chip) {
-      if (filters.selected === chip.tag) {
-        filters.selected = null;
-      }
-      self.initPlugin();
-    });
+    return filterChips;
   };
-  this.initChips = function($chips) {
-    if (settings.materializeChips) {
-      this.initMaterializeChips($chips);
-    } else {
-      var filters = self.filters;
-      $('.chip', $chips).on('click', function() {
-        var tag = this.innerText;
-        console.info(tag, this);
-        if (filters.selected === tag) {
-          filters.selected = null;
-          $(this).removeClass('selected');
-        } else {
-          $('.chip', $chips).removeClass('selected');
-          $(this).addClass('selected');
-          filters.selected = tag;
-        }
-        self.initPlugin();
-      });
-    }
-
-    return $chips;
-  };
-  this.isotopeInit = function() {
-    var $chips = self.$chips;
-    var filters = self.filters;
-    var $grid = $(self.grid);
-    var cards = self.cards;
+  var isotopeInit = function() {
+    var $grid = $(grid);
     var isotopeSettings = settings.isotope;
 
     var chipFilter = function() {
@@ -224,16 +62,7 @@ var laViewer = function(options) { // eslint-disable-line no-unused-vars
       if (filters.selected) {
         isMatched = keywords.indexOf(filters.selected) > -1;
       } else {
-        var materialChips = $chips.material_chip('data');
-        if (materialChips) {
-          filters.chips = materialChips.map(function(c) {
-            return c.tag;
-          });
-        } else {
-          filters.chips = Array.prototype.slice.call(self.viewerFilterChips.querySelectorAll('.chip')).map(function(c) {
-            return c.innerText;
-          });
-        }
+        filters.chips = getChips();
 
         for (var i = 0; i < filters.chips.length; i++) {
           if (keywords.indexOf(filters.chips[i]) > -1) {
@@ -261,11 +90,9 @@ var laViewer = function(options) { // eslint-disable-line no-unused-vars
     }
   };
 
-  this.flickityInit = function() {
-    var $grid = $(self.grid);
-    var cards = self.cards;
-    var counter = self.counter;
-    var flickityExists = $grid.flickity;
+  var flickityInit = function() {
+    var $grid = $(grid);
+    var flickityExists = $grid.data('flickity');
     counter.classList.remove('thud');
     window.requestAnimationFrame(function() {
       window.requestAnimationFrame(function() {
@@ -275,8 +102,6 @@ var laViewer = function(options) { // eslint-disable-line no-unused-vars
 
     for (var m = 0, ml = cards.length; m < ml; m++) {
       var flickityCard = cards[m];
-      var filters = self.filters;
-      var $chips = self.$chips;
       var keywords = flickityCard.getAttribute('data-keywords').split(',');
       flickityCard.classList.remove('flickity-item');
       flickityCard.classList.add('hide-item');
@@ -285,9 +110,7 @@ var laViewer = function(options) { // eslint-disable-line no-unused-vars
           flickityCard.classList.add('flickity-item');
         }
       } else {
-        filters.chips = $chips.material_chip('data').map(function(c) {
-          return c.tag;
-        });
+        filters.chips = filters.chips = getChips();
         for (var j = 0, fL = filters.chips.length; j < fL; j++) {
           if (keywords.indexOf(filters.chips[j]) > -1) {
             flickityCard.classList.add('flickity-item');
@@ -298,6 +121,7 @@ var laViewer = function(options) { // eslint-disable-line no-unused-vars
     if (flickityExists) {
       $grid.flickity('destroy');
     }
+
     var $carousel = $grid.flickity(settings.flickity);
     for (var i = 0, l = cards.length; i < l; i++) {
       var card = cards[i];
@@ -313,5 +137,164 @@ var laViewer = function(options) { // eslint-disable-line no-unused-vars
     $carousel.on('select.flickity', updateStatus);
     updateStatus();
   };
-  this.init();
+  var initViewer = function() {
+    var $grid = $(grid);
+    var $overlay = $('#la-viewer-overlay');
+
+    if (probPhone) {
+      if (grid.isotope) {
+        $grid.isotope('destroy');
+      }
+      if (!$grid.flickity) {
+        async(['https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js'], flickityInit);
+        async(['https://cdn.jsdelivr.net/npm/jquery.panzoom@3.2.2/dist/jquery.panzoom.min.js']);
+      } else if ($grid.flickity) {
+        setTimeout(flickityInit, 100);
+      }
+    } else {
+      if ($grid.flickity) {
+        $grid.flickity('destroy');
+      }
+
+      if (!$grid.isotope) {
+        async(['https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js'], function() {
+          async(['https://cdn.jsdelivr.net/npm/isotope-packery@2.0.0/packery-mode.pkgd.min.js'], isotopeInit);
+        });
+      } else if ($grid.isotope) {
+        setTimeout(isotopeInit, 100);
+      }
+    }
+
+    $('[data-lg-image]', $grid).click(openLightbox);
+
+    $overlay.click(closeLightBox);
+
+    function openLightbox() {
+      var imgUrl = this.getAttribute('data-lg-image');
+      var showLoader = setTimeout(function() {
+        $('.loader-container').fadeIn('slow');
+      }, 300);
+
+      $('<img/>')
+        .attr('src', imgUrl)
+        .load(function() {
+          clearTimeout(showLoader);
+          $('.loader-container').hide();
+          $('.img-container .image', $overlay).html(this);
+          $('.img-container', $overlay).fadeIn();
+          if ($('.img-container', $overlay).panzoom) {
+            $('.img-container', $overlay).panzoom({
+              minScale: 1,
+              panOnlyWhenZoomed: true
+            });
+            $('.panzoom .close', $overlay).on('touchstart', function(e) {
+              e.stopImmediatePropagation();
+            });
+          }
+        });
+      $overlay.fadeIn('fast');
+    }
+
+    function closeLightBox() {
+      $('.img-container .image', $overlay).html('');
+      $('.img-container', $overlay).hide();
+      $overlay.fadeOut('fast');
+      if ($('.img-container', $overlay).panzoom) {
+        $('.img-container', $overlay).panzoom('reset');
+      }
+    }
+  };
+  var initPlugin = function() {
+    if (probPhone) {
+      flickityInit();
+    } else if (!probPhone) {
+      $(grid).isotope();
+    }
+  };
+  var initMaterializeChips = function($chips) {
+    var filterChips = [];
+    var chipsArr = [];
+    var autoCompleteData = {};
+    var cL = cards.length;
+
+    for (var k = 0; k < cL; k++) {
+      var cardChips = cards[k].getAttribute('data-keywords').split(',');
+      var first = cardChips[0].trim().replace(/\s+/g, '-').toLowerCase();
+      filterChips.push({
+        tag: first,
+        id: first
+      });
+      chipsArr = chipsArr.concat(cardChips);
+    }
+
+    var cl = chipsArr.length;
+    for (var i = 0; i < cl; i++) {
+      var item = chipsArr[i];
+      if (!autoCompleteData[item]) {
+        autoCompleteData[item] = null;
+      }
+    }
+    var chipOptions = settings.chipOptions;
+    chipOptions.data = filterChips;
+    chipOptions.autocompleteOptions.data = autoCompleteData;
+    $chips.material_chip(chipOptions);
+    $('input', $chips).focus();
+
+    $chips.on('click', function() {
+      if (filters.selected) {
+        filters.selected = null;
+        initPlugin();
+      }
+    });
+    $chips.on('chip.select', function(e, chip) {
+      filters.selected = chip.tag;
+      initPlugin();
+    });
+
+    $chips.on('chip.add', initPlugin);
+    $chips.on('chip.delete', function(chip) {
+      if (filters.selected === chip.tag) {
+        filters.selected = null;
+      }
+      initPlugin();
+    });
+  };
+  var initChips = function($chips) {
+    if (settings.materializeChips) {
+      initMaterializeChips($chips);
+    } else {
+      $('.chip', $chips).on('click', function() {
+        var tag = this.innerText;
+        console.info(tag, this);
+        if (filters.selected === tag) {
+          filters.selected = null;
+          $(this).removeClass('selected');
+        } else {
+          $('.chip', $chips).removeClass('selected');
+          $(this).addClass('selected');
+          filters.selected = tag;
+        }
+        initPlugin();
+      });
+    }
+
+    return $chips;
+  };
+  var init = function() {
+    $chips = initChips($chips);
+    $('.toggle-filter a').click(toggleFilter);
+    initViewer();
+    function toggleFilter() {
+      var sheet = document.createElement('style');
+      var filterHeight = $chips.height();
+      sheet.innerHTML = '.filter-on.viewer-filter { min-height: ' + (filterHeight + 30) + 'px; will-change: min-height;}';
+      document.body.appendChild(sheet);
+      var filterToggles = document.querySelectorAll('.tap-target-row,.viewer-filter,.toggle-filter');
+      for (var i = 0, l = filterToggles.length; i < l; i++) {
+        filterToggles[i].classList.toggle('filter-on');
+      }
+    }
+  };
+
+  init();
 };
