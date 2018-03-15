@@ -1,5 +1,25 @@
-{
+{   "filterChips": ["agency-partner","angularjs","drupal","nodejs","wordpress","google-api","full-stack","php","jquery","css"],
     "items": [{
+        "title": "Blast Radius",
+        "description": "Multiple contracts working on clients such as Microsoft, SaskTel and Novartis. Highlighted by year long engagement deploying various web assets for Novartis OTC brands working remotely.",
+        "imgsrc": "images/br-screengrab.png",
+        "keywords": ["agency-partner"]
+        }, {
+        "title": "Autobox Media",
+        "description": "We love Vancouver based boutique web agency <a href=\"https://www.autoboxmedia.com/\">Autobox Media</a>. Much of the work listed here has been done in partnership with Autobox, including Chile Avocados, Martin's Apple Chips and BC Trucking Association", 
+        "imgsrc": "images/ab-logo.png", 
+        "keywords": ["agency-partner"]
+        },{
+        "title": "OpenRoad",
+        "description": "We collaborated with Autobox Media and <a href=\"https://www.openroad.ca/\">OpenRoad</a> to add new interactive features to a multi-donor program dedicated to strengthening the capacity of independent policy research organizations in the developing world.", 
+        "imgsrc": "images/or-logo.png", 
+        "keywords": ["agency-partner"]
+        },{
+        "title": "Cardinal Path",
+        "description": "Provided full stack support for a range of <a href=\"https://www.cardinalpath.com/\">Cardinal Path</a> clients including Google and Bridgestone. Additionally provided full stack support and web asset maintenance to various internal groups.", 
+        "imgsrc": "images/cp-logo.png", 
+        "keywords": ["agency-partner"]
+        },{
         "title": "Google Partners Academy",
         "description": "Multi-session event booking portal for Google Partners Academy. Comprehensive language/localization asset management functionality with Google Drive integration.",
         "imgsrc": "images/gp-screengrab2.png",
@@ -21,14 +41,9 @@
         "keywords": ["wordpress","php","woocommerce","ecommerce","online-classes","ui-design","mysql","js"]
         }, {
         "title": "Think Tank Directory",
-        "description": "Added <a href=\"http://www.thinktankinitiative.org/think-tanks\">section</a> to existing site. Custom Google Map with IsotopeJS implementation integrated with Drupal content.",
+        "description": "Added <a href=\"http://www.thinktankinitiative.org/think-tanks\">section</a> to existing site. Custom Google Map with IsotopeJS implementation integrated with Drupal content working in conjection with agency partners Autobox Media and OpenRoad.",
         "imgsrc": "images/tt-screengrab.png",
-        "keywords": ["jquery","drupal","php","google-api","js"]
-        }, {
-        "title": "Blast Radius",
-        "description": "Multiple contracts working on clients such as Microsoft, SaskTel and Novartis. Highlighted by year long engagement deploying various web assets for Novartis OTC brands working remotely.",
-        "imgsrc": "images/br-screengrab.png",
-        "keywords": ["js","web-services","front-end","scss","foundation-css","facebook-api"]
+        "keywords": ["google-api","jquery","drupal","php","js"]
         },  {
         "title": "JobuTrax",
         "description": "Calgary based start up providing oil patch equipment operators ability to track various assets in the field, arrange transport, provide billing rates and schedule regulatory tasks.", 
@@ -43,7 +58,13 @@
         "title": "Chile Avocados",
         "description": "Drupal marketing site that previously site received a score of 0/100 Google PageSpeed score, delivered emhanceents that received a score of 100/100.", 
         "imgsrc": "images/ca-screengrab.png", 
-        "keywords": ["lamp","drupal","jquery","responsive","mysql","php","pagespeed","js"]
+        "keywords": ["jquery","drupal","responsive","mysql","php","pagespeed","js","lamp"]
+        },{
+        "title": "Raise",
+        "description": "Collorating with agency partner Cardinal Path we produced a series of templates to leverage the <a href=\"https://www.raise.com/\">Raise</a> api for clients including Bed Bath & Beyond, Staples &amp; Sears", 
+        "imgsrc": "images/rs-logo.png", 
+        "keywords": ["css", "html"]
         }
+
     ]
 }  

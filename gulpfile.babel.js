@@ -54,35 +54,36 @@ var KarmaServer = karma.Server;
 //var parseString = require().parseString;
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
-const cdnUrl = 'https://d2zvnoea48f2cl.cloudfront.net';
-const localUrl = '';
+const cdnUrl = 'http://10.0.1.6:3000';
+const localUrl = 'http://10.0.1.6:3001';
 dotenv.config();
 
 // create site map
 
-function handleError(e)  {
+function handleError(e) {
   console.info(e);
 }
 
 
-gulp.task('test', function (done) {
-    var server = new KarmaServer({
-        configFile: __dirname + '/karma.conf.js',
-        browsers: ['Chrome'],
-        singleRun: true
-    }, done);
-    server.start();
+gulp.task('test', function(done) {
+  var server = new KarmaServer({
+    configFile: __dirname + '/karma.conf.js',
+    browsers: ['Chrome'],
+    singleRun: true
+  }, done);
+  server.start();
 });
 
 gulp.task('sitemap', () =>
-    gulp.src(['app/*.html','!app/google*.html'], {
-            read: false
-        })
-        .pipe(sitemap({
-            siteUrl: 'https://www.luckyape.com'
-        }))
-        .pipe(gulp.dest('dist/public'))
-        .pipe($.size({ title: 'sitemap' })));
+  gulp.src(['app/*.html', '!app/google*.html'], {
+    read: false
+  })
+  .pipe(sitemap({
+    siteUrl: 'https://www.luckyape.com'
+  }))
+  .pipe(gulp.dest('dist/public'))
+  .pipe($.size({ title: 'sitemap' }))
+);
 
 
 
@@ -164,59 +165,39 @@ gulp.task('styles', () => {
 // Concatenate and minify JavaScript. Optionally transpiles ES2015 code to ES5.
 // to enable ES2015 support remove the line `"only": "gulpfile.babel.js",` in the
 // `.babelrc` file.
-gulp.task('scripts', ['viewerScripts', 'aboutScripts'], () =>
-  gulp.src([
-    // Note: Since we are not using useref in the scripts build pipeline,
-    //       you need to explicitly list your scripts here in the right order
-    //       to be correctly concatenated
-    './app/scripts/main.js',
-    './app/scripts/init.js'    
-    // Other scripts
-  ])
-  .pipe($.newer('.tmp/scripts'))
-  .pipe($.sourcemaps.init())
-  .pipe($.babel())
-  .pipe($.sourcemaps.write())
-  .pipe(gulp.dest('.tmp/scripts'))
-  .pipe($.concat('main.min.js'))
-  .pipe($.uglify({ preserveComments: 'some' }))
-  // Output files
-  .pipe($.size({ title: 'scripts' }))
-  .pipe($.sourcemaps.write('.'))
-  .pipe(gulp.dest('dist/public/scripts'))
-  .pipe(gulp.dest('.tmp/scripts'))
-  .on('error', function(e) { handleError(e) })
-  // move fonts
-);
+var jsFiles = {
+  'tools': ['./app/scripts/main.js', './app/scripts/init.js'],
+  'store': ['./app/scripts/main.js', './app/scripts/la-viewer.js', './app/scripts/store.js', './app/scripts/init.js'],
+  'index': ['./app/scripts/main.js', './app/scripts/homepage.js', './app/scripts/init.js'],
+  'work': ['./app/scripts/main.js', './app/scripts/la-viewer.js', './app/scripts/work.js', './app/scripts/init.js'],
+  'about': ['./app/scripts/main.js', './app/scripts/about.js', './app/scripts/init.js']
+};
 
-gulp.task('viewerScripts', () =>
+var scriptTasks = Object.keys(jsFiles);
 
-  gulp.src(['./app/scripts/main.js', './app/scripts/viewer.js', './app/scripts/init.js'])
-  .pipe($.concat('viewer.min.js'))
-  .pipe($.uglify({ preserveComments: 'some' }))
-  // Output files
-  .pipe($.sourcemaps.init())
-  .pipe($.babel())
-  .pipe($.size({ title: 'viewerScripts' }))
-  .pipe($.sourcemaps.write('.'))
-  .pipe(gulp.dest('dist/public/scripts')) 
-  .on('error', function(e) { handleError(e) })
+for (var key in jsFiles) {
+  (function(key) {
+    gulp.task(key, function() {
+      return gulp.src(jsFiles[key])
+        .pipe($.newer('.tmp/scripts'))
+        .pipe($.sourcemaps.init())
+        .pipe($.babel())
+        .pipe($.sourcemaps.write())
+        .pipe(gulp.dest('.tmp/scripts'))
+        .pipe($.concat(key + '.min.js'))
+        .pipe($.uglify({ preserveComments: 'some' }))
+        // Output files
+        .pipe($.size({ title: 'scripts' }))
+        .pipe($.sourcemaps.write('.'))
+        .pipe(gulp.dest('dist/public/scripts'))
+        .pipe(gulp.dest('.tmp/scripts'))
+        .on('error', function(e) { handleError(e) })
+    })
+  })(key);
+}
 
-);
+gulp.task('scripts', scriptTasks);
 
-gulp.task('aboutScripts', () =>
-
-  gulp.src(['./app/scripts/main.js', './app/scripts/about.js', './app/scripts/init.js'])
-  .pipe($.concat('about.min.js'))
-  .pipe($.uglify({ preserveComments: 'some' }))
-  // Output files
-  .pipe($.sourcemaps.init())
-  .pipe($.babel())
-  .pipe($.size({ title: 'vaboutScripts' }))
-  .pipe($.sourcemaps.write('.'))
-  .pipe(gulp.dest('dist/public/scripts'))
-  .on('error', function(e) { handleError(e) })
-);
 gulp.task('copyLibs', () =>
   gulp.src('./app/scripts/lib/**')
   .pipe(gulp.dest('./dist/public/scripts/lib'))
@@ -224,7 +205,7 @@ gulp.task('copyLibs', () =>
 
 gulp.task('copySW', () =>
   gulp.src('./app/scripts/sw/**')
-    .pipe(gulp.dest('./dist/public/scripts/sw'))
+  .pipe(gulp.dest('./dist/public/scripts/sw'))
 );
 
 
@@ -290,9 +271,9 @@ gulp.task('html', () => {
 gulp.task('clean', () => del(['.tmp', 'dist/public/*', '!dist/public/.git'], { dot: true }));
 
 
-gulp.task('buildStoreItems', ['convertStoreXML', 'getStoreXML'], () => {
+gulp.task('buildStoreItems', ['convertStoreXML'], () => {
   return gulp
-    .src('app/includes/store-items.tmpl', { base: "./" })
+    .src(['app/includes/store-items.tmpl'], { base: "./" })
     .pipe(data(() => (JSON.parse(
       fs.readFileSync('docs/zazzle.json')
     ))))
@@ -305,7 +286,7 @@ gulp.task('buildStoreItems', ['convertStoreXML', 'getStoreXML'], () => {
 
 gulp.task('buildWorkItems', () => {
   return gulp
-    .src('app/includes/work-items.tmpl', { base: "./" })
+    .src(['app/includes/work-items.tmpl', 'app/includes/work-chips.tmpl'], { base: "./" })
     .pipe(data(() => (JSON.parse(
       fs.readFileSync('docs/work.json')
     ))))

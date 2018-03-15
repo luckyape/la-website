@@ -11,11 +11,6 @@
     Work Work Work Work Work
   </title>
   <!-- @include includes/header.html -->
-  <style>
-    .viewer-item {
-        
-    }
-  </style>
 </head>
 
 <body class="la-work-page la-viewer">
@@ -25,31 +20,15 @@
       <div class="row viewer-header">
         <div class="col center s10 offset-s1 flow-text">
           <h1 class="flow-text">A curator of deeply satistfying results.</h1>
-          <div class="show-on-small center toggle-filter">
-            <a>
-              <span class="show-filter">Show</span>
-              <span class="hide-filter">Hide</span> Filters <i class="material-icons">filter_list</i>
-            </a>
-          </div>
+         
         </div>
       </div>
-      <div class="row tap-target-row">
-        <div class="tap-target" data-activates="store-tap-target">
-          <div class="tap-target-content">
-            <h5>What Is Going On Here?</h5>
-            <p>Use the <span class="chip sample" style="display:inline-block;">chipies<i class="material-icons close">close</i></span>to filter work by technology.</p>
-            <p>Chipies can be added, removed or highlighted.</p>
-          </div>
+
+      <div class="row ">
+
+        <div id="viewer-filter-chips" class="products chips clearfix">
+          <!-- @include includes/work-chips.html -->
         </div>
-        <a id="store-tap-target" class="info-spot store-tap-target deep-orange waves-effect waves-light btn btn-floating">
-          <i class="material-icons">menu</i>
-        </a>
-      </div>
-      <div class="row viewer-filter">
-        <div class="right">
-          <a id="info-spot" class="info-spot right deep-orange waves-effect waves-light btn btn-floating question-mark">?</a>
-        </div>
-        <div id="viewer-filter-chips" class="products chips clearfix"></div>
       </div>
     </div>
     <div class="container">
@@ -69,6 +48,7 @@
   </div>
   <!-- @include includes/global-js.html -->
   <!-- build:js %%CDNURL%%/scripts/viewer.min.js -->
+  <script type="text/javascript" src="scripts/work.js"></script>
   <script type="text/javascript" src="scripts/la-viewer.js"></script>
   <script type="text/javascript" src="scripts/main.js"></script>
   <script type="text/javascript" src="scripts/init.js"></script>

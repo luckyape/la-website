@@ -60,7 +60,8 @@ if (navigator.userAgent.indexOf("Speed Insights") === -1) {
 
 var probPhone = ((/iphone|android|ie|blackberry|fennec/).test(navigator.userAgent.toLowerCase()) && 'ontouchstart' in document.documentElement);
 var isiPad = (navigator.userAgent.match(/iPad/i) != null);
-var oldiOS = (navigator.appVersion.match(/OS 10_3_3/i) != null);
+var oldiOS = (navigator.appVersion.match(/OS 9_/i) != null);
+
 if(oldiOS) {
   document.querySelector('html').classList.add('oldiOS');
 } else if (probPhone) {

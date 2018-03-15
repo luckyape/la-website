@@ -1,5 +1,20 @@
 .la-viewer {
+  .flickity-slider,
+  .card-reveal,
+  .viewer-filter {
+    -webkit-perspective: 1000;
+    will-change: transform;
+  }
+  h1,
+  h6,
+  i,
+  p,
+  .chips,
+  .card-title {
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
   min-height: 100%;
+  position: relative;
   overflow-x: hidden;
   width: 100%;
   .la-filter {
@@ -17,17 +32,27 @@
     .col {
       float: none;
     }
+
+    p {
+      font-size: 1rem;
+      max-width: 755px;
+      margin: 0 auto;
+      &.sm {
+        font-size: .8rem;
+      }
+    }
   }
   .toggle-filter {
     display: none;
+    margin-top: 8px;
     font-size: 12px;
     i {
       font-size: 15px;
-      background-color: #e4e4e4;
+      border: 1px solid color('grey', 'lighten-1');
       border-radius: 16px;
       padding: 7px;
     }
-  } 
+  }
   .position-ratio {
     display: none;
   }
@@ -37,18 +62,40 @@
     width: 24px;
     height: 24px;
   }
-
+  .dog-ear {
+    float: right;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    background-size: 100% auto;
+    background-image: url("data:image/svg+xml,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' width='108px' height='109px' %3E%3ClinearGradient id='SVGID_1_' gradientUnits='userSpaceOnUse' x1='71.7871' y1='87.7256' x2='106.6603' y2='36.1277'%3E%3Cstop offset='0.0184' style='stop-color:%23FFFFFF;stop-opacity:0'/%3E%3Cstop offset='1' style='stop-color:%23000000'/%3E%3C/linearGradient%3E%3Cpolyline fill='url%28%23SVGID_1_%29' points='25.25,82.649 107.936,82.838 107.646,108.6 '/%3E%3ClinearGradient id='SVGID_2_' gradientUnits='userSpaceOnUse' x1='15.1797' y1='37.3486' x2='66.6165' y2='-38.7567'%3E%3Cstop offset='0.1254' style='stop-color:%23FFFFFF;stop-opacity:0'/%3E%3Cstop offset='1' style='stop-color:%23000000'/%3E%3C/linearGradient%3E%3Cpolyline fill='url%28%23SVGID_2_%29' points='0.076,0.54 24.638,0.498 24.574,82.603 '/%3E%3ClinearGradient id='SVGID_3_' gradientUnits='userSpaceOnUse' x1='0.4844' y1='97.2354' x2='76.0645' y2='33.131'%3E%3Cstop offset='0' style='stop-color:%23FFFFFF;stop-opacity:0'/%3E%3Cstop offset='0.8405' style='stop-color:%23F26739'/%3E%3C/linearGradient%3E%3Cpolyline fill='url%28%23SVGID_3_%29' points='107.251,82.93 24.736,82.93 24.736,0.415 '/%3E%3Crect id='_x3C_Slice_x3E__1_' fill='none' width='108' height='109'/%3E%3C/svg%3E");
+    & i {
+      transform: rotate(45deg);
+      line-height: 1.4;
+      font-size: 1.0rem;
+      color: #f87642;
+    }
+  }
   .store-tap-target {
     position: fixed;
     right: 5px;
     bottom: 5px;
     z-index: 1000;
+    opacity: 0;
   }
-
+  .filter-on {
+    .store-tap-target {
+      transition: 300ms all ease-in;
+      opacity: 1;
+    }
+  }
   .tap-target .tap-target-content {
     text-align: right;
     p {
       margin: 4px;
+    }
+    .chip.sample {
+      background-color: color('grey', 'lighten-2')
     }
   }
 
@@ -64,16 +111,14 @@
 
 
   .viewer-cards {
+    -webkit-tap-highlight-color: transparent;
+    &:focus {
+      outline: none;
+    }
+    overflow: hidden;
     min-height: 300px;
     position: relative;
-    .card-title {
-      i.material-icons.right {
-        margin-left: 0px
-      }
-    }
-    .flickity .card .card-image img {
 
-    }
     .card-action i.material-icons {
       font-size: 1.1em;
       vertical-align: text-top;
@@ -81,10 +126,56 @@
     }
 
     .card-chips {
-      display: none;
+      .chip {
+        float: left;
+      }
     }
     .viewer-item {
+      &.flickity-item {
+        padding-bottom: 3px;
+      }
       .card {
+        margin-bottom: 0px;
+        transition: opacity 300ms ease-in;
+        opacity: 1;
+        .card-content {
+          padding: 0px 0 0px 0;
+        }
+        .card-title {
+          font-family: "Roboto", sans-serif;
+          line-height: 24px;
+          padding: 16px 0 12px 20px;
+          width: calc(100% - 38px);
+          margin: 0;
+          -webkit-font-smoothing: subpixel-antialiased;
+          i.material-icons.right {
+            margin-left: 0px
+          }
+        }
+        .card-reveal {
+          .card-title {
+            width: 100%;
+            line-height: 24px;
+          }
+
+          padding: 0px;
+
+          .card-description {
+            padding: 6px 20px;
+            p {
+              padding: 0;
+              margin: 0;
+            }
+          }
+          .close {
+            padding: 0 10px 10px;
+            font-size: 28px;
+          }
+        }
+        -webkit-tap-highlight-color: rgba(0,
+        0,
+        0,
+        0);
         transition: opacity 300ms ease-in;
         opacity: 1;
       }
@@ -101,7 +192,7 @@
   .grid-item {
     margin: 1%;
     position: absolute;
-    top:0;
+    top: 0;
   }
 
   .gutter-sizer {
@@ -115,26 +206,20 @@
     margin-bottom: 0px;
     margin-top: 0px;
     width: 48%;
-    .card {
-      margin-bottom: 0px;
-    }
+    .card {}
   }
   .card-action {
-    padding: 16px 4px 24px;
-  }
-
-  .card {
-    transition: opacity 300ms ease-in;
-    opacity: 1;
-    .card-content {
-      i {
-        margin-right: -10px;
-      }
-      .card-title {
-        font-family: "Roboto", sans-serif;
+    padding: 16px 0 24px;
+    p {
+      margin: 0;
+      padding: 5px 20px;
+      a {
+        color: #f87642
       }
     }
   }
+
+
   /* move page dots into carousel */
   .flickity-page-dots {
     bottom: 10px;
@@ -142,7 +227,11 @@
 
 
   @media #{$small-and-down} {
-
+    .dog-ear {
+      padding-bottom: 20px;
+      height: 50px;
+      width: 50px;
+    }
     .product-cards {
       position: relative;
     }
@@ -151,7 +240,7 @@
     .grid-item {
       width: 100%;
       margin: 0;
-    }   
+    }
     .flickity-viewport {
       //overflow: hidden;
       width: 100%;
@@ -163,7 +252,6 @@
     .grid-item {
       min-height: 240px;
       min-width: 375px;
-      
     }
     .card {
       width: 75vw;
@@ -172,20 +260,6 @@
       counter-increment: inherit;
       .card-action {
         padding: 9px 4px;
-        p {
-          margin-bottom: 0;
-        }
-      }
-      .card-content {
-        padding: 9px 12px;
-        .card-title {
-          font-size: 14px;
-          line-height: 18px;
-        }
-        i.material-icons {
-          font-size: 18px;
-          margin-top: 7px;
-        }
       }
     }
     .viewer-filter {
@@ -229,10 +303,6 @@
       }
     }
   }
-
-
-  &.probPhone {}
-
 }
 
 .probPhone {
@@ -250,9 +320,62 @@
   }
 }
 
+.la-viewer-overlay {
+  height: 100%;
+  width: 100%;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 9999;
+  .img-container,
+  .loader-container {
+    text-align: center;
+    z-index: 10000;
+    max-height: 100vh;
+    width: 90vw;
+    position: fixed;
+    left: 5vw;
+    padding: 5vh 0;
+    .close {
+      width: 90vw;
+      max-width: 90vh;
+      margin: 0 auto;
+      cursor: pointer;
+      text-align: right;
+      color: #f87642
+    }
+    img {
+      text-align: center;
+      width: auto;
+      height: auto;
+      max-width: 90vw;
+      max-height: 90vh;
+    }
+  }
+  .preloader-wrapper {
+    margin: 33vh auto;
+    .spinner-layer {
+      border-color: #f87642
+    }
+  }
+
+  &:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    content: '';
+    background-color: black;
+    filter: alpha(opacity=80);
+    opacity: .8;
+  }
+}
+
 @-webkit-keyframes thud {
   0% {
-
     -webkit-transform: scale(0);
     transform: scale(1);
   }
@@ -261,26 +384,22 @@
     opacity: 1;
     -webkit-transform: scale(1.6);
     transform: scale(1.6);
-  
   }
 
   60% {
     opacity: 1;
     -webkit-transform: scale(1.6);
     transform: scale(1.6);
-
   }
 
   100% {
     -webkit-transform: scale(1);
     transform: scale(1);
- 
   }
 }
 
 @keyframes thud {
   0% {
-
     -webkit-transform: scale(0);
     transform: scale(1);
   }
@@ -300,5 +419,16 @@
   100% {
     -webkit-transform: scale(1);
     transform: scale(1);
+  }
+}
+
+.la-work-page {
+  .products.chips {
+    text-align: center;
+    border-bottom: none;
+    min-height: 0;
+  }
+  .viewer-header {
+    margin-bottom: 20px;
   }
 }

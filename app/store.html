@@ -5,12 +5,13 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="description" content="A light hearted take on company swag store. Uses Gulp to access remote XML form Zazzle and publishes page. ">
-  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <title>
-    Swag Store
+    Concept Store
   </title>
   <!-- @include includes/header.html -->
+
 </head>
 
 <body class="la-store-page la-viewer">
@@ -19,12 +20,14 @@
     <div class="container la-filter">
       <div class="row  viewer-header">
         <div class="col center s10 offset-s1 flow-text">
-          <h1 class="flow-text">Company Store</h1>
+          <h1 class="flow-text">Experimental Zazzle Store</h1>
+          <p>A fully keyboard friendly filtering interface applied to a range of tagged, yet uncategorized product data is cached to service work. The intent build, deplay and share  product browsing experience.</p>
+          <p class="sm">(No expectation of actually selling anything)</p>
           <div class="show-on-small center toggle-filter">
             <a>
-        <span class="show-filter">Show</span>
-        <span class="hide-filter">Hide</span> Filters <i class="material-icons">filter_list</i>
-      </a>
+              <span class="show-filter">Show</span>
+              <span class="hide-filter">Hide</span> Filters <i class="material-icons">filter_list</i>
+            </a>
           </div>
         </div>
       </div>
@@ -32,13 +35,15 @@
         <div class="tap-target" data-activates="store-tap-target">
           <div class="tap-target-content">
             <h5>What Is Going On Here?</h5>
-            <p>Use the <span class="chip sample" style="display: inline-block; ">chipies<i class="material-icons close">close</i></span>to filter store items.</p>
-            <p>Chipies can be added, removed or highlighted.</p>
+            <p>Use the <span class="chip sample" style="display: inline-block; ">chipies<i class="material-icons close">close</i></span>
+              <br>to filter products.</p>
+            <p>Chipies can be added,
+              <br>removed or highlighted.</p>
           </div>
         </div>
         <a id="store-tap-target" class="info-spot store-tap-target deep-orange waves-effect waves-light btn btn-floating">
-      <i class="material-icons">menu</i>
-    </a>
+          <i class="material-icons">menu</i>
+        </a>
       </div>
       <div class="row viewer-filter">
         <div class="right">
@@ -61,14 +66,36 @@
         <div class="gutter-sizer"></div>
         <!-- @include includes/store-items.html -->
       </div>
-      <span class="flickity-prev-next-button next hide flickity-prev-next-button previous" ></span>
+      <span class="flickity-prev-next-button next hide flickity-prev-next-button previous"></span>
     </div>
     <!-- @include includes/footer.html -->
   </div>
+  <div id="la-viewer-overlay" class="la-viewer-overlay">
+    <div class="img-container panzoom">
+        <div class="close">
+          <i class="material-icons ">close</i>
+        </div>
+        <div class="image"></div>
+    </div>
+    <div class="loader-container">
+      <div class="preloader-wrapper active">
+        <div class="spinner-layer ">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <!--  Scripts-->
   <!-- @include includes/global-js.html -->
-  <!-- build:js %%CDNURL%%/scripts/viewer.min.js -->
-  <script type="text/javascript" src="scripts/viewer.js"></script>
+  <!-- build:js %%CDNURL%%/scripts/store.min.js -->
+  <script type="text/javascript" src="scripts/store.js"></script>
+  <script type="text/javascript" src="scripts/la-viewer.js"></script>
   <script type="text/javascript" src="scripts/main.js"></script>
   <script type="text/javascript" src="scripts/init.js"></script>
   <!-- endbuild -->

@@ -4,27 +4,36 @@
   <div class="viewer-item hide-item grid-item flickity-item" data-keywords="<%- item.keywords %>">
     <div class="card">
       <div class="card-content">
-        <i class="material-icons right">more_vert</i>
-        <h6 class="card-title activator grey-text text-darken-4"><%- item.title %></h6>
+        <div class="dog-ear activator"><i class="material-icons right">more_vert</i></div>
+        <h6 class="card-title  grey-text text-darken-4"><%- item.title %></h6>
       </div>
       <div class="card-image">
         <img class="activator" src="<%- item.imgsrc %>">
       </div>
       <div class="card-reveal">
-        <span class="card-title grey-text text-darken-4"><%- item.title %><i class="material-icons right">close</i></span>
-        <p>
-          <%= item.description %>
-        </p>
-        <div class="card-action">
-          <%
-            _.forEach(item.keywords, function(tag) {
+        <div class="card-title grey-text text-darken-4">
+          <div class="close right">
+            <i class="material-icons ">close</i>
+          </div>
+          <%- item.title %>
+        </div>
+        <div class="card-description">
+          <p>
+            <%= item.description %>
+          </p>
+          <div class="card-action">
+            <ul>
+              <%
+              _.forEach(item.keywords, function(tag) {
+                %>
+                <li class="chip">
+                  <%- tag %>
+                </li>
+                <%
+                }) ;
               %>
-            <div class="chip">
-              <%- tag %>
-            </div>
-            <%
-              }) ;
-            %>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

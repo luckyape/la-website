@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -46,9 +47,11 @@
         <div class="row center">
           <h5 class="header col s12 light">UI, Wordpress, Drupal, PHP, Node.JS, AngularJS, jQuery</h5>
         </div>
-        <div class="row center">
-          <a id="cta-button" class="cta-button btn-large waves-effect waves-light deep-orange modal-trigger" href="#contact-options">Let's Talk About Your Project</a>
-        </div>
+      </div>
+      <div class="row center cta-button-container">
+        <a id="cta-button" class="cta-button
+ btn-large waves-effect waves-light deep-orange modal-trigger" href="#contact-options">Let's Talk About Your Project</a>
+        <div class="skeletons" id="skeletons" style="background-image:url('%%CDNURL%%/images/skeletons.jpg')"></div>
       </div>
     </div>
     <div class="container benefits">
@@ -92,76 +95,18 @@
   </div>
   <!-- @include includes/footer.html -->
   <!-- Built with love using Web Starter Kit -->
+  <script>
+  /* stick this here so the cdn url is picked up for replacement */
+  var background = '%%CDNURL%%/images/skeletons.jpg';
+
+  </script>
 </body>
 <!-- Modal Structure -->
 <!-- @include includes/global-js.html -->
-<!-- build:js %%CDNURL%%/scripts/main.min.js -->
+<!-- build:js %%CDNURL%%/scripts/index.min.js -->
 <script type="text/javascript" src="scripts/main.js"></script>
 <script type="text/javascript" src="scripts/init.js"></script>
+<script type="text/javascript" src="scripts/homepage.js"></script>
 <!-- endbuild -->
-<script>
-(function($) {
-  $(function() {
-    var body = $('html > body');
-    $('#cta-button').click(function() {
-      body.addClass('modal-open');
-    });
-    var background = '%%CDNURL%%/images/skeletons.jpg';
-    $('<img/>').attr('src', background).load(function() {
-      // create an image element with inner background and load it
-      $(this).remove();
-      // set the inner background image and fade in:
-      $('#index-banner').addClass('bgFadeIn');
-      // need a little delay to let the div render it's bg image before the fade starts
-    });
-    $('.modal').modal({
-      startingTop: '-40%',
-      endingTop: '10%',
-      ready: function(modal, trigger) {
-        // Callback for Modal open. Modal and trigger parameters available.
-        var sniffModalClose = function(el) {
-          var classList = Object.values(el.target.classList);
-          if (classList.indexOf('modal-overlay') > -1 || classList.indexOf('modal-close') > -1) {
-            modalClose();
-          }
-        };
-        var sniffEscKey = function(e) {
-          console.info(e.key, e.target.nodeName);
-          if ((e.key === 'Escape' || e.key === 'Esc' || e.keyCode == 27)) {
-            modalClose();
-          }
-        };
-        var modalClose = function() {
-          body.removeClass('modal-open');
-          window.removeEventListener('keyup', sniffEscKey);
-          window.removeEventListener('click', sniffModalClose);
-          window.removeEventListener('touchstart', sniffModalClose);
-        };
-
-        window.addEventListener('click', sniffModalClose, false);
-        window.addEventListener('touchstart', sniffModalClose, false);
-        window.addEventListener('keyup', sniffEscKey, false);
-        window.loadContactInfo();
-      }
-    });
-
-  });
-  // end of document ready
-})(jQuery);
-/*
- * Displayes obuscated contact info
- */
-window.loadContactInfo = function() {
-  var contactMethods = document.getElementById('contact-methods');
-  var contactHash = 'PGEgaHJlZj0ic21zOjEtNjA0LTM0MC03OTI1IiBjbGFzcz0ic21zLWxpbmsgaWNvbiBpY29uLWNoYXQgaWNvbi1jaGF0LWRpbXMiPlNNUzxkaXY+NjA0LTM0MC03OTI1PC9kaXY+PC9hPjxhIGhyZWY9Im1haWx0bzppbmZvQGx1Y2t5YXBlLmNvbT9zdWJqZWN0PSU1QldXVyUyMElucXVpcmUlNUQiIGNsYXNzPSJpY29uIGljb24tZW52ZWxvcGUgaWNvbi1lbnZlbG9wZS1kaW1zIj5FbWFpbDxkaXY+aW5mb0BsdWNreWFwZS5jb208L2Rpdj48L2E+PGEgaHJlZj0idGVsOjEtNjA0LTM0MC03OTI1IiBjbGFzcz0iaWNvbiBpY29uLXBob25lLWNhbGwgaWNvbi1waG9uZS1jYWxsLWRpbXMiPlRlbDxkaXY+NjA0LTM0MC03OTI1PC9kaXY+PC9hPg==';
-  contactMethods.innerHTML = atob(contactHash);
-  if (!probPhone) {
-    var smsLink = document.querySelector('.sms-link');
-    document.querySelector('.contact-methods').removeChild(smsLink);
-  }
-};
-// end of jQuery name space
-
-</script>
 
 </html>

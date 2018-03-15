@@ -36,7 +36,7 @@ body.la-store-page .store-lnk,
 body.la-work-page .work-lnk {
   border-style: dotted;
   border-width: 0px 1px 2px 1px;
-  background: radial-gradient(ellipse at center,rgba(41,154,11,0) 0,rgba(41,154,11,0) 84%,rgba(41,154,11,.17) 100%);
+  background: radial-gradient(ellipse at center,rgba(41,154,11,0) 0,rgba(41,154,11,0) 92%,rgba(41,154,11,.17) 100%);
   border-color: transparent rgba(0, 0, 0, 0.09) rgb(129, 199, 132);
 }
 
@@ -44,7 +44,7 @@ body.la-work-page .work-lnk {
 body.la-tool-page .side-nav .tools-lnk,
 body.la-store-page .side-nav .store-lnk,
 body.la-work-page .side-nav .work-lnk {
-  border-bottom: 3px solid #f87642;
+  border-bottom: 3px solid color("deep-orange", "base");
   background-color: #81C784;
 }
 
@@ -53,7 +53,7 @@ body.la-work-page .side-nav .work-lnk {
 }
 
 nav {
-  box-shadow: 0 0px 2px 0 #f87642, 0 1px 5px 0 rgba(0, 0, 0, .12), 0 3px 1px -2px rgba(0, 0, 0, .2);
+  box-shadow: 0 0px 2px 0 color("deep-orange", "base"), 0 1px 5px 0 rgba(0, 0, 0, .12), 0 3px 1px -2px rgba(0, 0, 0, .2);
   &.nav-extended {
     height: auto;
     .nav-wrapper {

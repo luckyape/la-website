@@ -1,11 +1,16 @@
 body {
-	opacity: 0;
-	background-color:#FFF;
+  opacity: 0;
+  background-color:#FFF;
 }
 .cta-button:-webkit-any-link  {
-	color: #fff;
-	background-color:#FFF;
+  color: #fff;
+  background-color:#FFF;
 }
+
+.la-viewer .card { 
+  opacity:0; 
+}
+
 @import "components/mixins";
 @import "components/color";
 @import "components/variables";

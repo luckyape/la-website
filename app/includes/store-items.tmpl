@@ -3,31 +3,39 @@
     %>
     <div class="viewer-item hide-item grid-item flickity-item" data-keywords="<%- item['media:keywords'][0] %>">
       <div class="card sticky-action">
-        <div class="card-content"><i class="material-icons right">more_vert</i>
-          <h6 class="card-title activator grey-text text-darken-4"><%- item.title %></h6>
+        <div class="card-content">
+          <div class="dog-ear activator"><i class="material-icons right">more_vert</i></div>
+          <h6 class="card-title  grey-text text-darken-4"><%- item.title %></h6>
         </div>
-        <div class="card-image">
-          <img class="activator" src="<%- item['media:content'][0].$.url %>">
+        <div class="card-image" data-lg-image="<%- item['media:content'][0].$.url.split('_500.jpg')[0] + '_1024.jpg' %>">
+          <img src="<%- item['media:content'][0].$.url.split('?')[0] %>">
         </div>
         <div class="card-reveal">
-          <span class="card-title grey-text text-darken-4"><%- item.title %><i class="material-icons right">close</i></span>
-          <p><%- item['media:description'] %></p>
+          <div class="card-title grey-text text-darken-4">
+            <div class="close right">
+              <i class="material-icons ">close</i>
+            </div>
+            <%- item.title %>
+          </div>
+          <div class="card-description">
+            <p><%- item['media:description'] %></p>
+            <ul id="card-chips" class="card-chips">
+              <%
+                _.forEach(item['media:keywords'][0].split(', '), function(tag){
+              %><li>
+                  <div class="chip">
+                   <%- tag %>
+                  </div>
+                </li>
+              <%
+                }) ;
+              %>
+            </ul>
+          </div>
         </div>
         <div class="card-action">
-          <ul id="card-chips" class="card-chips">
-          <%
-            _.forEach(item['media:keywords'][0].split(', '), function(tag){
-          %><li>
-              <div class="chip">
-               <%- tag %>
-              </div>
-            </li>
-          <%
-            }) ; 
-          %>
-        </ul>
           <p>
-            <a href="<%- item['link'] %>">Show It To Me! Zazzle.com<i class="material-icons">launch</i></a>
+            <a href="<%- item['link'] %>">Show It To Me! <span class="right">Zazzle.com <i class="material-icons">launch</i></span></a>
           </p>
         </div>
       </div>
@@ -35,4 +43,3 @@
     <%
   });
 %>
- 

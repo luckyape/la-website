@@ -24,6 +24,9 @@
         }
     }
     .h1-banner {
+
+        text-align: center;
+        transition: padding-bottom 1000ms;
         background-color: #fff;
         padding-top: 18px;
         padding-bottom: 50px;
@@ -44,13 +47,16 @@
             margin: 0 0;
             height: 100px;
         } 
-
-
-        &::before {
-            will-change: filter, opacity, background-size, background-position;
+        .cta-button {
+          position: relative;
+          z-index: 10;
+        }
+        .skeletons {
+            cursor: move;
+            will-change: filter, opacity, height, background-size, background-position;
+            transition: height 1000ms;
             opacity: 0;
             filter: blur(24px);
-            content: '';
             height: 325px; 
             width: 100%;
             position: absolute;
@@ -58,33 +64,23 @@
             background-image: url('%%CDNURL%%/images/skeletons.jpg');
             background-attachment: scroll;
             background-repeat: repeat-x;
-            background-position: -100vw bottom;
-            background-size: 2vh auto;
-            @media #{$small-and-down} {}
+            background-position: 100vw bottom;
+            background-size: auto 5%;
+            z-index: 1
         }
-        &.bgFadeIn::before {
+    /*    &.bgFadeIn::before {
             transition: opacity 1000ms, filter 1000ms, background-size 1000ms, background-position 2000ms cubic-bezier(1, 1.5, .51, 1);
             opacity: 1;
             filter: blur(0px);
             background-size: 360px auto;
             background-position: 48% bottom;
         }
-    }
-    /* https://www.html5andbeyond.com/css3-animated-backgrounds-infinite-scrolling-background/ */
-    @keyframes backgroundScrollSM {
-        0% {
-            background-position: -300% bottom;
-        }
-    }
-    .bgFadeIn.horizontal-scroll::before {
-        //  -webkit-animation: backgroundScrollSM 4s cubic-bezier(.33,1.08,.88,1.2) 1;
-        //  animation: backgroundScrollSM 4s cubic-bezier(.33,1.08,.88,1.2) 1;
+      */
     }
 
     @media only screen and (min-device-width: 450px) and (orientation: portrait) {
         /* Styles */
         .h1-banner {
-            //background-size: 100% auto;   
             h1 {
                 font-size: 46px;
             }
@@ -151,7 +147,8 @@
 */
     @media only screen and (min-height: 1085px) and (min-device-width: 768px) {
         .h1-banner {
-            padding-bottom: 34vh;
+            padding-bottom: 430px;
+            transition: padding-bottom 1000ms;
             &.bgFadeIn:before {
                 background-size: 60vh auto;
             }
@@ -160,6 +157,10 @@
             }
             h5 {
                 height: 50px
+            }
+            .skeletons {
+              transition: height 1000ms;
+              height: 800px
             }
         }
     }

@@ -1,260 +1,398 @@
 /* exported initScroller */
-/* global  window, document, getComputedStyle, probPhone */
-(function aboutPage() {
+
+/* global  window, document, getComputedStyle, probPhone, requestAnimationFrame, cancelAnimationFrame, isiPad, oldiOS */
+
+(function meteorShower() {
   'use strict';
+  var meteorShower = function() {
+    var screenH = window.screen.height;
+    var screenW = window.screen.width;
+    var small = (probPhone) ? 0.5 : 1;
+    var deg = Math.PI * 2 * 25;
+    var starSel = 'body > canvas.shootingstar';
+    var canvasTemplate = document.querySelector(starSel);
+    var cL = 6;
+    var baseDelay = cL * 1250;
+    var canvasW;
+    var canvasH;
+    var body = document.querySelector('.body');
+    var s;
+    /*
+     * Initiates meteor shower effect
+     */
+    var init = function() {
+      canvasW = canvasTemplate.width;
+      canvasH = canvasTemplate.height;
+      s = canvasW / canvasH;
+      for (var i = 0; i < cL; ++i) {
+        var canvas = canvasTemplate.cloneNode();
+        body.appendChild(canvas);
+        meteorControl(canvas);
+      }
+    };
 
-  var panel = document.getElementById('panels');
-  var pHead = document.getElementById('panel-header');
-  var clouds = panel.querySelectorAll('.cloud');
-  var panelPadTop = parseFloat(getComputedStyle(panel).getPropertyValue('padding-top'));
-  var docHeight = document.documentElement.clientHeight;
-  var paused = false;
-  var stuck = false;
-  var screen = window.screen;
-  var origHeadTop = parseFloat(getComputedStyle(pHead).getPropertyValue('top'));
-  var headPos = null;
-  var vh = (100 / docHeight);
-  var navbar = document.getElementById('la-navbar-flex');
-  // var scrollHeight = document.body.scrollHeight;//  window.innerHeight
-  var pausePos = 60;
-  // scroll pause position
-  window.onbeforeunload = function() {
-    panel.style.visibility = 'hidden';
-    window.scrollTo(0, 0);
-  };
-  /**
-   * Animates shooting stars
-   * @param {array} canvas - array of canvas dom objects
-   */
-  function draw(canvas) {
-    if (canvas.getContext) {
-      var ctx = canvas.getContext('2d');
-      var tailW = canvas.width;
-      var tailH = canvas.height;
-      var i = 0;
-      var s = tailW / tailH;
-      var clear = function() {
-        ctx.clearRect(0, 0, tailW, tailH);
-      };
-
-      var tail = function() {
-        clear();
-        ctx.beginPath();
-        ctx.moveTo(i * s, i);
-        ctx.lineTo(tailW, tailH);
-        ctx.stroke();
-        if (i < tailH) {
-          setTimeout(tail, 0);
-        }
-        i += 2;
-      };
-
-      var meteor = function() {
-        clear();
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(i * s, i);
-        ctx.stroke();
-        if (i < tailH) {
-          setTimeout(meteor, 0);
-        } else {
-          ctx.lineWidth = 0.75;
-          ctx.strokeStyle = 'rgba(255, 255, 255, .8)';
-          i = 0;
-          setTimeout(tail, 100);
-        }
-        i++;
-      };
-      ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
-      ctx.lineWidth = 0.8;
-      ctx.lineCap = 'round';
-      meteor();
-    }
-  }
-  /*
-   * Animates shooting stars
-   * @param {array} canvas - array of canvas dom objects
-   * @param {number} cL - length of canvas array
-   */
-  var shower = function(canvas, cL) {
-    var small = (probPhone) ? 0.6 : 1;
-    var rN = ((Math.random() / 2) * small) + 0.5;
-    var rotate = Math.random() * Math.PI * 2 * 25;
-    var s = Math.random() * Math.floor(Math.random() * cL) + 1;
-    var delay = Math.random() * 4000 * s;
-    var x = (screen.width * Math.random()) / screen.width * 100;
-    var y = (screen.height * Math.random()) / screen.height * 80;
-    if (y > 60) {
-      rN *= 0.6;
-    }
-    var transform = ' translate(' + x + 'vw, ' + y + 'vh) scale(' + rN + ') rotate(' + rotate + 'deg)';
-
-    canvas.style.transform = transform;
-
-    draw(canvas);
-    setTimeout(function() {
-      shower(canvas, cL);
+    /*
+     * Determines starting position and apply style
+     * @param {array} canvas - array of canvas dom objects
+     */
+    function transformCanvas(canvas) {
+      var scale = ((Math.random() / 2) + 0.5) * small;
+      var rotate = Math.random() * deg;
+      var x = ((screenW * Math.random()) / screenW) * 100;
+      var y = ((screenH * Math.random()) / screenH) * 80;
+      if (y > 60) {
+        scale *= 0.6;
+      } else if (y < 6) {
+        y = 6;
+      }
+      canvas.style.transform = ' translate(' + x + 'vw, ' + y + 'vh) scale(' + scale + ') rotate(' + rotate + 'deg)';
       canvas.style.display = 'block';
-    }, delay);
+    }
+
+    var clear = function(ctx) {
+      ctx.clearRect(0, 0, canvasW, canvasH);
+    };
+
+    var tail = function(ctx, i, s, animationId) {
+      clear(ctx);
+      i += 1 / 10;
+      ctx.beginPath();
+      ctx.moveTo(i * s, i);
+      ctx.lineTo(canvasW, canvasH);
+      ctx.stroke();
+      if (i < canvasH) {
+        animationId = requestAnimationFrame(function() {
+          tail(ctx, i, s, animationId);
+        });
+      } else {
+        cancelAnimationFrame(animationId);
+        clear(ctx);
+        meteorControl(ctx.canvas);
+      }
+    };
+    var head = function(ctx, i, s, animationId) {
+      clear(ctx);
+      i += 1 / 10;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(i * s, i);
+      ctx.stroke();
+
+      if (i < canvasH) {
+        animationId = requestAnimationFrame(function() {
+          head(ctx, i, s, animationId);
+        });
+      } else {
+        cancelAnimationFrame(animationId);
+        ctx.lineWidth = 75 / 100;
+        ctx.strokeStyle = 'rgba(255, 255, 255, .8)';
+        i = 0;
+        setTimeout(function() {
+          tail(ctx, i, s);
+        }, 100);
+      }
+    };
+    /**
+     * Applies canvas draw attributes fires off animatino of meteor head
+     * @param {array} canvas - array of canvas dom objects
+     */
+    function draw(canvas) {
+      var ctx = canvas.getContext('2d');
+      var i = 0;
+      ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
+      ctx.lineWidth = 1.2;
+      ctx.lineCap = 'round';
+      head(ctx, i, s);
+    }
+    /*
+     * Positions meteor and kicks off draw()
+     * @param {array} canvas - array of canvas dom objects
+     */
+    var meteor = function(canvas) {
+      transformCanvas(canvas);
+      if (canvas.getContext) {
+        draw(canvas);
+      }
+    };
+    /*
+     * Sets up timeout before meteor fires
+     * @param {obj} canvas dom object
+     */
+    function meteorControl(canvas) {
+      var delay = Math.random() * baseDelay;
+      canvas.style.display = 'none';
+      setTimeout(function() {
+        meteor(canvas);
+      }, delay);
+    }
+    init();
   };
-  /*
-   * Initiates scrolling effect
-   */
-  function initScroller() {
-    var l = clouds.length;
-    for (var i = 0; i < l; i++) {
-      if (clouds[i].getBoundingClientRect().bottom * (100 / docHeight) > 80) {
-        clouds[i].classList.add('blurred');
-      }
-    }
-    storyFade();
-    window.addEventListener('scroll', storyFade);
-  }
-  /*
-   * Initiates meteor shower effect
-   */
-  function initMeteorShower() {
-    var canvass = document.querySelectorAll('.shootingstar');
-    var cL = canvass.length;
-    for (var i = 0; i < cL; ++i) {
-      shower(canvass[i], cL);
-    }
-  }
 
-  /*
-   * Triggered by scroll
-   */
-  function storyFade() {
-    var scrollY = window.scrollY;
-    headPos = pHead.getBoundingClientRect();
+  var fadeInScroll = function(isDesktop) {
+    /* body tag */
+    var overlay = document.getElementById('la-about-overlay');
+    /* Container for text */
+    var body = document.getElementById('body');
+    var starfield = getComputedStyle(body).getPropertyValue('background-image');
+    starfield = starfield.substr(4).slice(0, -1).replace(/"/g, '');
+    var bgImage = document.createElement('img');
+    bgImage.setAttribute('src', starfield);
+    var panels = document.getElementById('panels');
+    /* Clouds are dom objects to be faded in on scroll */
+    var clouds = panels.querySelectorAll('.cloud');
+    /* Height of viewport */
+    var clientH = document.documentElement.clientHeight;
+    /* 1 vh value */
+    var vH = 100 / clientH;
+    /* header text dom object */
+    var pHead = document.getElementById('panel-header');
+    /* header text dom object position */
+    var headPos = null;
+    /* 'atached', 'paused' & 'flowed' define 3 states of header text */
+    var state = 'attached';
+    /* Detach Point - when top cloud reach x vh dettach header */
+    var detachVh = 81;
+    /* Reattach Point – when header hits x vh reattach to panel */
+    var reattachVh = 15;
+    /* Capture original postion of header text defined by css */
+    var origHeadTop = parseFloat(getComputedStyle(pHead).getPropertyValue('top')) * vH;
+    var panelPadTopVh = parseFloat(getComputedStyle(panels).getPropertyValue('padding-top')) * vH;
+    var scrollKilled = false;
+    /* Capture padding-top for panel to calculate distance scrolled between attached => detached
+      panelPadTopVh - detachVh = scrollBeforeDetach
+      origHeadTop - scrollBeforeDetach = reattachPoint
+    */
+    var scrlBeforeDettach = panelPadTopVh - detachVh;
+    var reattachPointVh = origHeadTop - scrlBeforeDettach;
 
-    if (!paused && !stuck && origHeadTop - headPos.top > pausePos) {
-      pause();
-    } else if (paused) {
-      var panelPos = panel.getBoundingClientRect();
-      var headPosH = headPos.height;
-      if (!stuck && headPos.bottom >= panelPadTop - scrollY + 40) {
-        pHead.style.position = 'absolute';
-        pHead.style.top = panelPadTop - headPosH - 20 + 'px';
-        pHead.style.left = 0;
-        pHead.classList.remove('bounce');
-        stuck = true;
-        // paused = false;
-      } else if (headPos.top >= origHeadTop) {
-        pause();
-      }
+    var pHeadPadTop = parseFloat(getComputedStyle(pHead).getPropertyValue('padding-top'));
+    var pHeadPadBottom = parseFloat(getComputedStyle(pHead).getPropertyValue('padding-top'));
 
-      if (panelPos.height > panelPos.bottom) {
-        var unblur = panel.querySelector('p.blurred');
-        var blur = panel.querySelectorAll('p:not(.blurred)');
-        var uPos;
-        var uVh;
-        var bPos;
-        var bVh;
-        // this should just keep one array of objects and do it own iterating but no issue
-        if (blur.length) {
-          blur = blur[blur.length - 1];
-          bPos = blur.getBoundingClientRect();
-          bVh = bPos.bottom * vh;
-
-          if (bVh > 80) {
-            blur.classList.add('blurred');
-            blur = null;
-            return;
-          }
-        } else {
-          pHead.classList.add('bounce');
-        }
-
-        if (unblur) {
-          uPos = unblur.getBoundingClientRect();
-          uVh = uPos.bottom * vh;
-          if (uVh <= 80) {
-            unblur.classList.remove('blurred');
-            unblur = null;
-          }
+    var cloudsState = function() {
+      for (var i = clouds.length - 1; i >= 0; i--) {
+        var cloud = clouds[i];
+        var cloudPos = cloud.getBoundingClientRect();
+        if (cloudPos.bottom * vH > detachVh) {
+          cloud.classList.add('blurred');
+        } else if (cloudPos.top * vH < detachVh) {
+          cloud.classList.remove('blurred');
         }
       }
-    }
+    };
+    /*
+     * Triggered by scroll
+     */
+    var storyFade = function() {
+      /* determine scroll position */
+      // var scrollY = window.scrollY * vH;
 
-    function pause() {
+      /* determine header dom position */
       headPos = pHead.getBoundingClientRect();
-      pHead.style.position = 'fixed';
-      pHead.style.left = headPos.left + 'px';
-      pHead.style.top = headPos.top + 'px';
-      paused = true;
-      stuck = false;
+      var headTopPos = headPos.top * vH;
+      var headerH = headPos.height * vH;
+      var cloudsTopPos = clouds[0].getBoundingClientRect().top * vH;
+      if (state === 'dettached') {
+        /*
+         * if the top of the clouds reaches bottom of the
+         * dettached header reattach
+         */
+        if (cloudsTopPos < headerH + headTopPos) {
+          reattachHeader();
+          console.info('dettached -> reattached');
+        } else if (cloudsTopPos - (100 * vH) > detachVh) {
+          /*
+           * if the top of the clouds drops below
+           * the initial attack point return to original state
+           * 100px Kludge prevents jankyness in edge cases
+           */
+          attachHeader();
+          console.info('dettached -> attached');
+        }
+      } else if (state === 'attached') {
+        /*
+         * if the top of the clouds reaches
+         * the detach point set datchVh
+         * - 1 smooths out the scroll
+         */
+        if (scrlBeforeDettach < origHeadTop - headTopPos) {
+          dettachHeader();
+          console.info('attached -> dettached');
+        }
+      } else if (state === 'reattached') {
+        /*
+         * if the top of the attachd header drops
+         * below the reattachVh dettach
+         */
+        if (headTopPos > reattachVh) {
+          dettachHeader();
+          console.info('reattached -> dettached');
+        }
+      }
+
+      function dettachHeader() {
+        var style = 'position:fixed; top:' + reattachPointVh + 'vh';
+        pHead.setAttribute('style', style);
+        pHead.classList.remove('bounce');
+        state = 'dettached';
+      }
+
+      function reattachHeader() {
+        var style = 'position: absolute; top:' + (panelPadTopVh - headerH) + 'vh';
+        pHead.setAttribute('style', style);
+        state = 'reattached';
+      }
+
+      function attachHeader() {
+        pHead.setAttribute('style', '');
+        state = 'attached';
+      }
+    };
+    var desktopAnimationFrames = function() {
+      cloudsState();
+      storyFade();
+      requestAnimationFrame(desktopAnimationFrames);
+    };
+
+    function waitForBGToLoad(imageElement) {
+      return new Promise(function(resolve) {
+        imageElement.onload = resolve;
+      });
     }
-  }
 
-  /*
-   * Facilitate scroll experince for mobile
-   */
-  function initMobileScroll() {
-    var scrollKill = true;
+    function scrollResizeDesktop() {
+      window.scrollTo(0, 0);
+      clientH = document.documentElement.clientHeight;
+      vH = 100 / clientH;
+      origHeadTop = parseFloat(getComputedStyle(pHead).getPropertyValue('top')) * vH;
+      panelPadTopVh = parseFloat(getComputedStyle(panels).getPropertyValue('padding-top')) * vH;
+      scrlBeforeDettach = panelPadTopVh - detachVh;
+      reattachPointVh = origHeadTop - scrlBeforeDettach;
+    }
+    var setVh = function() {
+      clientH = document.documentElement.clientHeight;
+      vH = 100 / clientH;
+    };
+    var scrollResizeMobile = function() {
+      setVh();
+    };
 
-    var sheet = document.createElement('style');
-    sheet.innerHTML = '.la-about-page.probPhone .panel-header { padding-top: ' + (0.20 * screen.height) + 'px; padding-bottom: ' + (0.80 * screen.height) + 'px; will-change: padding-top,padding-bottom;}';
-    document.body.appendChild(sheet);
-    panel.style.paddingTop = 0;
-    panel.style.marginTop = 0;
+    function killSroll() {
+      console.info('killSroll');
+      scrollKilled = true;
 
-    window.addEventListener('touchstart', startMotion, false);
-    window.addEventListener('scroll', preventMotion, false);
-    window.addEventListener('touchmove', preventMotion, false);
+      body.classList.remove('mobile-scroll');
+      window.removeEventListener('touchstart', stopMotion);
+      window.removeEventListener('scroll', stopMotion);
+      window.removeEventListener('touchmove', stopMotion);
+      setTimeout(function() {
+        pHead.classList.add('bounce');
+        window.addEventListener('touchstart', startMotion, false);
+        window.addEventListener('scroll', preventMotion, false);
+        window.addEventListener('touchmove', preventMotion, false);
+      }, 500);
+    }
+    function stopMotion() {
+      var navRectTop = document.getElementById('la-content-wrapper').getBoundingClientRect().top;
+      if (!scrollKilled && navRectTop > 56) {
+        console.info('stopMotion');
+        scrollKilled = true;
+        setTimeout(killSroll, 300);
+        console.info('top');
+      }
+    }
+
     /*
      * Initiats normal scroll
      */
-    function startMotion() {
-      if (scrollKill && window.scrollY === 0) {
-        pHead.classList.add('mobile-scroll');
-        pHead.classList.remove('bounce');
-        setTimeout(function() {
-          scrollKill = false;
-          navbar.style.top = '-64px';
-        }, 500);
+    function startMotion(event) {
+      if (scrollKilled) {
+        var touchSource = document.elementFromPoint(event.pageX, event.pageY);
+        console.info(document.getElementById('body').classList);
+        if (touchSource.id !== 'sideMenuLink' && !document.getElementById('body').classList.contains('side-menu-active')) {
+          scrollKilled = false;
+          console.info('start motion');
+
+          window.scrollTo(0, 5);
+          body.classList.add('mobile-scroll');
+          window.removeEventListener('touchstart', startMotion);
+          window.removeEventListener('scroll', preventMotion);
+          window.removeEventListener('touchmove', preventMotion);
+          requestAnimationFrame(function(timestamp) {
+            var startTime = timestamp || new Date().getTime();
+            animateHeaderPadding(startTime, 300, 1);
+          });
+          pHead.classList.remove('bounce');
+          /* activateScroll */
+          setTimeout(function() {
+            window.addEventListener('touchstart', stopMotion);
+            window.addEventListener('scroll', stopMotion);
+            window.addEventListener('touchmove', stopMotion);
+          }, 500);
+
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      }
+    }
+
+    // direction is -1 or 1
+    function animateHeaderPadding(tasks, startTime, duration, direction, timestamp, topDist, bottDist) {
+      // if browser doesn't support requestAnimationFrame, generate our own timestamp using Date:
+      timestamp = timestamp || startTime;
+      topDist = topDist || pHeadPadTop;
+      bottDist = bottDist || pHeadPadBottom;
+      var runtime = timestamp - startTime;
+      var progress = runtime / duration;
+      progress = Math.min(progress, 1);
+
+      pHead.style.paddingTop = topDist - (topDist * progress * direction).toFixed(2) + 'px';
+      pHead.style.paddingBottom = bottDist - (bottDist * progress * direction).toFixed(2) + 'px';
+      if (runtime < duration) {
+      // if duration not met yet
+        requestAnimationFrame(function(timestamp) {
+          // call requestAnimationFrame again with parameters
+          animateHeaderPadding(startTime, duration, direction, timestamp, topDist, bottDist);
+        });
       }
     }
     /*
      * Initiats normal scroll
      */
     function preventMotion(event) {
-      if (scrollKill) {
+      console.info('preventMotion');
+      window.scrollTo(0, 0);
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    function init() {
+      // panels.ontouchstart = function() {};
+      window.onbeforeunload = function() {
+        panels.style.visibility = 'hidden';
         window.scrollTo(0, 0);
-        event.preventDefault();
-        event.stopPropagation();
-        // navbar.setAttribute('style','');
-      } else if (window.scrollY < -10 && !scrollKill) {
-        pHead.classList.add('bounce');
-        pHead.classList.remove('mobile-scroll');
-        navbar.style.top = '0px';
-        scrollKill = true;
+      };
+      waitForBGToLoad(bgImage).then(function() {
+        body.classList.add('bg-loaded');
+        setTimeout(function() {
+          overlay.remove();
+        }, 2000);
+      });
+
+      if (isDesktop) {
+        window.addEventListener('resize', scrollResizeDesktop, true);
+        setTimeout(function() {
+          desktopAnimationFrames();
+        }, 100);
+      } else {
+        window.addEventListener('resize', scrollResizeMobile, true);
+        killSroll();
       }
     }
-  }
-  /*
-   * Init based on client
-   */
-  function init() {
-    if (!probPhone) {
-      initScroller();
-    } else if (probPhone) {
-      initMobileScroll();
-    }
-  }
-
-  function scrollResize() {
-    window.scrollTo(0, 0);
-    pHead.setAttribute('style', '');
-    paused = false;
-    stuck = false;
-    panelPadTop = parseFloat(getComputedStyle(panel).getPropertyValue('padding-top'));
-    docHeight = document.documentElement.clientHeight;
-    origHeadTop = parseFloat(getComputedStyle(pHead).getPropertyValue('top'));
-    storyFade();
     init();
+  };
+
+  if (!oldiOS) {
+    fadeInScroll((!probPhone && !isiPad));
+    meteorShower();
   }
-  window.addEventListener('resize', scrollResize, true);
-  init();
-  initMeteorShower();
 })();

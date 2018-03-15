@@ -94,7 +94,7 @@ $button-floating-radius: 50% !default;
 
 $card-padding: 16px 24px !default;
 $card-bg-color: #fff !default;
-$card-link-color: color("orange", "accent-2") !default;
+$card-link-color: color("deep-orange", "base") !default;
 $card-link-color-light: lighten($card-link-color, 20%) !default;
 
 
@@ -110,9 +110,9 @@ $collapsible-border-color: #ddd !default;
 // 6. Chips
 // ==========================================================================
 
-$chip-bg-color: #e4e4e4 !default;
-$chip-border-color: #9e9e9e !default;
-$chip-selected-color: #83bb75 !default;
+$chip-bg-color:  color("grey", "lighten-1")!default;
+$chip-border-color: #9e9e9e !default; 
+$chip-selected-color: color("grey", "base")!default;
 $chip-margin: 5px !default;
 
 

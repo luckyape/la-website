@@ -81,7 +81,7 @@
       margin: 0 auto 0;
       position: absolute;
       left: calc(50% - 150px);
-      top: 35vh;
+      top: 25vh;
       &.paused {
         position: fixed;
       }
@@ -103,7 +103,8 @@
         transform: scale(1) translate(0, 0px);
         will-change: filter, transform;
         transition: filter 600ms, transform 200ms linear;
-
+        max-width: 320px;
+        margin: 10px auto;
         &.blurred {
 
 
