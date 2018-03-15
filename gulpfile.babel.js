@@ -54,7 +54,7 @@ var KarmaServer = karma.Server;
 //var parseString = require().parseString;
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
-const cdnUrl = 'http://10.0.1.6:3000';
+const cdnUrl = 'https://d2zvnoea48f2cl.cloudfront.net';
 const localUrl = 'http://10.0.1.6:3001';
 dotenv.config();
 

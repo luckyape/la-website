@@ -47,11 +47,11 @@
 
 
 
-importScripts("http://10.0.1.6:3000/scripts/sw/sw-toolbox.js","http://10.0.1.6:3000/scripts/sw/runtime-caching.js");
+importScripts("https://d2zvnoea48f2cl.cloudfront.net/scripts/sw/sw-toolbox.js","https://d2zvnoea48f2cl.cloudfront.net/scripts/sw/runtime-caching.js");
 
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["styles/style.css","4a90e7033269183d0c7e002c7f932546"]];
+var PrecacheConfig = [["styles/style.css","79e3a98b0568b668598eacd576a46cfa"]];
 /* eslint-enable quotes, comma-spacing */
 var CacheNamePrefix = 'sw-precache-v1-la-website2-' + (self.registration ? self.registration.scope : '') + '-';
 
