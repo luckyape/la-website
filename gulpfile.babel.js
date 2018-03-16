@@ -126,7 +126,39 @@ gulp.task('copy', () =>
 );
 
 // Compile and automatically prefix stylesheets
-gulp.task('styles', () => {
+gulp.task('stylesInclude', () => {
+  const AUTOPREFIXER_BROWSERS = [
+    'ie >= 10',
+    'ie_mob >= 10',
+    'ff >= 30',
+    'chrome >= 34',
+    'safari >= 7',
+    'opera >= 23',
+    'ios >= 7',
+    'android >= 4.4',
+    'bb >= 10'
+  ];
+
+  // For best performance, don't add Sass partials to `gulp.src`
+  return gulp.src([
+      './app/styles/inline-header.scss'
+    ])
+    .pipe($.sass({
+      precision: 10
+    }).on('error', $.sass.logError))
+    .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
+    .pipe(replace('%%CDNURL%%', localUrl))
+
+    .pipe(purify(['.tmp/scripts/*.js', '.tmp/*.html']))
+        .pipe(gulp.dest('./app/styles'))
+    .pipe($.if('*.css', $.cssnano({ minifyFontValues: false, discardUnused: false })))
+    // Concatenate and minify styles
+    .pipe($.size({ title: 'stylesIncludes' }))
+    .pipe(replace(localUrl, cdnUrl))
+    .pipe(gulp.dest('./app/includes'))
+
+});
+gulp.task('styles', ['stylesInclude'], () => {
   const AUTOPREFIXER_BROWSERS = [
     'ie >= 10',
     'ie_mob >= 10',
@@ -151,9 +183,9 @@ gulp.task('styles', () => {
     }).on('error', $.sass.logError))
     .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
     .pipe(replace('%%CDNURL%%', localUrl))
-    .pipe(purify(['app/scripts/*.js', 'app/*.html', 'app/includes/*.html']))
-    .pipe($.if('*.css', $.cssnano({ minifyFontValues: false, discardUnused: false })))
+    .pipe(purify(['.tmp/scripts/*.js', '.tmp/*.html']))
     .pipe(gulp.dest('.tmp/styles'))
+    .pipe($.if('*.css', $.cssnano({ minifyFontValues: false, discardUnused: false })))
     // Concatenate and minify styles
     .pipe($.size({ title: 'styles' }))
     .pipe($.sourcemaps.write('./'))
@@ -229,15 +261,12 @@ gulp.task('htmlIncludes', function() {
 gulp.task('html', () => {
   return gulp.src(['app/*.html'])
     .pipe(foreach(function(stream, file) {
-      var items = function() {
-        x
-      };
       // console.info(file.relative.slice(0, -5));
       return stream
         .pipe(preprocess())
         .on('error', function(e) { handleError(e) });
     }))
-
+.pipe(gulp.dest('./.tmp/'))
     .pipe($.useref({
       searchPath: '{.tmp,app}',
       noAssets: true
@@ -316,7 +345,7 @@ gulp.task('serve', ['scripts', 'styles', 'buildStoreItems', 'buildWorkItems', 'h
     port: 3001
   });
 
-  gulp.watch(['.tmp/styles/inline-header.css', 'app/**/*.html'], ['htmlIncludes', reload]);
+  gulp.watch(['app/includes/inline-header.css', 'app/**/*.html'], ['htmlIncludes', reload]);
   gulp.watch(['app/includes/store-products.tmpl'], ['buildStoreItems', reload]);
   gulp.watch(['app/includes/work-items.tmpl', 'docs/work.json'], ['buildWorkItems', reload]);
   gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
@@ -362,7 +391,7 @@ gulp.task('convertStoreXML', ['getStoreXML'], () => {
 // Build production files, the default tas
 gulp.task('default', ['clean'], cb => {
   runSequence(
-    'styles', ['lint', 'html', 'scripts', 'images', 'copy', 'copy-fonts', 'copy-sw-scripts', 'sitemap', 'generate-service-worker'],
+    'html','styles', ['lint',  'scripts', 'images', 'copy', 'copy-fonts', 'copy-sw-scripts', 'sitemap', 'generate-service-worker'],
     cb
   )
 });
@@ -394,7 +423,7 @@ gulp.task('cdn-styles', () => {
       precision: 10
     }).on('error', $.sass.logError))
     .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
-    .pipe(purify(['app/scripts/*.js', 'app/*.html', 'app/includes/*.html']))
+    .pipe(purify(['.tmp/scripts/*.js', '.tmp/*.html']))
     .pipe(gulp.dest('.tmp/styles'))
     // Concatenate and minify styles
     .pipe($.if('*.css', $.cssnano({ minifyFontValues: false, discardUnused: false })))
