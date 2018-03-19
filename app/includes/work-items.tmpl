@@ -21,19 +21,17 @@
           <p>
             <%= item.description %>
           </p>
-          <div class="card-action">
-            <ul>
-              <%
-              _.forEach(item.keywords, function(tag) {
-                %>
-                <li class="chip">
-                  <%- tag %>
-                </li>
-                <%
-                }) ;
+          <ul id="card-chips" class="card-chips">
+            <%
+            _.forEach(item.keywords, function(tag) {
               %>
-            </ul>
-          </div>
+              <li class="chip" data-chip-text="<%- tag %>">
+                <%- tag %>
+              </li>
+              <%
+              }) ;
+            %>
+          </ul>
         </div>
       </div>
     </div>

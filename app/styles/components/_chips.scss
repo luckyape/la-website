@@ -37,30 +37,12 @@
     padding-left: 8px;
   }
 }
-
-.chips {
-  border: none;
-  border-bottom: 1px solid $chip-border-color;
-  box-shadow: none;
-  margin: 0 10px 20px;
-  min-height: 45px;
-  outline: none;
-  transition: all .3s;
-
-  &.focus {
-    border-bottom: 1px solid $chip-selected-color;
-    box-shadow: 0 1px 0 0 $chip-selected-color;
-  }
-
-  &:hover {
-    cursor: text;
-  }
   .chip {
     &.selected {
       background-color: color("deep-orange", "base");
       color: #fff9ee;
       border: 1.5px solid color("orange", "base");;
-      box-shadow: 0 1px 10px rgba(65, 65, 65, .4);
+      box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
       text-shadow: 1px 1px 0 #896a40;
       line-height: 29px;
       i {
@@ -83,6 +65,24 @@
       }
     }
   }
+.chips {
+  border: none;
+  border-bottom: 1px solid $chip-border-color;
+  box-shadow: none;
+  margin: 0 10px 20px;
+  min-height: 45px;
+  outline: none;
+  transition: all .3s;
+
+  &.focus {
+    border-bottom: 1px solid $chip-selected-color;
+    box-shadow: 0 1px 0 0 $chip-selected-color;
+  }
+
+  &:hover {
+    cursor: text;
+  }
+
 
 
   .input {

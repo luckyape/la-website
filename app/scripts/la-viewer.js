@@ -41,7 +41,7 @@ var laViewer = function(options) { // eslint-disable-line no-unused-vars
   var counter = document.getElementById(settings.counterId);
   var cards = grid.querySelectorAll(settings.cardClass);
   var viewerFilterChips = document.getElementById(settings.viewerFilterChipsId);
-  var $chips = $(viewerFilterChips);
+  var $filterChipsContainer = $(viewerFilterChips);
   var probPhone = ((/iphone|android|ie|blackberry|fennec/).test(navigator.userAgent.toLowerCase()) && 'ontouchstart' in document.documentElement);
   var filters = {
     chips: []
@@ -57,7 +57,7 @@ var laViewer = function(options) { // eslint-disable-line no-unused-vars
     var isotopeSettings = settings.isotope;
 
     var chipFilter = function() {
-      var keywords = this.getAttribute('data-keywords').split(',');
+      var keywords = this.getAttribute('data-keywords').replace(/\,\s/g, ',').replace(/\s+/g, '-').split(',');
       var isMatched = true;
       if (filters.selected) {
         isMatched = keywords.indexOf(filters.selected) > -1;
@@ -219,7 +219,7 @@ var laViewer = function(options) { // eslint-disable-line no-unused-vars
 
     for (var k = 0; k < cL; k++) {
       var cardChips = cards[k].getAttribute('data-keywords').split(',');
-      var first = cardChips[0].trim().replace(/\s+/g, '-').toLowerCase();
+      var first = cardChips[0].trim().toLowerCase();
       filterChips.push({
         tag: first,
         id: first
@@ -237,56 +237,99 @@ var laViewer = function(options) { // eslint-disable-line no-unused-vars
     var chipOptions = settings.chipOptions;
     chipOptions.data = filterChips;
     chipOptions.autocompleteOptions.data = autoCompleteData;
-    $chips.material_chip(chipOptions);
-    $('input', $chips).focus();
+    $filterChipsContainer.material_chip(chipOptions);
 
-    $chips.on('click', function() {
+    var filterChipClick = function() {
+      var eventEnds = $(this).hasClass('selected');
+      $('.chip', $filterChipsContainer).removeClass('selected');
+      $chips.removeClass('selected');
       if (filters.selected) {
         filters.selected = null;
-        initPlugin();
+        if (eventEnds) {
+          initPlugin();
+          return false;
+        }
       }
-    });
-    $chips.on('chip.select', function(e, chip) {
+    };
+
+    $('input', $filterChipsContainer).focus();
+
+    $('.chip', $filterChipsContainer).on('click', filterChipClick);
+
+    $filterChipsContainer.on('chip.select', function(e, chip) {
       filters.selected = chip.tag;
+      $chips
+        .filter('[data-chip-text = ' + chip.tag + ']')
+        .addClass('selected');
       initPlugin();
     });
 
-    $chips.on('chip.add', initPlugin);
-    $chips.on('chip.delete', function(chip) {
+    $filterChipsContainer.on('chip.add', initPlugin);
+    $filterChipsContainer.on('chip.delete', function(chip) {
       if (filters.selected === chip.tag) {
         filters.selected = null;
       }
       initPlugin();
     });
+    $chips.on('click', function() {
+      var filterChips = $filterChipsContainer.children();
+      var selectedCardChip = this.getAttribute('data-chip-text');
+      var cL = filterChips.length;
+      var filterTargetChip = null;
+      $chips.removeClass('selected');
+      for (var i = 0; i < cL; i++) {
+        if (!filterChips[i].firstChild) {
+          break;
+        }
+        if (filterChips[i].firstChild.textContent === selectedCardChip) {
+          filterTargetChip = filterChips[i];
+          $(filterTargetChip).on('click', filterChipClick);
+          filterTargetChip.click();
+          break;
+        }
+      }
+      if (!filterTargetChip) {
+        var newChip = {
+          tag: selectedCardChip,
+          id: selectedCardChip
+        };
+        $filterChipsContainer.addChip(newChip, $filterChipsContainer);
+        var index = $filterChipsContainer.material_chip('data').indexOf(newChip);
+        $('.chip', $filterChipsContainer).removeClass('selected');
+        $filterChipsContainer.selectChip(index, $filterChipsContainer);
+      }
+      return false;
+    });
   };
-  var initChips = function($chips) {
+  var initChips = function($filterChipsContainer) {
+    var $chips = $('[data-chip-text]');
     if (settings.materializeChips) {
       initMaterializeChips($chips);
     } else {
-      $('.chip', $chips).on('click', function() {
-        var tag = this.innerText;
-        console.info(tag, this);
+      $chips.on('click', function() {
+        var tag = this.getAttribute('data-chip-text');
+        $chips.removeClass('selected');
         if (filters.selected === tag) {
           filters.selected = null;
-          $(this).removeClass('selected');
         } else {
-          $('.chip', $chips).removeClass('selected');
-          $(this).addClass('selected');
+          $chips
+            .filter('[data-chip-text = ' + tag + ']')
+            .addClass('selected');
           filters.selected = tag;
         }
         initPlugin();
       });
     }
 
-    return $chips;
+    return $filterChipsContainer;
   };
   var init = function() {
-    $chips = initChips($chips);
+    $filterChipsContainer = initChips($filterChipsContainer);
     $('.toggle-filter a').click(toggleFilter);
     initViewer();
     function toggleFilter() {
       var sheet = document.createElement('style');
-      var filterHeight = $chips.height();
+      var filterHeight = $filterChipsContainer.height();
       sheet.innerHTML = '.filter-on.viewer-filter { min-height: ' + (filterHeight + 30) + 'px; will-change: min-height;}';
       document.body.appendChild(sheet);
       var filterToggles = document.querySelectorAll('.tap-target-row,.viewer-filter,.toggle-filter');

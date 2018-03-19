@@ -122,7 +122,11 @@ nav {
     text-transform: uppercase;
     white-space: nowrap;
     text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.3);
-
+    &:active {
+      transform: scale(.90);
+      opacity: .9;
+      transition: all 600ms;
+    }
     span {
       display: inline-block;
       transform: scaleY(1.2);

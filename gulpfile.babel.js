@@ -150,7 +150,7 @@ gulp.task('stylesInclude', () => {
     .pipe(replace('%%CDNURL%%', localUrl))
 
     .pipe(purify(['.tmp/scripts/*.js', '.tmp/*.html']))
-        .pipe(gulp.dest('./app/styles'))
+    .pipe(gulp.dest('./app/styles'))
     .pipe($.if('*.css', $.cssnano({ minifyFontValues: false, discardUnused: false })))
     // Concatenate and minify styles
     .pipe($.size({ title: 'stylesIncludes' }))
@@ -347,7 +347,7 @@ gulp.task('serve', ['scripts', 'styles', 'buildStoreItems', 'buildWorkItems', 'h
 
   gulp.watch(['app/includes/inline-header.css', 'app/**/*.html'], ['htmlIncludes', reload]);
   gulp.watch(['app/includes/store-products.tmpl'], ['buildStoreItems', reload]);
-  gulp.watch(['app/includes/work-items.tmpl', 'docs/work.json'], ['buildWorkItems', reload]);
+  gulp.watch(['app/includes/work-chips.tmpl','app/includes/work-items.tmpl', 'docs/work.json'], ['buildWorkItems', reload]);
   gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
   gulp.watch(['app/scripts/*.js'], ['lint', 'scripts', reload]);
   gulp.watch(['app/images/**/*'], reload);

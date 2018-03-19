@@ -1,5 +1,6 @@
 const express = require('express');
 const serveStatic = require('serve-static');
+var sslRedirect = require('heroku-ssl-redirect');
 const compression = require('compression');
 const port = process.env.PORT || 3000;
 const domain =  process.env.DOMAIN;
@@ -23,7 +24,7 @@ const app = express();
 
 // at top of routing calls
 app.all('*', ensureDomain);
-
+app.use(sslRedirect());
 app.use(compression({   threshold: 0,
 	filter: shouldCompress,
 	level: 9  }));

@@ -1514,6 +1514,13 @@ nav .brand-logo {
     }*/
 }
 
+nav .brand-logo:active {
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
+  opacity: .9;
+  transition: all 600ms;
+}
+
 nav .brand-logo span {
   display: inline-block;
   -webkit-transform: scaleY(1.2);

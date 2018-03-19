@@ -1,7 +1,7 @@
 <%
   _.forEach(rss['channel'][0].item, function(item){
     %>
-    <div class="viewer-item hide-item grid-item flickity-item" data-keywords="<%- item['media:keywords'][0] %>">
+    <div class="viewer-item hide-item grid-item flickity-item" data-keywords="<%- item['media:keywords'][0].replace(/\,\s/g, ',').replace(/\s+/g, '-') %>">
       <div class="card sticky-action">
         <div class="card-content">
           <div class="dog-ear activator"><i class="material-icons right">more_vert</i></div>
@@ -22,11 +22,7 @@
             <ul id="card-chips" class="card-chips">
               <%
                 _.forEach(item['media:keywords'][0].split(', '), function(tag){
-              %><li>
-                  <div class="chip">
-                   <%- tag %>
-                  </div>
-                </li>
+              %><li class="chip" data-chip-text="<%- tag %>"><%- tag %></li>
               <%
                 }) ;
               %>
