@@ -9,6 +9,7 @@
   "dependencies": {
     "compression": "^1.4.4",
     "express": "^4.12.3",
-    "serve-static": "^1.9.2"
+    "serve-static": "^1.9.2",
+    "heroku-ssl-redirect":"^0.0.4"
   }
 }
