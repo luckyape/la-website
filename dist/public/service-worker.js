@@ -51,7 +51,7 @@ importScripts("https://d2zvnoea48f2cl.cloudfront.net/scripts/sw/sw-toolbox.js","
 
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["about.html","fc4c3b349241722cd339ce5a6bac54e0"],["index.html","659c4a74220a644c5f237d50deb87d02"],["store.html","2dee5e1041b0ce521d7057a0c30f71ad"],["styles/style.css","ffea88343d85dcfea69242580121f209"],["tools.html","e9a6e57896014eb4238dab3a111475a1"],["work.html","bdecbff49c455eb26cd8ab5d7cdbd7d0"]];
+var PrecacheConfig = [["about.html","a8011daaf0303fd73f9a4ac892064421"],["index.html","05c593d6a7d1449aa407d42e52bade42"],["store.html","dd45044ac79f68194a39d64010e78245"],["styles/style.css","3f0e7ff47130d1093eea10a1f46bc487"],["tools.html","312bc8d71944b72420fd06ac5587e3b4"],["work.html","3755a0288b34b446c2ee5f0919271b0e"]];
 /* eslint-enable quotes, comma-spacing */
 var CacheNamePrefix = 'sw-precache-v1-la-website2-' + (self.registration ? self.registration.scope : '') + '-';
 

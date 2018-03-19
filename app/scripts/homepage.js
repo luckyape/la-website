@@ -119,13 +119,13 @@
       var bgDragStartPos;
       var vW;
 
-      skeletons.addEventListener('mousedown', draggingStart, false);
-      skeletons.addEventListener('mousemove', draggingOn, false);
-      skeletons.addEventListener('mouseup', dragginComplete, false);
-      skeletons.addEventListener('mouseleave', dragginComplete, false);
-      skeletons.addEventListener('touchstart', draggingStart, false);
-      skeletons.addEventListener('touchmove', draggingOn, false);
-      skeletons.addEventListener('touchend', dragginComplete, false);
+      skeletons.addEventListener('mousedown', draggingStart, {passive: true});
+      skeletons.addEventListener('mousemove', draggingOn, {passive: true});
+      skeletons.addEventListener('mouseup', dragginComplete, {passive: true});
+      skeletons.addEventListener('mouseleave', dragginComplete, {passive: true});
+      skeletons.addEventListener('touchstart', draggingStart, {passive: true});
+      skeletons.addEventListener('touchmove', draggingOn, {passive: true});
+      skeletons.addEventListener('touchend', dragginComplete, {passive: true});
 
       function getX(e) {
         var x;
@@ -216,9 +216,9 @@
             modalClose();
           }
         }
-        window.addEventListener('click', sniffModalClose, false);
-        window.addEventListener('touchstart', sniffModalClose, false);
-        window.addEventListener('keyup', sniffEscKey, false);
+        window.addEventListener('click', sniffModalClose, {passive: true});
+        window.addEventListener('touchstart', sniffModalClose, {passive: true});
+        window.addEventListener('keyup', sniffEscKey, {passive: true});
         window.loadContactInfo();
       }
     });

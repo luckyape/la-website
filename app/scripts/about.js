@@ -286,9 +286,9 @@
       window.removeEventListener('touchmove', stopMotion);
       setTimeout(function() {
         pHead.classList.add('bounce');
-        window.addEventListener('touchstart', startMotion, false);
-        window.addEventListener('scroll', preventMotion, false);
-        window.addEventListener('touchmove', preventMotion, false);
+        window.addEventListener('touchstart', startMotion, {passive: true});
+        window.addEventListener('scroll', preventMotion, {passive: true});
+        window.addEventListener('touchmove', preventMotion, {passive: true});
       }, 500);
     }
     function stopMotion() {
@@ -324,9 +324,9 @@
           pHead.classList.remove('bounce');
           /* activateScroll */
           setTimeout(function() {
-            window.addEventListener('touchstart', stopMotion);
-            window.addEventListener('scroll', stopMotion);
-            window.addEventListener('touchmove', stopMotion);
+            window.addEventListener('touchstart', stopMotion, {passive: true});
+            window.addEventListener('scroll', stopMotion, {passive: true});
+            window.addEventListener('touchmove', stopMotion, {passive: true});
           }, 500);
 
           event.preventDefault();
@@ -379,12 +379,12 @@
       });
 
       if (isDesktop) {
-        window.addEventListener('resize', scrollResizeDesktop, true);
+        window.addEventListener('resize', scrollResizeDesktop, {passive: true});
         setTimeout(function() {
           desktopAnimationFrames();
         }, 100);
       } else {
-        window.addEventListener('resize', scrollResizeMobile, true);
+        window.addEventListener('resize', scrollResizeMobile, {passive: true});
         killSroll();
       }
     }
