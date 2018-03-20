@@ -1729,6 +1729,19 @@ button.btn-floating {
   margin-right: 5px;
 }
 
+.chip.selected {
+  background-color: #a79f94;
+  color: #fff9ee;
+  border: 1.3px solid #414141;
+  box-shadow: 0 2px 5px rgba(65, 65, 65, 0.7);
+  text-shadow: 1px 1px 0 #896a40;
+}
+
+.chip.selected i {
+  box-shadow: 0 2px 5px rgba(65, 65, 65, 0.7);
+  text-shadow: 1px 1px 0 #896a40;
+}
+
 .chip > img {
   float: left;
   margin: 0 8px 0 -12px;
@@ -1743,6 +1756,22 @@ button.btn-floating {
   font-size: 16px;
   line-height: 32px;
   padding-left: 8px;
+}
+
+.chip.selected {
+  background-color: #e5633f;
+  color: #fff9ee;
+  border: 1.5px solid #ff9800;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+  text-shadow: 1px 1px 0 #896a40;
+  line-height: 29px;
+}
+
+.chip.selected i {
+  color: #fff9ee;
+  text-shadow: 1px 1px 0 #896a40;
+  box-shadow: none;
+  line-height: 29px;
 }
 
 .chip i {
