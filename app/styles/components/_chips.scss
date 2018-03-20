@@ -38,6 +38,7 @@
   }
 }
   .chip {
+    cursor: pointer;
     &.selected {
       background-color: color("deep-orange", "base");
       color: #fff9ee;

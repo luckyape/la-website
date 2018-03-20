@@ -1758,6 +1758,10 @@ button.btn-floating {
   padding-left: 8px;
 }
 
+.chip {
+  cursor: pointer;
+}
+
 .chip.selected {
   background-color: #e5633f;
   color: #fff9ee;
@@ -2683,6 +2687,7 @@ ul.autocomplete-content.dropdown-content li.active {
 
 .la-viewer .viewer-cards .viewer-item .card {
   margin-bottom: 0px;
+  margin-top: 0px;
   transition: opacity 300ms ease-in;
   opacity: 1;
   -webkit-tap-highlight-color: transparent;
@@ -3582,6 +3587,7 @@ ul.autocomplete-content.dropdown-content li.active {
 
 .la-viewer .viewer-cards .viewer-item .card {
   margin-bottom: 0px;
+  margin-top: 0px;
   transition: opacity 300ms ease-in;
   opacity: 1;
   -webkit-tap-highlight-color: transparent;
