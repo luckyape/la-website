@@ -3117,6 +3117,21 @@ ul.autocomplete-content.dropdown-content li.active {
   margin: 10px auto;
 }
 
+.la-about-page .panels > p.blurred {
+  -webkit-filter: blur(2vw) !important;
+  filter: blur(2vw) !important;
+  -webkit-transform: scale(1.2, 0.5) translate(0, 100px);
+  transform: scale(1.2, 0.5) translate(0, 100px);
+  transition: -webkit-filter 1000ms, -webkit-transform 200ms linear;
+  transition: filter 1000ms, transform 200ms linear;
+  transition: filter 1000ms, transform 200ms linear, -webkit-filter 1000ms, -webkit-transform 200ms linear;
+  -webkit-transition: filter 750ms, transform 500ms linear;
+  -moz-transition: filter 750ms, transform 500ms linear;
+  -ms-transition: filter 750ms, transform 500ms linear;
+  -o-transition: filter 750ms, transform 500ms linear;
+  will-change: filter, transform;
+}
+
 .la-about-page .panels > p .headshot {
   border: 1px solid rgba(255, 255, 255, 0.5);
   margin: 5px 10px 5px 0;

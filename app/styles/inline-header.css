@@ -1597,10 +1597,6 @@ nav ul.left {
   float: left;
 }
 
-nav form {
-  height: 100%;
-}
-
 nav .input-field {
   margin: 0;
   height: 100%;
