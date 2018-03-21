@@ -5,7 +5,12 @@
        url('%%CDNURL%%/fonts/socicon/Socicon-la.woff2') format('woff2'), /* Super Modern Browsers */
        url('%%CDNURL%%/fonts/socicon/Socicon.woff') format('woff'), /* Pretty Modern Browsers */
        url('%%CDNURL%%/fonts/socicon/Socicon.ttf')  format('truetype'), /* Safari, Android, iOS */
-       url('%%CDNURL%%/fonts/socicon/Socicon.svg#Socicon') format('svg'); /* Legacy iOS */
+       url('%%CDNURL%%/fonts/socicon/Socicon.svg#Socicon') format('svg'), /* Legacy iOS */
+      url('/fonts/socicon/Socicon-la.eot?#iefix') format('embedded-opentype'), /* IE6-  IE8 */
+       url('/fonts/socicon/Socicon-la.woff2') format('woff2'), /* Super Modern Browsers */
+       url('/fonts/socicon/Socicon.woff') format('woff'), /* Pretty Modern Browsers */
+       url('/fonts/socicon/Socicon.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('/fonts/socicon/Socicon.svg#Socicon') format('svg'); /* Legacy iOS */       
 }
 @font-face {
   font-family: 'bebas-neue';
@@ -14,6 +19,11 @@
        url('%%CDNURL%%/fonts/bebas_neue/bebas_neue.woff2') format('woff2'), /* Super Modern Browsers */
        url('%%CDNURL%%/fonts/bebas_neue/bebas_neue.woff') format('woff'), /* Pretty Modern Browsers */
        url('%%CDNURL%%/fonts/bebas_neue/bebas_neue.ttf')  format('truetype'), /* Safari, Android, iOS */
-       url('%%CDNURL%%/fonts/bebas_neue/bebas_neue.svg#bebas_neue') format('svg'); /* Legacy iOS */
+       url('%%CDNURL%%/fonts/bebas_neue/bebas_neue.svg#bebas_neue') format('svg'),
+       url('/fonts/bebas_neue/bebas_neue.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('/fonts/bebas_neue/bebas_neue.woff2') format('woff2'), /* Super Modern Browsers */
+       url('/fonts/bebas_neue/bebas_neue.woff') format('woff'), /* Pretty Modern Browsers */
+       url('/fonts/bebas_neue/bebas_neue.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('/fonts/bebas_neue/bebas_neue.svg#bebas_neue') format('svg'); /* Legacy iOS */
 }
 @charset "UTF-8";
