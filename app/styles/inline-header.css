@@ -1682,6 +1682,21 @@ nav .input-field input:focus,nav .input-field input[type=text]:valid,nav .input-
   transition: 300ms transform, filter ease-in, 300ms -webkit-transform, -webkit-filter ease-in;
 }
 
+.la-homepage.modal-open {
+  background-color: #fff;
+}
+
+.la-homepage.modal-open .la-content-wrapper {
+  -webkit-transform: scale(0.95) translateY(21px);
+  transform: scale(0.95) translateY(21px);
+  -webkit-filter: blur(3px);
+  filter: blur(3px);
+  opacity: .5;
+  transition: 500ms -webkit-transform, -webkit-filter ease-in;
+  transition: 500ms transform, filter ease-in;
+  transition: 500ms transform, filter ease-in, 500ms -webkit-transform, -webkit-filter ease-in;
+}
+
 .la-homepage .h1-banner {
   text-align: center;
   transition: padding-bottom 1000ms;
