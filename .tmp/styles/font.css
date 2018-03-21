@@ -1,15 +1,15 @@
 @font-face {
   font-family: 'Socicon';
-  src: url("/fonts/socicon/Socicon-la.eot");
+  src: url("http://10.0.1.6:3001/fonts/socicon/Socicon-la.eot");
   /* IE9 Compat Modes */
-  src: url("/fonts/socicon/Socicon-la.eot?#iefix") format("embedded-opentype"), url("/fonts/socicon/Socicon-la.woff2") format("woff2"), url("/fonts/socicon/Socicon.woff") format("woff"), url("/fonts/socicon/Socicon.ttf") format("truetype"), url("/fonts/socicon/Socicon.svg#Socicon") format("svg");
+  src: url("http://10.0.1.6:3001/fonts/socicon/Socicon-la.eot?#iefix") format("embedded-opentype"), url("http://10.0.1.6:3001/fonts/socicon/Socicon-la.woff2") format("woff2"), url("http://10.0.1.6:3001/fonts/socicon/Socicon.woff") format("woff"), url("http://10.0.1.6:3001/fonts/socicon/Socicon.ttf") format("truetype"), url("http://10.0.1.6:3001/fonts/socicon/Socicon.svg#Socicon") format("svg");
   /* Legacy iOS */
 }
 
 @font-face {
   font-family: 'bebas-neue';
-  src: url("/fonts/bebas_neue/bebas_neue.eot");
+  src: url("http://10.0.1.6:3001/fonts/bebas_neue/bebas_neue.eot");
   /* IE9 Compat Modes */
-  src: url("/fonts/bebas_neue/bebas_neue.eot?#iefix") format("embedded-opentype"), url("/fonts/bebas_neue/bebas_neue.woff2") format("woff2"), url("/fonts/bebas_neue/bebas_neue.woff") format("woff"), url("/fonts/bebas_neue/bebas_neue.ttf") format("truetype"), url("/fonts/bebas_neue/bebas_neue.svg#bebas_neue") format("svg");
+  src: url("http://10.0.1.6:3001/fonts/bebas_neue/bebas_neue.eot?#iefix") format("embedded-opentype"), url("http://10.0.1.6:3001/fonts/bebas_neue/bebas_neue.woff2") format("woff2"), url("http://10.0.1.6:3001/fonts/bebas_neue/bebas_neue.woff") format("woff"), url("http://10.0.1.6:3001/fonts/bebas_neue/bebas_neue.ttf") format("truetype"), url("http://10.0.1.6:3001/fonts/bebas_neue/bebas_neue.svg#bebas_neue") format("svg");
   /* Legacy iOS */
 }
