@@ -220,22 +220,33 @@ var laViewer = function(options) { // eslint-disable-line no-unused-vars
     for (var k = 0; k < cL; k++) {
       var cardChips = cards[k].getAttribute('data-keywords').split(',');
       var first = cardChips[0].trim().toLowerCase();
-      filterChips.push({
-        tag: first,
-        id: first
-      });
+      if (filterChips.indexOf(first) === -1) {
+        filterChips.push(first);
+      }
       chipsArr = chipsArr.concat(cardChips);
     }
 
+    var fCL = filterChips.length;
+    var filterChipObjs = [];
+    var i;
+    var filterItem;
+    for (i = 0; i < fCL; i++) {
+      filterItem = filterChips[i];
+      filterChipObjs.push({
+        tag: filterItem,
+        id: filterItem
+      });
+    }
     var cl = chipsArr.length;
-    for (var i = 0; i < cl; i++) {
-      var item = chipsArr[i];
-      if (!autoCompleteData[item]) {
-        autoCompleteData[item] = null;
+    var chipItem;
+    for (i = 0; i < cl; i++) {
+      chipItem = chipsArr[i];
+      if (!autoCompleteData[chipItem]) {
+        autoCompleteData[chipItem] = null;
       }
     }
     var chipOptions = settings.chipOptions;
-    chipOptions.data = filterChips;
+    chipOptions.data = filterChipObjs;
     chipOptions.autocompleteOptions.data = autoCompleteData;
     $filterChipsContainer.material_chip(chipOptions);
 

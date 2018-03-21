@@ -368,6 +368,11 @@ gulp.task('serve:dist', ['default'], () =>
     port: 3002
   })
 );
+
+gulp.task('refreshStore', ['getStoreXML'], () => {
+  gulp.start('convertStoreXML');
+});
+
 gulp.task('getStoreXML', () => {
   console.info('getStoreXML');
   return download({
@@ -378,7 +383,7 @@ gulp.task('getStoreXML', () => {
     .on('error', function(e) { handleError(e) });
 });
 
-gulp.task('convertStoreXML', ['getStoreXML'], () => {
+gulp.task('convertStoreXML', () => {
   console.info('convertStoreXML');
   gulp.src('docs/zazzle.xml')
     .pipe(xml2json())
