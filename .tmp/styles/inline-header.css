@@ -1747,7 +1747,7 @@ nav .input-field input:focus,nav .input-field input[type=text]:valid,nav .input-
   width: 100%;
   position: absolute;
   bottom: 20px;
-  background-image: url("http://10.0.1.6:3001/images/skeletons.jpg");
+  background-image: url("http://localhost:3001/images/skeletons.jpg");
   background-attachment: scroll;
   background-repeat: repeat-x;
   background-position: 100vw bottom;

@@ -55,7 +55,7 @@ var KarmaServer = karma.Server;
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 const cdnUrl = 'https://d2zvnoea48f2cl.cloudfront.net';
-const localUrl = 'http://10.0.1.6:3001';
+const localUrl = 'http://localhost:3001';
 dotenv.config();
 
 // create site map
@@ -63,7 +63,6 @@ dotenv.config();
 function handleError(e) {
   console.info(e);
 }
-
 
 gulp.task('test', function(done) {
   var server = new KarmaServer({
@@ -75,7 +74,7 @@ gulp.task('test', function(done) {
 });
 
 gulp.task('sitemap', () =>
-  gulp.src(['app/*.html', '!app/google*.html'], {
+  gulp.src(['app/public/*.html', '!app/public/google*.html'], {
     read: false
   })
   .pipe(sitemap({
@@ -85,11 +84,9 @@ gulp.task('sitemap', () =>
   .pipe($.size({ title: 'sitemap' }))
 );
 
-
-
 // Lint JavaScript
 gulp.task('lint', () =>
-  gulp.src(['app/scripts/*.js', '!node_modules/**'])
+  gulp.src(['app/public/scripts/*.js', '!node_modules/**'])
   .pipe($.eslint())
   .pipe($.eslint.format())
   .pipe($.if(!browserSync.active, $.eslint.failAfterError()))
@@ -97,13 +94,13 @@ gulp.task('lint', () =>
 
 // move fonts
 gulp.task('copy-fonts', () =>
-  gulp.src('./app/fonts/*/*')
+  gulp.src('./app/public/fonts/*/*')
   .pipe(gulp.dest('./dist/public/fonts'))
 );
 
 // Optimize images
 gulp.task('images', () =>
-  gulp.src('app/images/**/*')
+  gulp.src('app/public/images/**/*')
   .pipe($.cache($.imagemin({
     progressive: true,
     interlaced: true
@@ -115,9 +112,9 @@ gulp.task('images', () =>
 // Copy all files at the root level (app)
 gulp.task('copy', () =>
   gulp.src([
-    'app/manifest.{json,webapp} ',
-    'app/*.txt',
-    'app/favicon.ico',
+    'app/public/manifest.{json,webapp} ',
+    'app/public/*.txt',
+    'app/public/favicon.ico',
     'node_modules/apache-server-configs/dist/public/.htaccess',
   ], {
     dot: true
@@ -141,7 +138,7 @@ gulp.task('stylesInclude', () => {
 
   // For best performance, don't add Sass partials to `gulp.src`
   return gulp.src([
-      './app/styles/inline-header.scss'
+      './app/public/styles/inline-header.scss'
     ])
     .pipe($.sass({
       precision: 10
@@ -150,13 +147,12 @@ gulp.task('stylesInclude', () => {
     .pipe(replace('%%CDNURL%%', localUrl))
 
     .pipe(purify(['.tmp/scripts/*.js', '.tmp/*.html']))
-    .pipe(gulp.dest('./app/styles'))
+    .pipe(gulp.dest('./app/public/styles'))
     .pipe($.if('*.css', $.cssnano({ minifyFontValues: false, discardUnused: false })))
     // Concatenate and minify styles
     .pipe($.size({ title: 'stylesIncludes' }))
     .pipe(replace(localUrl, cdnUrl))
-    .pipe(gulp.dest('./app/includes'))
-
+    .pipe(gulp.dest('./app/public/includes'))
 });
 gulp.task('styles', ['stylesInclude'], () => {
   const AUTOPREFIXER_BROWSERS = [
@@ -173,8 +169,8 @@ gulp.task('styles', ['stylesInclude'], () => {
 
   // For best performance, don't add Sass partials to `gulp.src`
   return gulp.src([
-      './app/styles/**/*.scss',
-      './app/styles/**/*.css'
+      './app/public/styles/**/*.scss',
+      './app/public/styles/**/*.css'
     ])
     .pipe($.newer('.tmp/styles'))
     .pipe($.sourcemaps.init())
@@ -191,18 +187,17 @@ gulp.task('styles', ['stylesInclude'], () => {
     .pipe($.sourcemaps.write('./'))
     .pipe(replace(localUrl, cdnUrl))
     .pipe(gulp.dest('dist/public/styles'));
-
 });
 
 // Concatenate and minify JavaScript. Optionally transpiles ES2015 code to ES5.
 // to enable ES2015 support remove the line `"only": "gulpfile.babel.js",` in the
 // `.babelrc` file.
 var jsFiles = {
-  'tools': ['./app/scripts/main.js', './app/scripts/init.js'],
-  'store': ['./app/scripts/main.js', './app/scripts/la-viewer.js', './app/scripts/store.js', './app/scripts/init.js'],
-  'index': ['./app/scripts/main.js', './app/scripts/homepage.js', './app/scripts/init.js'],
-  'work': ['./app/scripts/main.js', './app/scripts/la-viewer.js', './app/scripts/work.js', './app/scripts/init.js'],
-  'about': ['./app/scripts/main.js', './app/scripts/about.js', './app/scripts/init.js']
+  'tools': ['./app/public/scripts/main.js', './app/public/scripts/init.js'],
+  'store': ['./app/public/scripts/main.js', './app/public/scripts/la-viewer.js', './app/public/scripts/store.js', './app/public/scripts/init.js'],
+  'index': ['./app/public/scripts/main.js', './app/public/scripts/homepage.js', './app/public/scripts/init.js'],
+  'work': ['./app/public/scripts/main.js', './app/public/scripts/la-viewer.js', './app/public/scripts/work.js', './app/public/scripts/init.js'],
+  'about': ['./app/public/scripts/main.js', './app/public/scripts/about.js', './app/public/scripts/init.js']
 };
 
 var scriptTasks = Object.keys(jsFiles);
@@ -231,19 +226,18 @@ for (var key in jsFiles) {
 gulp.task('scripts', scriptTasks);
 
 gulp.task('copyLibs', () =>
-  gulp.src('./app/scripts/lib/**')
+  gulp.src('./app/public/scripts/lib/**')
   .pipe(gulp.dest('./dist/public/scripts/lib'))
 );
 
 gulp.task('copySW', () =>
-  gulp.src('./app/scripts/sw/**')
+  gulp.src('./app/public/scripts/sw/**')
   .pipe(gulp.dest('./dist/public/scripts/sw'))
 );
 
-
 // html includes
 gulp.task('htmlIncludes', function() {
-  return gulp.src(['app/*.html', 'app/includes/*.html'])
+  return gulp.src(['app/public/*.html', 'app/public/includes/*.html'])
     .pipe(foreach(function(stream, file) {
       return stream
         .pipe(preprocess())
@@ -259,7 +253,7 @@ gulp.task('htmlIncludes', function() {
 
 // Scan your HTML for assets & optimize them
 gulp.task('html', () => {
-  return gulp.src(['app/*.html'])
+  return gulp.src(['app/public/*.html'])
     .pipe(foreach(function(stream, file) {
       // console.info(file.relative.slice(0, -5));
       return stream
@@ -302,7 +296,7 @@ gulp.task('clean', () => del(['.tmp', 'dist/public/*', '!dist/public/.git'], { d
 
 gulp.task('buildStoreItems', ['convertStoreXML'], () => {
   return gulp
-    .src(['app/includes/store-items.tmpl'], { base: "./" })
+    .src(['app/public/includes/store-items.tmpl'], { base: "./" })
     .pipe(data(() => (JSON.parse(
       fs.readFileSync('docs/zazzle.json')
     ))))
@@ -315,7 +309,7 @@ gulp.task('buildStoreItems', ['convertStoreXML'], () => {
 
 gulp.task('buildWorkItems', () => {
   return gulp
-    .src(['app/includes/work-items.tmpl', 'app/includes/work-chips.tmpl'], { base: "./" })
+    .src(['app/public/includes/work-items.tmpl', 'app/public/includes/work-chips.tmpl'], { base: "./" })
     .pipe(data(() => (JSON.parse(
       fs.readFileSync('docs/work.json')
     ))))
@@ -341,16 +335,16 @@ gulp.task('serve', ['scripts', 'styles', 'buildStoreItems', 'buildWorkItems', 'h
     // Note: this uses an unsigned certificate which on first access
     //       will present a certificate warning in the browser.
     https: false,
-    server: ['.tmp', 'app'],
+    server: ['.tmp', 'app/public'],
     port: 3001
   });
 
-  gulp.watch(['app/includes/inline-header.css', 'app/**/*.html'], ['htmlIncludes', reload]);
-  gulp.watch(['app/includes/store-products.tmpl'], ['buildStoreItems', reload]);
-  gulp.watch(['app/includes/work-chips.tmpl','app/includes/work-items.tmpl', 'docs/work.json'], ['buildWorkItems', reload]);
-  gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
-  gulp.watch(['app/scripts/*.js'], ['lint', 'scripts', reload]);
-  gulp.watch(['app/images/**/*'], reload);
+  gulp.watch(['app/public/includes/inline-header.css', 'app/public/**/*.html'], ['htmlIncludes', reload]);
+  gulp.watch(['app/public/includes/store-products.tmpl'], ['buildStoreItems', reload]);
+  gulp.watch(['app/public/includes/work-chips.tmpl','app/public/includes/work-items.tmpl', 'docs/work.json'], ['buildWorkItems', reload]);
+  gulp.watch(['app/public/styles/**/*.{scss,css}'], ['styles', reload]);
+  gulp.watch(['app/public/scripts/*.js'], ['lint', 'scripts', reload]);
+  gulp.watch(['app/public/images/**/*'], reload);
 });
 
 // Build and serve the output from the dist build
@@ -416,8 +410,8 @@ gulp.task('cdn-styles', () => {
 
   // For best performance, don't add Sass partials to `gulp.src`
   return gulp.src([
-      'app/styles/**/*.scss',
-      'app/styles/**/*.css'
+      'app/public/styles/**/*.scss',
+      'app/public/styles/**/*.css'
     ])
 
     .pipe($.newer('.tmp/styles'))
@@ -451,7 +445,7 @@ gulp.task('pagespeed', cb =>
 
 // Copy over the scripts that are used in importScripts as part of the generate-service-worker task.
 gulp.task('copy-sw-scripts', () => {
-  return gulp.src(['node_modules/sw-toolbox/sw-toolbox.js', 'app/scripts/sw/runtime-caching.js'])
+  return gulp.src(['node_modules/sw-toolbox/sw-toolbox.js', 'app/public/scripts/sw/runtime-caching.js'])
     .pipe(gulp.dest('dist/public/scripts/sw'));
 });
 
