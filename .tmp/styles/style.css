@@ -509,7 +509,7 @@ footer,header,main,menu,nav,section {
  * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
  */
 
-canvas,progress {
+canvas {
   display: inline-block;
   /* 1 */
   vertical-align: baseline;
@@ -658,7 +658,7 @@ code {
  * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.
  */
 
-button,input,select {
+button,input {
   color: inherit;
   /* 1 */
   font: inherit;
@@ -682,7 +682,7 @@ button {
  * Correct `select` style inheritance in Firefox.
  */
 
-button,select {
+button {
   text-transform: none;
 }
 
@@ -1018,17 +1018,6 @@ img.responsive-img {
   padding-left: 72px;
 }
 
-.progress {
-  position: relative;
-  height: 4px;
-  display: block;
-  width: 100%;
-  background-color: #acece6;
-  border-radius: 2px;
-  margin: 0.5rem 0 1rem 0;
-  overflow: hidden;
-}
-
 @-webkit-keyframes indeterminate {
   0% {
     left: -35%;
@@ -1125,14 +1114,6 @@ img.responsive-img {
   float: right !important;
 }
 
-.no-select {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
 .circle {
   border-radius: 50%;
 }
@@ -1151,17 +1132,6 @@ la-content-wrapper {
   -webkit-filter: blur(0px);
   filter: blur(0px);
   will-change: filter;
-}
-
-.la-content-wrapper.la-blur {
-  -webkit-filter: blur(5px) grayscale(1);
-  filter: blur(5px) grayscale(1);
-  -webkit-transform: scaleX(0.7) translateX(222px);
-  transform: scaleX(0.7) translateX(222px);
-  opacity: .2;
-  transition: -webkit-transform .2s, -webkit-filter .25s;
-  transition: transform .2s, filter .25s;
-  transition: transform .2s, filter .25s, -webkit-transform .2s, -webkit-filter .25s;
 }
 
 /* This is needed for some mobile phones to display the Google Icon font properly */
@@ -1682,15 +1652,6 @@ button.btn-floating {
   bottom: 0;
 }
 
-.modal.bottom-sheet {
-  top: auto;
-  margin: 0;
-  width: 100%;
-  max-height: 105%;
-  border-radius: 0;
-  will-change: bottom, opacity;
-}
-
 /* Icons from directory "" */
 
 .contact-methods {
@@ -1839,11 +1800,6 @@ button.btn-floating {
   min-height: 45px;
   outline: none;
   transition: all .3s;
-}
-
-.chips.focus {
-  border-bottom: 1px solid #a79f94;
-  box-shadow: 0 1px 0 0 #a79f94;
 }
 
 .chips:hover {
@@ -2508,14 +2464,6 @@ ul.autocomplete-content.dropdown-content li.active {
   color: rgba(0, 0, 0, 0.54);
 }
 
-.drag-target {
-  height: 100%;
-  width: 10px;
-  position: fixed;
-  top: 0;
-  z-index: 998;
-}
-
 .side-nav.fixed {
   left: 0;
   -webkit-transform: translateX(0);
@@ -2532,17 +2480,6 @@ ul.autocomplete-content.dropdown-content li.active {
   .side-nav a {
     padding: 0 16px;
   }
-}
-
-#sidenav-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 120vh;
-  background-color: rgba(236, 244, 252, 0);
-  z-index: 2;
-  will-change: opacity;
 }
 
 .tap-target-wrapper {
@@ -3091,18 +3028,9 @@ ul.autocomplete-content.dropdown-content li.active {
   background-color: transparent;
 }
 
-.la-about-page.wf-bebasneue-n4-active .bg-loaded .la-about-overlay {
-  opacity: 0;
-  transition: opacity 600ms linear;
-}
-
 .la-about-page .la-navbar-flex {
   z-index: 2000;
   position: relative;
-}
-
-.la-about-page #sidenav-overlay {
-  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .la-about-page:not(.probPhone):not(.isiPad):not(.oldiOS) .body:after {
@@ -3174,10 +3102,6 @@ ul.autocomplete-content.dropdown-content li.active {
   position: absolute;
   left: calc(50% - 150px);
   top: 25vh;
-}
-
-.la-about-page .panel-header.paused {
-  position: fixed;
 }
 
 .la-about-page .panels {

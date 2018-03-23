@@ -262,7 +262,7 @@ gulp.task('html', () => {
     }))
 .pipe(gulp.dest('./.tmp/'))
     .pipe($.useref({
-      searchPath: '{.tmp,app}',
+      searchPath: '{.tmp,app/public}',
       noAssets: true
     }))
     .pipe($.if('*.html', $.size({ title: 'html', showFiles: true })))
