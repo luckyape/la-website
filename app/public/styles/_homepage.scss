@@ -1,0 +1,170 @@
+/* Custom Stylesheet */
+
+
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+.la-homepage {
+    .la-content-wrapper {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        transition: 300ms transform, filter ease-in;
+    }
+    &.modal-open {
+        background-color: #fff;
+        .la-content-wrapper {
+            transform: scale(.95) translateY(21px);
+            filter: blur(3px);
+            opacity: .5;
+            transition: 500ms transform, filter ease-in;
+        }
+    }
+    .h1-banner {
+
+        text-align: center;
+        transition: padding-bottom 1000ms;
+        background-color: #fff;
+        padding-top: 18px;
+        padding-bottom: 50px;
+        position: relative;
+        h1 {
+            font-family: Roboto;
+            font-size: 8vw;
+            min-height: 70px;
+            margin: 10px 0 1vw;
+            font-weight: 100;
+            line-height: 120%;
+        }
+
+        h5 {
+            font-family: Roboto;
+            text-transform: lowercase;
+            font-size: 1.4rem;
+            margin: 0 0;
+            height: 100px;
+        } 
+        .cta-button {
+          position: relative;
+          z-index: 10;
+        }
+        .skeletons {
+            cursor: move;
+            will-change: filter, opacity, height, background-size, background-position;
+            transition: height 1000ms;
+            opacity: 0;
+            filter: blur(24px);
+            height: 325px; 
+            width: 100%;
+            position: absolute;
+            bottom: 20px;
+            background-image: url('%%CDNURL%%/images/skeletons.jpg');
+            background-attachment: scroll;
+            background-repeat: repeat-x;
+            background-position: 100vw bottom;
+            background-size: auto 5%;
+            z-index: 1
+        }
+    /*    &.bgFadeIn::before {
+            transition: opacity 1000ms, filter 1000ms, background-size 1000ms, background-position 2000ms cubic-bezier(1, 1.5, .51, 1);
+            opacity: 1;
+            filter: blur(0px);
+            background-size: 360px auto;
+            background-position: 48% bottom;
+        }
+      */
+    }
+
+    @media only screen and (min-device-width: 450px) and (orientation: portrait) {
+        /* Styles */
+        .h1-banner {
+            h1 {
+                font-size: 46px;
+            }
+            h5 {
+                font-size: 24px;
+            }
+
+            &::before {
+                height: 360px;
+            }
+        }
+    }
+
+
+    @media only screen and (min-device-width: 320px) and (orientation: landscape) {
+        .h1-banner {
+            h1 {
+                font-size: 7vw;
+            }
+            h5 {
+                font-size: 24px;
+            }
+
+            &::before {
+                height: 395px;
+            }
+        }
+    }
+
+    @media only screen and (min-device-width: 569px) and (orientation: landscape) {
+        /* Styles */
+        .h1-banner {
+            h1 {
+                font-size: 46px;
+                height: 105px;
+            }
+            h5 {}
+            &::before {
+                height: 365px;
+            }
+        }
+    }
+    /*
+@media only screen and (min-width: 768px) {
+    @keyframes backgroundScrollLG {
+        0% {
+            background-position: -400% bottom;
+
+        }
+        
+
+
+        100% {
+            background-position: 60% bottom;
+
+        }
+    }
+    .bgFadeIn.horizontal-scroll::before {
+        -webkit-animation: backgroundScrollLG 4s cubic-bezier(.33,1.08,.88,.88) 1;
+        animation: backgroundScrollLG 4s cubic-bezier(.33,1.08,.88,.88) 1;
+    } 
+
+}
+*/
+    @media only screen and (min-height: 1085px) and (min-device-width: 768px) {
+        .h1-banner {
+            padding-bottom: 430px;
+            transition: padding-bottom 1000ms;
+            &.bgFadeIn:before {
+                background-size: 60vh auto;
+            }
+            &:before {
+                height: 53vh;
+            }
+            h5 {
+                height: 50px
+            }
+            .skeletons {
+              transition: height 1000ms;
+              height: 800px
+            }
+        }
+    }
+    .icon-block {
+        margin: 0 auto;
+    }
+}

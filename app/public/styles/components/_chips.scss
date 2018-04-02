@@ -1,0 +1,146 @@
+.chip {
+  display: inline-block;
+  height: 32px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, .6);
+  line-height: 32px;
+  padding: 0 12px;
+  border-radius: 16px;
+  border: 1px solid $chip-bg-color;
+  margin-bottom: $chip-margin;
+  margin-right: $chip-margin;
+  &.selected {
+    background-color: $chip-selected-color;
+    color: #fff9ee;
+    border: 1.3px solid #414141;
+    box-shadow: 0 2px 5px rgba(65, 65, 65, .7);
+    text-shadow: 1px 1px 0 #896a40;
+    i {
+      box-shadow: 0 2px 5px rgba(65, 65, 65, .7);
+      text-shadow: 1px 1px 0 #896a40;
+    }
+  }
+  >img {
+    float: left;
+    margin: 0 8px 0 -12px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+  }
+
+  .close {
+    cursor: pointer;
+    float: right;
+    font-size: 16px;
+    line-height: 32px;
+    padding-left: 8px;
+  }
+}
+  .chip {
+    cursor: pointer;
+    &.selected {
+      background-color: color("deep-orange", "base");
+      color: #fff9ee;
+      border: 1.5px solid color("orange", "base");;
+      box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
+      text-shadow: 1px 1px 0 #896a40;
+      line-height: 29px;
+      i {
+        color: #fff9ee;
+        text-shadow: 1px 1px 0 #896a40;
+        box-shadow:  none;
+        line-height: 29px;
+      }
+    }
+    i {
+      color: color("grey", "lighten-2");
+      text-shadow: 0px 0px 3px rgba(65, 65, 65, .5);
+      &:hover {
+        color: #fff;
+        text-shadow: 0px 0px 3px color("orange", "base");
+      }
+      &:active {
+        color: color("orange", "base");
+        text-shadow: 0px 0px 3px #414141;
+      }
+    }
+  }
+.chips {
+  border: none;
+  border-bottom: 1px solid $chip-border-color;
+  box-shadow: none;
+  margin: 0 10px 20px;
+  min-height: 45px;
+  outline: none;
+  transition: all .3s;
+
+  &.focus {
+    border-bottom: 1px solid $chip-selected-color;
+    box-shadow: 0 1px 0 0 $chip-selected-color;
+  }
+
+  &:hover {
+    cursor: text;
+  }
+
+
+
+  .input {
+    background: none;
+    border: 0;
+    color: rgba(0, 0, 0, .6);
+    display: inline-block;
+    font-size: $input-font-size;
+    height: $input-height;
+    line-height: 32px;
+    outline: 0;
+    margin: 0;
+    padding: 0 !important;
+    width: 110px !important;
+  }
+
+  .input:focus {
+    border: 0 !important;
+    box-shadow: none !important;
+  } // Autocomplete
+  .autocomplete-content {
+    margin-top: 0;
+  }
+}
+
+// Form prefix
+.prefix~.chips {
+  margin-left: 3rem;
+  width: 92%;
+  width: calc(100% - 3rem);
+}
+
+.chips:empty~label {
+  font-size: 0.8rem;
+  transform: translateY(-140%);
+}
+
+ul.autocomplete-content.dropdown-content {
+  // margin: 0;
+  background-color: #fff;
+  padding: 0;
+  margin: 0;
+  max-height: 225px;
+  overflow-x:scroll;
+  li {
+    padding: 10px;
+    border: solid color('grey', 'lighten-2');
+    border-width: 0px 1px 1px;
+    margin-right: 10px;
+    &:last-child {
+      border-width: 0px;
+    }
+    &.active {
+      background-color: $chip-selected-color;
+      color: #fff9ee;
+      border-width: 0;
+      text-shadow: 1px 1px 0 #896a40;
+    }
+  }
+}

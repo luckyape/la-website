@@ -1,0 +1,42 @@
+<%
+  _.forEach(rss['channel'][0].item, function(item){
+    %>
+    <div class="viewer-item hide-item grid-item flickity-item" data-keywords="<%- item['media:keywords'][0].replace(/\,\s/g, ',').replace(/\s+/g, '-') %>">
+      <div class="card sticky-action">
+        <div class="card-content">
+          <div class="dog-ear activator"><i class="material-icons right">more_vert</i></div>
+          <h6 class="card-title  grey-text text-darken-4"><%- item.title %></h6>
+        </div>
+        <div class="card-image" data-lg-image="<%- item['media:content'][0].$.url.split('_500.jpg')[0] + '_1024.jpg' %>">
+          <img src="<%- item['media:content'][0].$.url.split('?')[0] %>">
+        </div>
+        <div class="card-reveal">
+          <div class="card-title grey-text text-darken-4">
+            <div class="close right">
+              <i class="material-icons ">close</i>
+            </div>
+            <%- item.title %>
+          </div>
+          <div class="card-description">
+            <p><%- item['media:description'] %></p>
+            <ul id="card-chips" class="card-chips">
+              <%
+                _.forEach(item['media:keywords'][0].split(', '), function(tag){
+              %><li class="chip" data-chip-text="<%- tag %>"><%- tag %></li>
+              <%
+                }) ;
+              %>
+            </ul>
+          </div>
+        </div>
+        <div class="card-action">
+          <p >
+            <a href="<%- item['link'] %>">Show It To Me! <span class="right">Zazzle.com <i class="material-icons">launch</i></span></a>
+          </p>
+          <div style="clear:both"></div>
+        </div>
+      </div>
+    </div>
+    <%
+  });
+%>

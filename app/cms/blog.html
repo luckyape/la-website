@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Fullstack Web Developer, Vancouver BC. Likes ui, wordpress, drupal, node.js, angularjs, mean/lamp stacks.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    Mostly Full Stack Web Developer, Vancouver BC
+  </title>
+  <link rel="stylesheet" type="text/css" href="/scripts/packages/materialize-css/dist/css/materialize.min.css">
+  <link rel="stylesheet" type="text/css" href="styles/style.css">
+</head>
+
+<body class="body" onload="initBlogForm()">
+  <div class="container">
+    <form id="editorForm" method="POST" action="/submit-blog">
+      <div class="row no-margin-row">
+        <div class="input-field publish-status col offset-m4 m4 s12">
+          <div class="switch right">
+            <label>
+       
+              <span class="unpublish"></span>
+              <input type="checkbox" id="publishState" name="publishState" data-update-fields="pubDate">
+              <span class="lever"></span> 
+              <span class="publish"></span>
+            </label>
+          </div>
+        </div>
+        <div class="input-field col m2 s12" style="padding-right:0;">
+          <button class="btn waves-effect waves-light right" type="submit" name="action">Save
+            <i class="material-icons right">save</i>
+          </button>
+        </div>
+        <div class="input-field col m1 s12">
+          <a id="meta-link" class="meta-link modal-trigger" href="#meta-modal">
+            <i class="material-icons ">settings</i>
+          </a>
+        </div>
+      </div>
+      <div class="row">
+      </div>
+      <div class="row">
+        <div class="input-field col offset-m2 m8 s12">
+          <input id="title" name="title" type="text" data-update-fields="urlSlug htmlPreview" class="validate" required="">
+          <label for="title">Title</label>
+          <div class="helper-text error hide" id="error-title-required">Please enter a title</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field  col offset-m2 m8 s12">
+          <textarea id="body" name="body" type="text" class="materialize-textarea" data-update-fields="htmlPreview"></textarea>
+          <label for="body">Body</label>
+          <div class="preview-container" id="preview-container">
+            <div class="helper-text">HTML Preview</div>
+            <div class="hero-container-wrapper">
+              <a id="hero-image-container" class="hero-image-container empty  col s12   modal-trigger" href="#hero-image-modal">
+                <img class="responsive-img hero-image" id="hero-image">
+              </a>
+            </div>
+            <div id="htmlPreview"></div>
+          </div>
+        </div>
+        <div class="m2 col markdown-guide" id="markdown-guide">
+          <h6>Markdown Guide</h6>
+          <ul>
+            <li>
+              <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#headers" target="reference">Headers</a>
+            </li>
+            <li>
+              <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#emphasis" target="reference">Emphasis</a>
+            </li>
+            <li>
+              <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#lists" target="reference">Lists</a>
+            </li>
+            <li>
+              <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#links" target="reference">Links</a>
+            </li>
+            <li>
+              <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images" target="reference">Images</a>
+            </li>
+            <li>
+              <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#code" target="reference">Code and Syntax Highlighting</a>
+            </li>
+            <li>
+              <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#tables" target="reference">Tables</a>
+            </li>
+            <li>
+              <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#blockquotes" target="reference">Blockquotes</a>
+            </li>
+            <li>
+              <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#html" target="reference">Inline HTML</a>
+            </li>
+            <li>
+              <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#hr" target="reference">Horizontal Rule</a>
+            </li>
+            <li>
+              <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#lines" target="reference">Line Breaks</a>
+            </li>
+            <li>
+              <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#videos" target="reference">YouTube Videos</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <input type="hidden" id="heroUrl" name="heroUrl" data-update-fields="heroUrl">
+      <input type="hidden" id="heroRepeat" name="heroRepeat">
+      <input type="hidden" id="urlSlug" name="urlSlug">
+      <input type="hidden" id="pubDate" name="pubDate" data-update-fields="publishState">
+      <input type="hidden" id="_id" name="_id" value="">
+      <input type="hidden" id="type" name="type" value="blog">
+    </form>
+    <div id="meta-modal" class="modal">
+      <form id="meta-modal-form" class="modal-form">
+        <div class="row">
+          <div class="col offset-m2 m8 s12">
+            <div class="modal-content">
+              <fieldset>
+                <legend>Settings</legend>
+                <div class="input-field">
+                  <input id="meta-model-url-slug" name="meta-model-url-slug" type="text" pattern="^[a-z0-9]+(?:-[a-z0-9]+)*$" required="" class="validate" data-error="Please enter a URL Slug" data-target-field="urlSlug">
+                  <label for="meta-model-url-slug" data-error="Please enter a URL Slug">URL Slug</label>
+                  <div class="helper-text error hide" id="error-url-slug-required">Please enter a URL Slug</div>
+                  <div class="helper-text error hide" id="error-url-slug-slug">Please use lowercase letters, numbers and dashes</div>
+                </div>
+                <div class="input-field">
+                  <input id="meta-model-pub-date" name="meta-model-pub-date" type="text" onfocus="(this.type='date'); (this.classList ='datepicker');" data-target-field="pubDate" data-update-fields="publishState">
+                  <label for="meta-model-pub-date">Publish Date</label>
+                </div>
+              </fieldset>
+            </div>
+            <div class="modal-footer">
+              <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+              <button type="submit" id="update-hero-image-url" class="waves-effect waves-green btn-flat">SAVE</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div id="hero-image-modal" class="modal">
+    <form id="hero-image-modal-form" class="modal-form">
+      <div class="modal-content">
+        <label for="hero-image-modal-url">Hero Image URL</label>
+        <input id="hero-image-modal-url" data-target-field="heroUrl" class="validate" type="url">
+        <label>
+          <input type="checkbox" name="heroSettings[]" value="repeat" data-target-field="heroRepeat">
+          <span>Repeat Image</span>
+        </label>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+        <button type="submit" id="update-hero-image-url" class="waves-effect waves-green btn-flat">SAVE</button>
+      </div>
+    </form>
+  </div>
+</body>
+<script type="text/javascript" src="/scripts/packages/materialize-css/dist/js/materialize.min.js"></script>
+<script type="text/javascript" src="scripts/packages/markdown/lib/markdown.js"></script>
+<script type="text/javascript" src="scripts/blog.js"></script>
+<!-- endbuild -->
+
+</html>

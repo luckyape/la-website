@@ -1,0 +1,164 @@
+/* Custom Stylesheet */
+
+
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+.h1-banner {
+  background-color: #fff;
+  padding-top: 18px;
+  padding-bottom: 50px;
+  h1 {
+    font-family: Roboto;
+    font-size: 8vw;
+    min-height: 70px;
+    margin: 10px 0 1vw;
+    font-weight: 100;
+  }
+
+  h5 {
+    font-family: Roboto;
+    text-transform: lowercase;
+    font-size: 1.4rem;
+    margin: 0 0;
+    height: 100px;
+  }
+
+  .cta-button {
+    //margin: 17vw 0;
+  }
+
+  &::before {
+    will-change: filter, opacity, background-size, background-position ;
+    opacity: 0;
+    filter: blur(24px);
+    content: '';
+    height: 325px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    background-image: url('/images/skeletons.jpg');
+    background-attachment: scroll;
+    background-repeat: repeat-x;
+    background-position: -100vw bottom ;
+    background-size: 2vh auto;    
+    @media #{$small-and-down} {
+    
+    }
+  }
+  &.bgFadeIn::before {
+    transition: opacity 1000ms, filter 1000ms, background-size 1000ms, background-position 2000ms cubic-bezier(1,1.5,.51,1);
+    opacity: 1;
+    filter: blur(0px);
+    background-size: 360px auto;
+    background-position: 48% bottom;
+  }
+}
+
+
+/* https://www.html5andbeyond.com/css3-animated-backgrounds-infinite-scrolling-background/ */
+@keyframes backgroundScrollSM {
+  0% {
+    background-position: -300% bottom;
+  }
+
+
+}
+.bgFadeIn.horizontal-scroll::before {
+//  -webkit-animation: backgroundScrollSM 4s cubic-bezier(.33,1.08,.88,1.2) 1;
+//  animation: backgroundScrollSM 4s cubic-bezier(.33,1.08,.88,1.2) 1;
+} 
+
+@media only screen and (min-device-width: 450px) and (orientation: portrait) {
+  /* Styles */
+  .h1-banner {
+    //background-size: 100% auto;   
+    h1 {
+      font-size: 46px;;
+    }
+    h5 {
+      font-size: 24px;
+    }
+
+    &::before {
+      height: 360px;
+    }
+  }
+}
+
+
+@media only screen and (min-device-width: 320px) and (orientation: landscape) {
+  .h1-banner {
+    h1 {
+      font-size: 7vw;
+    }
+    h5 {
+      font-size: 24px;
+    }
+
+    &::before {
+      height: 395px;
+    }
+  }
+}
+
+@media only screen and (min-device-width: 569px) and (orientation: landscape) {
+  /* Styles */
+  .h1-banner {
+    h1 {
+      font-size: 46px;
+      height: 105px;
+    }
+    h5 {}
+    &::before {
+      height: 365px;
+    }
+  }
+}
+
+/*
+@media only screen and (min-width: 768px) {
+  @keyframes backgroundScrollLG {
+    0% {
+      background-position: -400% bottom;
+
+    }
+    
+
+
+    100% {
+      background-position: 60% bottom;
+
+    }
+  }
+  .bgFadeIn.horizontal-scroll::before {
+    -webkit-animation: backgroundScrollLG 4s cubic-bezier(.33,1.08,.88,.88) 1;
+    animation: backgroundScrollLG 4s cubic-bezier(.33,1.08,.88,.88) 1;
+  } 
+
+}
+*/
+@media only screen and (min-height: 1085px) and (min-device-width: 768px){
+  .h1-banner {
+    padding-bottom: 34vh;
+    &.bgFadeIn:before{
+      background-size: 60vh auto;
+    }   
+    &:before {
+      height: 53vh;
+
+    }
+    h5 {
+      height: 50px
+    }
+    
+  }
+
+}
+.icon-block {
+  margin: 0 auto;
+}
