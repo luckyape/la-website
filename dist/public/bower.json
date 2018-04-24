@@ -1,0 +1,24 @@
+{
+  "name": "la-website",
+  "description": "Lucky Ape Corporate Communications website",
+  "main": "",
+  "authors": [
+    "Lucky Ape <graham@luckyape.com>"
+  ],
+  "license": "MIT",
+  "homepage": "index.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "isotope-fit-columns": "^1.1.3",
+    "isotope": "^3.0.4",
+    "isotope-packery": "^2.0.0",
+    "flickity": "^2.0.9",
+    "aos": "^2.2.0"
+  }
+}

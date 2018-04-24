@@ -50,6 +50,8 @@ import stripCode from 'gulp-strip-code';
 import karma from 'karma';
 import ignore from 'gulp-ignore';
 import depLinker from 'dep-linker';
+import changed from 'gulp-changed';
+const markdown = require( "markdown" ).markdown;
 
 var KarmaServer = karma.Server;
 
@@ -208,7 +210,7 @@ gulp.task('styles', ['stylesInclude'], () => {
     }).on('error', $.sass.logError))
     .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
     .pipe(replace('%%CDNURL%%', localUrl))
-    .pipe(purify(['.tmp/scripts/*.js', '.tmp/*.html']))
+    .pipe(purify(['.tmp/scripts/*.js', '.tmp/**/*.html']))
     .pipe(gulp.dest('.tmp/styles'))
     .pipe($.if('*.css', $.cssnano({ minifyFontValues: false, discardUnused: false })))
     // Concatenate and minify styles
@@ -266,7 +268,7 @@ gulp.task('copySW', () =>
 
 // html includes
 gulp.task('htmlIncludes', function() {
-  return gulp.src(['app/public/*.html', 'app/public/includes/*.html'])
+  return gulp.src(['app/public/*.html','app/public/{blog,includes}/*.html'])
     .pipe(foreach(function(stream, file) {
       return stream
         .pipe(preprocess())
@@ -383,21 +385,19 @@ gulp.task('serve', ['scripts', 'styles', 'buildStoreItems', 'buildWorkItems', 'h
   depLinker.linkDependenciesTo('./app/public/scripts/packages');
 });
 gulp.task('blogs', () => {
-  gulp.watch(['app/json/*.json'], function(obj) {
-     publishBlog(obj);
-  });
+  gulp.watch(['./app/json/*.json'], function(obj) {
+    var blogJSON = JSON.parse(fs.readFileSync(obj.path));
+    blogJSON.body = markdown.toHTML(blogJSON.body);
+    return gulp.src(['./app/templates/blog.tmpl'], { base: "./" })
+      .pipe(data(() => (blogJSON)))
+      .pipe(template())
+      .pipe(rename({ basename: blogJSON.urlSlug, dirname: blogJSON.type, extname: '.html' }))
+      .pipe(gulp.dest('./app/public/'))
+      .pipe(gulp.dest('./dist/public'))
+      .on('error', function(e) { handleError(e) });
+  })
 });
-function publishBlog(obj) {
-  var blogJSON = JSON.parse(fs.readFileSync(obj.path))
-  console.info('publishBlog', JSON.parse(fs.readFileSync(obj.path)))
-  return gulp.src(['app/templates/blog.tmpl'], { base: "./" })
-    .pipe(data(() => (blogJSON)))
-    .pipe(template())
-    .pipe(rename({ extname: '.html' }))
-    .pipe(gulp.dest('./'))
-    .pipe(gulp.dest('dist/public'))
-    .on('error', function(e) { handleError(e) });
-};
+
 // Build and serve the output from the dist build
 gulp.task('serve:dist', ['default'], () =>
   browserSync({

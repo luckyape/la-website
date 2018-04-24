@@ -65,7 +65,7 @@
       transition: opacity 300ms; }
     .col.hero-image-container.hero-added:hover:after {
       opacity: 1;
-      transition: opacity,background-color 300ms;
+      transition: opacity, background-color 300ms;
       background-color: rgba(0, 0, 0, 0.2); }
     .col.hero-image-container.hero-added .hero-image {
       opacity: 1;
@@ -82,6 +82,9 @@ fieldset {
 legend {
   font-size: 1.5rem;
   color: #a0a0a0; }
+
+.input-field .materialize-textarea {
+  line-height: 200%; }
 
 .preview-container {
   opacity: 0;

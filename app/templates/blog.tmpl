@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="A bief list of past projects, including Wordpress, Drupal and fullstack work.">
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>
+    <%- title %>
+  </title>
+  <!-- @include ../includes/header.html -->
+</head> 
+
+<body class="blog-article">
+  <!-- @include ../includes/navbar.html -->
+  <div id="la-content-wrapper" class="la-content-wrapper">
+    <div class="hero-container"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col m10 offset-m1 l8 offset-l2 s12">
+          <h1><%- title %></h1>
+          <p class="meta"><em><%- author %> <%- pubDate %></em></p>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col m10 offset-m1 s12 l8 offset-l2 flow-text article-body ">
+            <%= body %>
+            <ul id="tag-chips" class="tag-chips">
+            <% _.forEach(tags, function(tag) {
+              %><% if (tag.substring(0, 1) != '#') { %>
+              <li class="chip" data-chip-text="<%- tag %>">
+                <%- tag %>
+              </li>
+              <% } %>
+            <% }) ; %>
+            </ul>
+        </div>
+       
+      </div>
+    </div>
+    <!-- @include ../includes/footer.html -->
+  </div>
+  <!-- @include ../includes/global-js.html -->
+  <script type="text/javascript" src="/scripts/main.js"></script>
+  <script type="text/javascript" src="/scripts/init.js"></script>
+  <!-- endbuild -->
+  <style>
+    .hero-container {
+      background-image: url(<% if (heroUrl !== "") { %><%= heroUrl %><% } else { %>/images/skeletons.jpg<% } %>);
+      background-repeat: <% if (!heroRepeat) { %>no-<% } %>repeat;
+    }
+  </style>
+</body>
+
+</html>

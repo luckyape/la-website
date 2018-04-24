@@ -1,4 +1,6 @@
 const express = require('express');
+const events = require('events');
+const event = new events.EventEmitter();
 const serveStatic = require('serve-static');
 const bodyParser = require('body-parser');
 const form = require('express-form');
@@ -8,10 +10,76 @@ const domain = process.env.DOMAIN || 'localhost';
 const mime = require('mime-types');
 const jsonfile = require('jsonfile');
 const fs = require('fs');
-var path = require('path');
+const path = require('path');
 const depLinker = require('dep-linker');
 const jsonPath = './json/';
-var crypto = require('crypto');
+const crypto = require('crypto');
+const async = require('async');
+
+const getTagList = function(articles) {
+  let tags = [];
+  for (var i = 0; i < articles.length; i++) {
+    tags = tags.concat(articles[i].tags);
+  }
+  return tags;
+}
+const readArticles = function(files) {
+  return files.map(function(fileName, index) {
+      if (path.extname(files[index]) === '.json') {
+        var rawdata = fs.readFileSync(jsonPath + fileName);
+        var fileJSON = JSON.parse(rawdata);
+        if (fileJSON._id) {
+          return fileJSON;
+        } else {
+          return false;
+        }
+      }
+    }).filter(function(item) {
+      return item;
+    });
+}
+
+const getTagIndexes = function(articles) {
+  const tagIndexes = {};
+  for (var i = 0; i < articles.length; i++) {
+    const article = articles[i];
+    const articleTags = article.tags;
+    for (var j = 0; j < articleTags.length; j++) {
+      const tag = articleTags[j];
+      if(!tagIndexes[tag]) {
+        tagIndexes[tag] = [];
+      }
+      tagIndexes[tag].push(article._id);
+    }
+  }
+  return tagIndexes;
+}
+
+const updateProps = function() {
+  fs.readdir(jsonPath, function(err, files) {
+    if (err) {
+      console.error('Could not list the directory.', err);
+      process.exit(1);
+    }
+    const articles = readArticles(files);
+    const tags = getTagList(articles);
+    const tagIndexes = getTagIndexes(articles);
+    const props = { 
+      props:{
+        tags: tags,
+        tagIndexes: tagIndexes
+    }};
+    const propsPath = jsonPath + 'props.json';
+    jsonfile.writeFile(propsPath, props, { spaces: 2 }, (err) => {
+      if (err) {
+        console.error(err);
+        res.json({ error: err });
+      }
+    });
+  });
+}
+
+event.on('edit', updateProps);
 
 function ensureDomain(req, res, next) {
   if (!domain || req.hostname === domain) {
@@ -40,32 +108,42 @@ app.use(serveStatic(`${__dirname}/cms`, {
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/load/:_id',
+app.get('/load/:_id?',
   function(req, res) {
-    var _id = req.params._id;
-    fs.readFile(jsonPath + _id + '.json', function(err, load) {
+    let files = [jsonPath + 'props.json'];
+    let _id = req.params._id;
+    if (_id) {
+      files.push(jsonPath + _id + '.json');
+    }
+
+    async.map(files, fs.readFile, function(err, files) {
       if (err) {
-        console.error("Could not load JSON file.", err);
-        process.exit(1);
+        console.info(err);
+        throw err;
       }
-      var loadJSON = JSON.parse(load);
-      res.json(loadJSON);
+      let responseObj = {};
+      files.forEach(function(load, i) {
+        let loadJSON = JSON.parse(load);
+        for (var key in loadJSON) responseObj[key] = loadJSON[key];
+      });
+      res.json(responseObj);
     });
-});
+
+  });
 
 app.get('/list/:type',
   function(req, res) {
     var type = req.params.type;
     fs.readdir(jsonPath, function(err, files) {
       if (err) {
-        console.error("Could not list the directory.", err);
+        console.error('Could not list the directory.', err);
         process.exit(1);
       }
       var responseJSON = files.map(function(fileName, index) {
-        if(path.extname(files[index]) === '.json') {
+        if (path.extname(files[index]) === '.json') {
           var rawdata = fs.readFileSync(jsonPath + fileName);
           var fileJSON = JSON.parse(rawdata);
-          if(fileJSON.type === type) {
+          if (fileJSON.type === type) {
             return fileJSON;
           } else {
             return false;
@@ -90,7 +168,9 @@ app.post(
     field('publishState').toBoolean(),
     field('pubDate').isDate('date'),
     field('_id'),
-    field('type').is('blog')
+    field('type').is('blog'),
+    field('author'),
+    field('tags').array()
   ),
   function(req, res) {
     if (!req.form.isValid) {
@@ -99,18 +179,24 @@ app.post(
     } else {
       var form = req.form;
       var urlSlug = form.urlSlug;
+      var isNew = false;
       if (req.form._id === '') {
         var hashString = urlSlug + Date.now();
         var hash = crypto.createHash('md5').update(hashString).digest('hex');
         req.form._id = hash;
+        isNew = true;
       }
-      var filePath = jsonPath + req.form._id +'.json';
+
+      var filePath = jsonPath + req.form._id + '.json';
       jsonfile.writeFile(filePath, req.form, { spaces: 2 }, (err) => {
         if (err) {
           console.error(err);
           res.json({ error: err });
         }
-        res.json({ success: req.form });
+        event.emit('edit');
+        console.info(req.form);
+        res.redirect('/blog.html?edit=' + req.form._id);
+        //res.json({ success: req.form, isNew: isNew });
       });
     }
   }

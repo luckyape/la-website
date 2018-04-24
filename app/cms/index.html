@@ -25,117 +25,13 @@
           <tbody class="list-table-body">
           </tbody>
         </table>
+        <a href="/blog.html" class="">+ New Blog Post</a>
       </div>
     </div>
   </div>
   <script type="text/javascript" src="/scripts/packages/materialize-css/dist/js/materialize.min.js"></script>
-  <script type="text/javascript">
-  var forEach = function(array, callback, scope) {
-    for (var i = 0; i < array.length; i++) {
-      callback.call(scope, i, array[i]);
-    }
-  };
-  var $ = function(id) {
-    return document.getElementById(id);
-  };
-  var one = function(sel) {
-    return document.querySelector(sel);
-  };
-  var all = function(sel) {
-    return document.querySelectorAll(sel);
-  };
+  <script type="text/javascript" src="/scripts/cms.js"></script>
 
-  function camelCaseToDash(myStr) {
-    return myStr.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-  }
-
-  var grids = all('[data-content-type]');
-
-  forEach(grids, function(index, grid) {
-    var list = grid.getAttribute('data-content-type');
-    ajaxGetList(list, grid);
-  });
-
-  function listCallback(list, grid, res) {
-    console.info(res, list, grid);
-    var resJSON = JSON.parse(res.target.response);
-    var gridHead = grid.querySelectorAll('[data-table-col]');
-    var cols = Array.prototype.map.call(gridHead, function(obj) {
-      return obj.getAttribute('data-table-col');
-    });
-    var tableBody = grid.querySelector('.list-table-body');
-    var listJSON = resJSON[list];
-    for (var i = 0; i < listJSON.length; i++) {
-      var newRow = tableBody.insertRow(tableBody.rows.length);
-      var rowData = listJSON[i];
-      populateRow(rowData, cols, newRow)
-    }
-  }
-  var qs = (function(a) {
-    if (a == "") return {};
-    var b = {};
-    for (var i = 0; i < a.length; ++i) {
-      var p = a[i].split('=', 2);
-      if (p.length == 1)
-        b[p[0]] = "";
-      else
-        b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
-    }
-    return b;
-  })(window.location.search.substr(1).split('&'));
-
-  function loadQuery() {
-    if (qs('edit')) {
-      console.info(qs('edit'));
-    }
-  }
-
-  function populateRow(rowData, cols, newRow) {
-    for (var j = 0; j < cols.length; j++) {
-      var newCell = newRow.insertCell(j);
-      var col = cols[j];
-      var colVal = rowData[col];
-      addCell(newCell, col, colVal);
-    }
-    addFunctionsCell(newRow, rowData);
-  }
-
-  function addCell(newCell, col, colVal) {
-    applyCellClass(newCell, col, colVal);
-    var newText = document.createTextNode(colVal);
-    newCell.appendChild(newText);
-  }
-
-  function addFunctionsCell(newRow, rowData) {
-    var newCell = newRow.insertCell(newRow.length);
-    var link = document.createElement('a');
-    var itemId = rowData['_id'];
-    link.setAttribute('href', '/blog.html?edit=' + itemId);
-    var linkText = document.createTextNode('edit');
-    link.appendChild(linkText);
-    newCell.appendChild(link);
-  }
-
-  function applyCellClass(newCell, col, colVal) {
-    var classList = col + '-col';
-    if (colVal === true) {
-      classList += ' col-true';
-    } else if (colVal === false) {
-      classList += ' col-false';
-    }
-    newCell.classList = classList;
-  }
-
-  function ajaxGetList(list, grid) {
-    var url = '/list/' + list;
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url);
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.onload = listCallback.bind(xhr, list, grid);
-    xhr.send();
-  }
-
-  </script>
 </body>
 
 </html>
