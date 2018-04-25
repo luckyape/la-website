@@ -86,7 +86,7 @@
   <!-- inject-style src="./app/public/includes/inline-header.css" -->
   
   <!-- /* start-dev-css */ -->
-  <link href="styles/inline-header.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="/styles/inline-header.css" type="text/css" rel="stylesheet" media="screen,projection" />
   <!-- /* end-dev-css */ -->
   
 </head>
@@ -117,7 +117,6 @@
           </div>
       </nav>
   </div>
-  
   <div id="la-content-wrapper" class="la-content-wrapper">
     <div class="container">
       <div class="row">
@@ -231,8 +230,9 @@
   <!--  Scripts-->
   
   <link href="%%CDNURL%%/styles/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
-  
-  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <!-- build:js https://code.jquery.com/jquery-2.2.4.min.js -->
+  <script src="/scripts/packages/jquery/dist/jquery.min.js"></script>
+   <!-- endbuild -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
   <script>
       WebFontConfig = {

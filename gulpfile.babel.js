@@ -474,7 +474,7 @@ gulp.task('generate-service-worker', () => {
       `${rootDir}/scripts/*.js`,
       `${rootDir}/scripts/sw/*.js`,
       `${rootDir}/styles/style.css`,
-      ` ${rootDir}/styles/social-font.css`,
+      `${rootDir}/styles/social-font.css`,
       `${rootDir}/fonts/**/*.{woff2,eot}`,
       `${rootDir}/*.{html,json}`
     ],

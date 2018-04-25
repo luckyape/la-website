@@ -1,0 +1,185 @@
+$grey-color: #a0a0a0;
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+.no-margin-row {
+  margin-bottom: 0;
+}
+
+.publish-status {
+  margin-top: 22px;
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/scripts/packages/material-design-icons/iconfont/MaterialIcons-Regular.eot);
+  /* For IE6-8 */
+  src: local('Material Icons'),
+  local('MaterialIcons-Regular'),
+  url(/scripts/packages/material-design-icons/iconfont/MaterialIcons-Regular.woff2) format('woff2'),
+  url(/scripts/packages/material-design-icons/iconfont/MaterialIcons-Regular.woff) format('woff'),
+  url(/scripts/packages/material-design-icons/iconfont/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+
+.col.hero-image-container {
+  background-color: #ccc;
+  padding: 0;
+  height: 200px;
+  position: relative;
+  text-align: center;
+  &:after {
+    @extend .material-icons;
+    content: '\e439';
+    text-align: center;
+    line-height: 200px;
+    width: 100%;
+    color: #999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+  }
+  .hero-image {
+    opacity: 0;
+    position: relative;
+    z-index: 1;
+    height: 200px;
+  }
+  &.hero-added {
+    height: auto;
+    background-color: transparent;
+    &:after {
+      opacity: 0;
+      transition: opacity 300ms;
+    }
+    &:hover:after {
+      opacity: 1;
+      transition: opacity, background-color 300ms;
+      background-color: rgba(0, 0, 0, .2)
+    }
+    .hero-image {
+      opacity: 1;
+      transition: opacity 300ms;
+    }
+  }
+}
+
+.meta-link i {
+  line-height: 35px;
+  color: $grey-color
+}
+
+fieldset {
+  border-width: 0;
+  padding: 0;
+}
+
+
+legend {
+  font-size: 1.5rem;
+  color: $grey-color
+}
+
+.input-field .materialize-textarea {
+  line-height: 200%; 
+}
+
+.preview-container {
+  opacity: 0;
+  padding: 10px;
+  border: 1px solid #c1c1c1;
+  height: 0;
+  &.active {
+    min-height: 220px;
+    height: auto;
+    opacity: 1;
+    transition: opacity 1900ms;
+  }
+  .hero-container-wrapper {
+    width: 100%;
+  }
+}
+
+.markdown-guide {
+  height: 0;
+  overflow: hidden;
+  &.active {
+    height: 350px;
+    transition: height 1900ms;
+  }
+}
+
+.publish-status {
+  .unpublish:before {
+    content: 'Draft'
+  }
+  .publish:before {
+    content: 'Publish'
+  }
+  &.published {
+    .unpublish:before {
+      content: 'Unpublish'
+    }
+    .publish:before {
+      content: 'Published'
+    }
+  }
+}
+
+
+td.col-false {
+
+  &:after {
+    @extend .material-icons;
+    content: '\e8f5';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+  }
+}
+
+td.col-true {
+  // opacity: 0;  
+  overflow: hidden;
+  text-indent: -9999px;
+
+  &:before {
+    @extend .material-icons;
+    content: '\e8f4';
+    text-indent: 0;
+    float: left; //position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    text-align: center;
+    color: green;
+  }
+}

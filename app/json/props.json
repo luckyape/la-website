@@ -1,0 +1,26 @@
+{
+  "props": {
+    "tags": [
+      "#blog-article",
+      "#blog-article",
+      "taggy tag",
+      "#blog-article",
+      "#blog-article",
+      "#blog-article",
+      "#blog-article"
+    ],
+    "tagIndexes": {
+      "#blog-article": [
+        "0b506cd745d546a61bdffbecdccd5469",
+        "51c9c1a539940c46c588b14fbe6d45ad",
+        "a6b4657f05a2d5683890275f0abb59fb",
+        "b743264fc618382c93e45502074826d0",
+        "ccb53b15195c761f43d107a4dfe82635",
+        "d6d9faf64cfcaff4d594a397a42d1344"
+      ],
+      "taggy tag": [
+        "9584994a0e001a80576ab6acc9a6ea02"
+      ]
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "title": "New Blog post",
+  "urlSlug": "new-blog-post",
+  "body": "It reads awesome",
+  "heroUrl": "",
+  "heroRepeat": false,
+  "publishState": false,
+  "pubDate": "",
+  "_id": "0b506cd745d546a61bdffbecdccd5469",
+  "type": "blog",
+  "author": "Graham Charles",
+  "tags": [
+    "#blog-article"
+  ]
+}

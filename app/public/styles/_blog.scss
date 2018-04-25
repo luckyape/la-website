@@ -1,0 +1,31 @@
+
+
+.blog-article {
+  h1 {
+    margin: .5em 0 0;
+    font-family: 'bebas-neue';
+    letter-spacing: 0.04em;
+    font-weight: 400;
+    color: #414141;
+    transform: scaleY(1.2);
+  }
+  .hero-container {
+    
+    height: 200px;
+    background-size: auto 100%;
+    background-position: center;
+  }
+  .article-body { 
+    @extend .z-depth-1;
+    background-color: #fff;
+    p {
+      font-size: 1rem;
+    }
+  }
+
+  .meta {
+    font-size: 11px;
+    padding:0;
+    margin: 0;
+  }
+}

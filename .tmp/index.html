@@ -111,7 +111,7 @@
   <!-- inject-style src="./app/public/includes/inline-header.css" -->
   
   <!-- /* start-dev-css */ -->
-  <link href="styles/inline-header.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="/styles/inline-header.css" type="text/css" rel="stylesheet" media="screen,projection" />
   <!-- /* end-dev-css */ -->
   
 </head>
@@ -142,10 +142,9 @@
           </div>
       </nav>
   </div>
-  
   <div id="la-content-wrapper" class="la-content-wrapper">
     <div class="section h1-banner horizontal-scroll" id="index-banner">
-      <div class="container" valign-wrapper>
+      <div class="row" valign-wrapper>
         <h1 class="header center green-text">Full Stack Web Developer,<br>Vancouver BC</h1>
         <div class="row center">
           <h5 class="header col s12 light">UI, Wordpress, Drupal, PHP, Node.JS, AngularJS, jQuery</h5>
@@ -227,8 +226,9 @@
 <!-- Modal Structure -->
 
 <link href="%%CDNURL%%/styles/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
-
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<!-- build:js https://code.jquery.com/jquery-2.2.4.min.js -->
+<script src="/scripts/packages/jquery/dist/jquery.min.js"></script>
+ <!-- endbuild -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script>
     WebFontConfig = {

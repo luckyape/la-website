@@ -1,0 +1,79 @@
+<link rel="shortcut icon" href="%%CDNURL%%/favicon.ico" type="image/x-icon">
+<link rel="icon" href="%%CDNURL%%/favicon.ico" type="image/x-icon">
+<!-- Disable tap highlight on IE -->
+<meta name="msapplication-tap-highlight" content="no">
+<!-- Web Application Manifest -->
+<link rel="manifest" href="manifest.json">
+<!-- Add to homescreen for Chrome on Android -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="Lucky Ape Corporate Communications Ltd.">
+<link rel="icon" sizes="192x192" href="%%CDNURL%%/images/touch/chrome-touch-icon-192x192.png">
+<!-- Add to homescreen for Safari on iOS -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Lucky Ape Corporate Communications Ltd.">
+<link rel="apple-touch-icon" href="%%CDNURL%%/images/touch/apple-touch-icon.png">
+<!-- Tile icon for Win8 (144x144 + tile color) -->
+<meta name="msapplication-TileImage" content="%%CDNURL%%/images/touch/ms-touch-icon-144x144-precomposed.png">
+<meta name="msapplication-TileColor" content="#2F3BA2">
+<!-- Color the status bar on mobile devices -->
+<meta name="theme-color" content="#2F3BA2">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script>
+function async(u, c) {
+  var d = document,
+    t = 'script',
+    n = 0,
+    loadEvent = function(e) {
+      n--;
+      if (!n) {
+        c(null, e);
+      }
+    };
+  if (Array.isArray(u)) {
+    n = u.length;
+    for (var i = 0; i < n; i++) {
+      var j = {
+        o: d.createElement(t),
+        s: d.getElementsByTagName(t)[0],
+      };
+      j.o.src = u[i];
+      if (c) {
+        j.o.addEventListener('load', loadEvent, false);
+      }
+      setTimeout(function() {
+        j.s.parentNode.insertBefore(j.o, j.s);
+      }, 1);
+    }
+  }
+}
+if (navigator.userAgent.indexOf("Speed Insights") === -1) {
+  async(["https://www.googletagmanager.com/gtag/js?id=UA-20443414-1"],
+    function() {
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-20443414-1');
+    })
+}
+
+var probPhone = ((/iphone|android|ie|blackberry|fennec/).test(navigator.userAgent.toLowerCase()) && 'ontouchstart' in document.documentElement);
+var isiPad = (navigator.userAgent.match(/iPad/i) != null);
+var oldiOS = (navigator.appVersion.match(/OS 9_/i) != null);
+
+if(oldiOS) {
+  document.querySelector('html').classList.add('oldiOS');
+} else if (probPhone) {
+  document.querySelector('html').classList.add('probPhone');
+} else if (isiPad) {
+  document.querySelector('html').classList.add('isiPad');
+}
+
+</script>
+
+<!-- inject-style src="./app/public/includes/inline-header.css" -->
+
+<!-- /* start-dev-css */ -->
+<link href="/styles/inline-header.css" type="text/css" rel="stylesheet" media="screen,projection" />
+<!-- /* end-dev-css */ -->
