@@ -23,4 +23,3 @@ var $body = $('body');
   });
 })(jQuery);
 // end of jQuery name space
- 

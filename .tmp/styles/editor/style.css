@@ -1,4 +1,4 @@
-.material-icons, .col.hero-image-container:after {
+.material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
@@ -19,48 +19,13 @@
   -moz-osx-font-smoothing: grayscale;
   /* Support for IE. */
   -webkit-font-feature-settings: 'liga';
-     -moz-font-feature-settings: 'liga';
-          font-feature-settings: 'liga'; }
+  -moz-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+}
 
 .no-margin-row {
-  margin-bottom: 0; }
-
-.publish-status {
-  margin-top: 22px; }
-
-.col.hero-image-container {
-  background-color: #ccc;
-  padding: 0;
-  height: 200px;
-  position: relative;
-  text-align: center; }
-  .col.hero-image-container:after {
-    content: '\e439';
-    text-align: center;
-    line-height: 200px;
-    width: 100%;
-    color: #999;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 100; }
-  .col.hero-image-container .hero-image {
-    opacity: 0;
-    position: relative;
-    z-index: 1;
-    height: 200px; }
-  .col.hero-image-container.hero-added {
-    background-color: transparent; }
-    .col.hero-image-container.hero-added:after {
-      opacity: 0;
-      transition: opacity 300ms; }
-    .col.hero-image-container.hero-added:hover:after {
-      opacity: 1;
-      transition: opacity,background-color 300ms;
-      background-color: rgba(0, 0, 0, 0.2); }
-    .col.hero-image-container.hero-added .hero-image {
-      opacity: 1;
-      transition: opacity 300ms; }
+  margin-bottom: 0;
+}
 
 @font-face {
   font-family: 'Material Icons';
@@ -68,4 +33,10 @@
   font-weight: 400;
   src: url(/scripts/packages/material-design-icons/iconfont/MaterialIcons-Regular.eot);
   /* For IE6-8 */
-  src: local("Material Icons"), local("MaterialIcons-Regular"), url(/scripts/packages/material-design-icons/iconfont/MaterialIcons-Regular.woff2) format("woff2"), url(/scripts/packages/material-design-icons/iconfont/MaterialIcons-Regular.woff) format("woff"), url(/scripts/packages/material-design-icons/iconfont/MaterialIcons-Regular.ttf) format("truetype"); }
+  src: local("Material Icons"), local("MaterialIcons-Regular"), url(/scripts/packages/material-design-icons/iconfont/MaterialIcons-Regular.woff2) format("woff2"), url(/scripts/packages/material-design-icons/iconfont/MaterialIcons-Regular.woff) format("woff"), url(/scripts/packages/material-design-icons/iconfont/MaterialIcons-Regular.ttf) format("truetype");
+}
+
+.meta-link i {
+  line-height: 35px;
+  color: #a0a0a0;
+}

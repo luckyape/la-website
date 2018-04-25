@@ -1,33 +1,3 @@
-.blog-article h1 {
-  margin: .5em 0 0;
-  font-family: 'bebas-neue';
-  letter-spacing: 0.04em;
-  font-weight: 400;
-  color: #414141;
-  -webkit-transform: scaleY(1.2);
-  transform: scaleY(1.2);
-}
-
-.blog-article .hero-container {
-  height: 200px;
-  background-size: auto 100%;
-  background-position: center;
-}
-
-.blog-article .article-body {
-  background-color: #fff;
-}
-
-.blog-article .article-body p {
-  font-size: 1rem;
-}
-
-.blog-article .meta {
-  font-size: 11px;
-  padding: 0;
-  margin: 0;
-}
-
 .green {
   background-color: #4CAF50 !important;
 }
@@ -352,10 +322,6 @@ h6 {
   margin: 0.5rem 0 0.4rem 0;
 }
 
-em {
-  font-style: italic;
-}
-
 small {
   font-size: 75%;
 }
@@ -534,7 +500,7 @@ body {
  * Correct `block` display not defined for `main` in IE 11.
  */
 
-article,footer,header,main,menu,nav,section {
+footer,header,main,menu,nav,section {
   display: block;
 }
 
@@ -543,7 +509,7 @@ article,footer,header,main,menu,nav,section {
  * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
  */
 
-canvas,progress {
+canvas {
   display: inline-block;
   /* 1 */
   vertical-align: baseline;
@@ -692,7 +658,7 @@ code {
  * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.
  */
 
-button,input,select {
+button,input {
   color: inherit;
   /* 1 */
   font: inherit;
@@ -716,7 +682,7 @@ button {
  * Correct `select` style inheritance in Firefox.
  */
 
-button,select {
+button {
   text-transform: none;
 }
 
@@ -874,7 +840,7 @@ a {
   clear: both;
 }
 
-.blog-article .article-body,.card-panel,.card,.btn,.btn-large,.btn-floating,.side-nav {
+.card-panel,.card,.btn,.btn-large,.btn-floating,.side-nav {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 
@@ -922,7 +888,7 @@ img.responsive-img {
 **********************/
 
 @media only screen and (max-width: 600px) {
-  .hide-on-small-only,  .hide-on-small-and-down {
+  .hide-on-small-and-down {
     display: none !important;
   }
 }
@@ -939,18 +905,6 @@ img.responsive-img {
   }
 }
 
-@media only screen and (min-width: 600px) and (max-width: 992px) {
-  .hide-on-med-only {
-    display: none !important;
-  }
-}
-
-@media only screen and (min-width: 993px) {
-  .hide-on-large-only {
-    display: none !important;
-  }
-}
-
 @media only screen and (min-width: 993px) {
   .show-on-large {
     display: block !important;
@@ -960,12 +914,6 @@ img.responsive-img {
 @media only screen and (max-width: 600px) {
   .show-on-small {
     display: block !important;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .center-on-small-only {
-    text-align: center;
   }
 }
 
@@ -1070,17 +1018,6 @@ img.responsive-img {
   padding-left: 72px;
 }
 
-.progress {
-  position: relative;
-  height: 4px;
-  display: block;
-  width: 100%;
-  background-color: #acece6;
-  border-radius: 2px;
-  margin: 0.5rem 0 1rem 0;
-  overflow: hidden;
-}
-
 @-webkit-keyframes indeterminate {
   0% {
     left: -35%;
@@ -1177,14 +1114,6 @@ img.responsive-img {
   float: right !important;
 }
 
-.no-select {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
 .circle {
   border-radius: 50%;
 }
@@ -1203,17 +1132,6 @@ la-content-wrapper {
   -webkit-filter: blur(0px);
   filter: blur(0px);
   will-change: filter;
-}
-
-.la-content-wrapper.la-blur {
-  -webkit-filter: blur(5px) grayscale(1);
-  filter: blur(5px) grayscale(1);
-  -webkit-transform: scaleX(0.7) translateX(222px);
-  transform: scaleX(0.7) translateX(222px);
-  opacity: .2;
-  transition: -webkit-transform .2s, -webkit-filter .25s;
-  transition: transform .2s, filter .25s;
-  transition: transform .2s, filter .25s, -webkit-transform .2s, -webkit-filter .25s;
 }
 
 /* This is needed for some mobile phones to display the Google Icon font properly */
@@ -1734,15 +1652,6 @@ button.btn-floating {
   bottom: 0;
 }
 
-.modal.bottom-sheet {
-  top: auto;
-  margin: 0;
-  width: 100%;
-  max-height: 105%;
-  border-radius: 0;
-  will-change: bottom, opacity;
-}
-
 /* Icons from directory "" */
 
 .contact-methods {
@@ -1893,11 +1802,6 @@ button.btn-floating {
   transition: all .3s;
 }
 
-.chips.focus {
-  border-bottom: 1px solid #a79f94;
-  box-shadow: 0 1px 0 0 #a79f94;
-}
-
 .chips:hover {
   cursor: text;
 }
@@ -2020,7 +1924,7 @@ ul.autocomplete-content.dropdown-content li.active {
   border-color: #26a69a;
 }
 
-.spinner-green,.spinner-green-only {
+.spinner-green {
   border-color: #0f9d58;
 }
 
@@ -2043,7 +1947,7 @@ ul.autocomplete-content.dropdown-content li.active {
   animation: fill-unfill-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both, green-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
 }
 
-.active .spinner-layer,.active .spinner-layer.spinner-green-only {
+.active .spinner-layer {
   /* durations: 4 * ARCTIME */
   opacity: 1;
   -webkit-animation: fill-unfill-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
@@ -2560,14 +2464,6 @@ ul.autocomplete-content.dropdown-content li.active {
   color: rgba(0, 0, 0, 0.54);
 }
 
-.drag-target {
-  height: 100%;
-  width: 10px;
-  position: fixed;
-  top: 0;
-  z-index: 998;
-}
-
 .side-nav.fixed {
   left: 0;
   -webkit-transform: translateX(0);
@@ -2584,17 +2480,6 @@ ul.autocomplete-content.dropdown-content li.active {
   .side-nav a {
     padding: 0 16px;
   }
-}
-
-#sidenav-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 120vh;
-  background-color: rgba(236, 244, 252, 0);
-  z-index: 2;
-  will-change: opacity;
 }
 
 .tap-target-wrapper {
@@ -3143,18 +3028,9 @@ ul.autocomplete-content.dropdown-content li.active {
   background-color: transparent;
 }
 
-.la-about-page.wf-bebasneue-n4-active .bg-loaded .la-about-overlay {
-  opacity: 0;
-  transition: opacity 600ms linear;
-}
-
 .la-about-page .la-navbar-flex {
   z-index: 2000;
   position: relative;
-}
-
-.la-about-page #sidenav-overlay {
-  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .la-about-page:not(.probPhone):not(.isiPad):not(.oldiOS) .body:after {
@@ -3226,10 +3102,6 @@ ul.autocomplete-content.dropdown-content li.active {
   position: absolute;
   left: calc(50% - 150px);
   top: 25vh;
-}
-
-.la-about-page .panel-header.paused {
-  position: fixed;
 }
 
 .la-about-page .panels {

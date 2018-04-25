@@ -9,6 +9,10 @@
  */
 
 .la-homepage {
+    .cta-button-container {
+      height: 69px;
+    }
+
     .la-content-wrapper {
         opacity: 1;
         transform: scale(1) translateY(0);
@@ -24,7 +28,6 @@
         }
     }
     .h1-banner {
-
         text-align: center;
         transition: padding-bottom 1000ms;
         background-color: #fff;
@@ -45,7 +48,12 @@
             text-transform: lowercase;
             font-size: 1.4rem;
             margin: 0 0;
-            height: 100px;
+            margin-bottom: 20px;
+            &:after {
+              content: '';
+              display: 'table';
+              clear: both
+            }
         } 
         .cta-button {
           position: relative;
@@ -156,7 +164,7 @@
                 height: 53vh;
             }
             h5 {
-                height: 50px
+              //  height: 50px
             }
             .skeletons {
               transition: height 1000ms;

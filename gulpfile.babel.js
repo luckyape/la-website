@@ -49,10 +49,6 @@ import purify from 'gulp-purifycss';
 import stripCode from 'gulp-strip-code';
 import karma from 'karma';
 import ignore from 'gulp-ignore';
-import depLinker from 'dep-linker';
-import changed from 'gulp-changed';
-const markdown = require( "markdown" ).markdown;
-
 var KarmaServer = karma.Server;
 
 //var parseString = require().parseString;
@@ -94,6 +90,7 @@ gulp.task('lint', () =>
   .pipe($.eslint())
   .pipe($.eslint.format())
   .pipe($.if(!browserSync.active, $.eslint.failAfterError()))
+  .on('error', function(e) { handleError(e) })
 );
 
 // move fonts
@@ -158,34 +155,6 @@ gulp.task('stylesInclude', () => {
     .pipe(replace(localUrl, cdnUrl))
     .pipe(gulp.dest('./app/public/includes'))
 });
-gulp.task('editor-styles', () => {
-  const AUTOPREFIXER_BROWSERS = [
-    'ie >= 10',
-    'ie_mob >= 10',
-    'ff >= 30',
-    'chrome >= 34',
-    'safari >= 7',
-    'opera >= 23',
-    'ios >= 7',
-    'android >= 4.4',
-    'bb >= 10'
-  ];
-
-  // For best performance, don't add Sass partials to `gulp.src`
-  return gulp.src([
-      './app/public/styles/editor/*.scss',
-      './app/public/styles/editor/*.css'
-    ])
-    .pipe($.sourcemaps.init())
-    .pipe($.sass({
-      precision: 10
-    }).on('error', $.sass.logError))
-    .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
-    .pipe(gulp.dest('./app/cms/styles/'))
-
-});
-
-
 gulp.task('styles', ['stylesInclude'], () => {
   const AUTOPREFIXER_BROWSERS = [
     'ie >= 10',
@@ -201,16 +170,17 @@ gulp.task('styles', ['stylesInclude'], () => {
 
   // For best performance, don't add Sass partials to `gulp.src`
   return gulp.src([
-      './app/public/styles/*.scss',
-      './app/public/styles/*.css'
+      './app/public/styles/**/*.scss',
+      './app/public/styles/**/*.css'
     ])
+    .pipe($.newer('.tmp/styles'))
     .pipe($.sourcemaps.init())
     .pipe($.sass({
       precision: 10
     }).on('error', $.sass.logError))
     .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
     .pipe(replace('%%CDNURL%%', localUrl))
-    .pipe(purify(['.tmp/scripts/*.js', '.tmp/**/*.html']))
+    .pipe(purify(['.tmp/scripts/*.js', '.tmp/*.html']))
     .pipe(gulp.dest('.tmp/styles'))
     .pipe($.if('*.css', $.cssnano({ minifyFontValues: false, discardUnused: false })))
     // Concatenate and minify styles
@@ -268,7 +238,7 @@ gulp.task('copySW', () =>
 
 // html includes
 gulp.task('htmlIncludes', function() {
-  return gulp.src(['app/public/*.html','app/public/{blog,includes}/*.html'])
+  return gulp.src(['app/public/*.html', 'app/public/includes/*.html'])
     .pipe(foreach(function(stream, file) {
       return stream
         .pipe(preprocess())
@@ -291,7 +261,7 @@ gulp.task('html', () => {
         .pipe(preprocess())
         .on('error', function(e) { handleError(e) });
     }))
-    .pipe(gulp.dest('./.tmp/'))
+.pipe(gulp.dest('./.tmp/'))
     .pipe($.useref({
       searchPath: '{.tmp,app/public}',
       noAssets: true
@@ -327,7 +297,7 @@ gulp.task('clean', () => del(['.tmp', 'dist/public/*', '!dist/public/.git'], { d
 
 gulp.task('buildStoreItems', ['convertStoreXML'], () => {
   return gulp
-    .src(['app/templates/store-items.tmpl'], { base: "./" })
+    .src(['app/public/includes/store-items.tmpl'], { base: "./" })
     .pipe(data(() => (JSON.parse(
       fs.readFileSync('docs/zazzle.json')
     ))))
@@ -340,7 +310,7 @@ gulp.task('buildStoreItems', ['convertStoreXML'], () => {
 
 gulp.task('buildWorkItems', () => {
   return gulp
-    .src(['app/templates/work-items.tmpl', 'app/templates/work-chips.tmpl'], { base: "./" })
+    .src(['app/public/includes/work-items.tmpl', 'app/public/includes/work-chips.tmpl'], { base: "./" })
     .pipe(data(() => (JSON.parse(
       fs.readFileSync('docs/work.json')
     ))))
@@ -351,9 +321,8 @@ gulp.task('buildWorkItems', () => {
     .on('error', function(e) { handleError(e) });
 });
 
-gulp.task('link-dependencies', () => {
-  return depLinker.linkDependenciesTo('./app/public/scripts');
-});
+
+
 
 // Watch files for changes & reload
 gulp.task('serve', ['scripts', 'styles', 'buildStoreItems', 'buildWorkItems', 'htmlIncludes'], () => {
@@ -372,30 +341,11 @@ gulp.task('serve', ['scripts', 'styles', 'buildStoreItems', 'buildWorkItems', 'h
   });
 
   gulp.watch(['app/public/includes/inline-header.css', 'app/public/**/*.html'], ['htmlIncludes', reload]);
-  gulp.watch(['app/templates/store-products.tmpl'], ['buildStoreItems', reload]);
-  gulp.watch(['app/templates/work-chips.tmpl', 'app/templates/work-items.tmpl', 'docs/work.json'], ['buildWorkItems', reload]);
-  gulp.watch(['app/public/styles/*.{scss,css}'], ['styles', reload]);
-  gulp.watch(['app/public/styles/editor/*.{scss,css}'], ['editor-styles', reload]);
-
-  gulp.watch(['app/public/scripts/*.js', '!./app/public/scripts/deps'], ['lint', 'scripts', reload]);
+  gulp.watch(['app/public/includes/store-products.tmpl'], ['buildStoreItems', reload]);
+  gulp.watch(['app/public/includes/work-chips.tmpl','app/public/includes/work-items.tmpl', 'docs/work.json'], ['buildWorkItems', reload]);
+  gulp.watch(['app/public/styles/**/*.{scss,css}'], ['styles', reload]);
+  gulp.watch(['app/public/scripts/*.js'], ['lint', 'scripts', reload]);
   gulp.watch(['app/public/images/**/*'], reload);
-
-
-
-  depLinker.linkDependenciesTo('./app/public/scripts/packages');
-});
-gulp.task('blogs', () => {
-  gulp.watch(['./app/json/*.json'], function(obj) {
-    var blogJSON = JSON.parse(fs.readFileSync(obj.path));
-    blogJSON.body = markdown.toHTML(blogJSON.body);
-    return gulp.src(['./app/templates/blog.tmpl'], { base: "./" })
-      .pipe(data(() => (blogJSON)))
-      .pipe(template())
-      .pipe(rename({ basename: blogJSON.urlSlug, dirname: blogJSON.type, extname: '.html' }))
-      .pipe(gulp.dest('./app/public/'))
-      .pipe(gulp.dest('./dist/public'))
-      .on('error', function(e) { handleError(e) });
-  })
 });
 
 // Build and serve the output from the dist build
@@ -441,7 +391,7 @@ gulp.task('convertStoreXML', () => {
 // Build production files, the default tas
 gulp.task('default', ['clean'], cb => {
   runSequence(
-    'html', 'styles', ['lint', 'scripts', 'images', 'copy', 'copy-fonts', 'copy-sw-scripts', 'sitemap', 'generate-service-worker'],
+    'html','styles', ['lint',  'scripts', 'images', 'copy', 'copy-fonts', 'copy-sw-scripts', 'sitemap', 'generate-service-worker'],
     cb
   )
 });
