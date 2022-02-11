@@ -40,7 +40,7 @@
     "gulp-useref": "^3.1.0",
     "gulp-xml2json": "^0.1.5",
     "jasmine": "^2.8.0",
-    "karma": "^2.0.0",
+    "karma": "^6.3.14",
     "karma-chrome-launcher": "^2.2.0",
     "karma-jasmine": "^1.1.1",
     "karma-sourcemap-loader": "^0.3.7",
